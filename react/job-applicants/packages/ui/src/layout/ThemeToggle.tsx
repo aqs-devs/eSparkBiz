@@ -1,4 +1,4 @@
-import { Button } from "@job-applicants/ui/button";
+import { Button } from "@job-applicants/ui/components/button";
 
 export function ThemeToggle() {
     const toggleTheme = () => {

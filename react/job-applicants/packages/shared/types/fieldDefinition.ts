@@ -1,4 +1,4 @@
-import type { BasicInfo } from 'packages/schemas/src';
+import type { BasicInfo } from '@job-applicants/schemas';
 import type {
     BasicInfoFieldBaseDefinition,
     TextFieldOptions,

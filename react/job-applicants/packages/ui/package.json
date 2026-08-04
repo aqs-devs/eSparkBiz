@@ -14,23 +14,13 @@
     "type": "module",
     "private": true,
     "exports": {
-        ".": "./src/index.ts",
+        "./globals.css": "./src/styles/globals.css",
+        "./components/*": "./src/components/*.tsx",
+        "./lib/*": "./src/lib/*.ts",
+        "./hooks/*": "./src/hooks/*.ts",
         "./layout/*": "./src/layout/*.tsx",
-        "./utils": "./src/lib/utils.ts",
-        "./button": "./src/primitives/button.tsx",
-        "./tabs": "./src/primitives/tabs.tsx",
-        "./field": "./src/primitives/field.tsx",
-        "./table": "./src/primitives/table.tsx",
-        "./label": "./src/primitives/label.tsx",
-        "./select": "./src/primitives/select.tsx",
-        "./input": "./src/primitives/input.tsx",
-        "./calendar": "./src/primitives/calendar.tsx",
-        "./radio-group": "./src/primitives/radio-group.tsx",
-        "./popover": "./src/primitives/popover.tsx",
-        "./command": "./src/primitives/command.tsx",
-        "./scroll-area": "./src/primitives/scroll-area.tsx",
-        "./textarea": "./src/primitives/textarea.tsx"
-    },
+        "./utils": "./src/lib/utils.ts"
+      },
     "dependencies": {
         "clsx": "^2.1.1",
         "tailwind-merge": "^3.6.0"

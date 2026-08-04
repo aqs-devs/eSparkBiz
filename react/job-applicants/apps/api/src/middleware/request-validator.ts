@@ -2,7 +2,7 @@ import { type FieldValidationError, validationResult } from "express-validator";
 
 import type { NextFunction, Request, Response } from "express";
 import { z } from 'zod';
-import { validationErrorsToErrorMap } from "packages/server-core/src/utils/shape-shifter.js";
+import { validationErrorsToErrorMap } from "@job-applicants/server-core/";
 import { ErrorCode } from '@job-applicants/schemas';
 
 export function validateRequestExpressValidator(req: Request, res: Response, next: NextFunction) {
