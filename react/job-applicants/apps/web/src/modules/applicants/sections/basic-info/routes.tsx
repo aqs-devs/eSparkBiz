@@ -1,6 +1,6 @@
 import type { RouteObject } from 'react-router';
 import { ListViewPage } from './pages/ListViewPage';
-import { loadApplicants } from './loaders';
+import { loadApplicant, loadApplicants } from './loaders';
 import { ApplicantsError } from './ApplicantsError';
 import { LoadingApplicants } from './LoadingApplicants';
 import { DetailViewPage } from './pages/DetailViewPage';
@@ -19,6 +19,7 @@ const detail = [
     {
         path: 'basic-info',
         element: <DetailViewPage />,
+        loader: loadApplicant,
         errorElement: <ApplicantsError />,
         hydrateFallbackElement: <LoadingApplicants />
     },

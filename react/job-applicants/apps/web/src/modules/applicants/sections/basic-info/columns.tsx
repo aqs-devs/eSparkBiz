@@ -1,6 +1,7 @@
 import type {CellContext, ColumnDef, HeaderContext, RowData,} from '@tanstack/react-table';
 import { ArrowUpDown, ListFilter } from 'lucide-react';
-import { Button } from '@job-applicants/ui/button';
+import { Link } from 'react-router';
+import { Button, buttonVariants } from '@job-applicants/ui/components/button';
 import { tableBasicInfoFields, type FilterableBasicInfoField, type Formatter, type TableBasicInfoField } from '@job-applicants/shared';
 import type { BasicInfo } from '@job-applicants/schemas';
 
@@ -24,7 +25,7 @@ function createColumn(field: TableBasicInfoField): ColumnDef<BasicInfo> {
 
 function createHeader(field: TableBasicInfoField,): ColumnDef<BasicInfo>['header'] {
     return ({ table, column }: HeaderContext<BasicInfo, unknown>) => {
-        console.log("rendering header", field.key);
+        // console.log("rendering header", field.key);
         return(
                 <div className="flex items-center gap-2">
                 {field.sortable ? (
@@ -74,4 +75,19 @@ function createCellFormatter(formatter: Formatter) {
     }
 }
 
-export const columns = tableBasicInfoFields.map(createColumn);
+const dataColumns = tableBasicInfoFields.map(createColumn);
+
+const actionsColumn: ColumnDef<BasicInfo> = {
+    id: 'actions',
+    header: 'Actions',
+    cell: ({ row }) => (
+        <Link
+            to={`/applicants/${row.original.id}/basic-info`}
+            className={buttonVariants({ variant: 'outline', size: 'sm' })}
+        >
+            View
+        </Link>
+    ),
+};
+
+export const columns: ColumnDef<BasicInfo>[] = [...dataColumns, actionsColumn];

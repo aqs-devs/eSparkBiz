@@ -1,1 +1,6 @@
-@import "@job-applicants/ui/globals.css";
+@import "tailwindcss";
+
+@source "../../../apps/web/src";
+@source "../../../packages";
+
+@import "../../../packages/ui/src/styles/globals.css";

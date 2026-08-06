@@ -3,7 +3,7 @@ import {
     type FormBasicInfoField,
 } from '@job-applicants/shared';
 
-import { FieldGroup } from '@job-applicants/ui/field';
+import { FieldGroup } from '@job-applicants/ui/components/field';
 import type { ApplicantForm } from '../hooks/useBasicInfoForm';
 import { FormField } from './fields/FormField';
 import { CityField } from './fields/location/CityField';

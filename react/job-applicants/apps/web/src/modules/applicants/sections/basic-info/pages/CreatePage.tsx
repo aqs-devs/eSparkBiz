@@ -1,6 +1,6 @@
 import { BasicInfoForm } from '../components/BasicInfoForm';
-import { Button } from '@job-applicants/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@job-applicants/ui/tabs';
+import { Button } from '@job-applicants/ui/components/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@job-applicants/ui/components/tabs';
 import { useApplicantForm } from '../hooks/useBasicInfoForm';
 
 export function CreatePage() {

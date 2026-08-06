@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router';
-import { buttonVariants } from '@job-applicants/ui/button';
+import { buttonVariants } from '@job-applicants/ui/components/button';
 import { buildApplicantsQueryParams } from '../lib/applicantsQueryParamBuilder';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@job-applicants/ui/utils';

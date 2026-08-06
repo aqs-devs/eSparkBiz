@@ -21,7 +21,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from '@job-applicants/ui/table';
+} from '@job-applicants/ui/components/table';
 
 import * as React from 'react';
 import type { BasicInfoFilterColumn } from '@job-applicants/shared';

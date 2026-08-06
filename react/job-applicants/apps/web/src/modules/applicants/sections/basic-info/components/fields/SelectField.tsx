@@ -4,7 +4,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@job-applicants/ui/select';
+} from '@job-applicants/ui/components/select';
 import type { Option, SelectFieldDefinition } from '@job-applicants/shared';
 import type { AnyFieldApi } from '@tanstack/react-form';
 import React, { useEffect } from 'react';

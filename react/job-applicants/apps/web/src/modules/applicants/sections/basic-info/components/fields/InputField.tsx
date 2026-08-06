@@ -1,6 +1,6 @@
 import type { InputFieldDefinition } from '@job-applicants/shared';
 import type { AnyFieldApi } from '@tanstack/react-form';
-import { Input } from '@job-applicants/ui/input';
+import { Input } from '@job-applicants/ui/components/input';
 
 type InputFieldProps = {
     fieldDefinition: InputFieldDefinition<'text' | 'email' | 'tel'>;

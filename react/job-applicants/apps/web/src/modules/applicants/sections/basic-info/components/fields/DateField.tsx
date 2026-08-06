@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 import { CalendarIcon } from 'lucide-react';
 
-import { Button } from '@job-applicants/ui/button';
-import { Calendar } from '@job-applicants/ui/calendar';
+import { Button } from '@job-applicants/ui/components/button';
+import { Calendar } from '@job-applicants/ui/components/calendar';
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from '@job-applicants/ui/popover';
+} from '@job-applicants/ui/components/popover';
 
 import { cn } from '@job-applicants/ui/utils';
 
