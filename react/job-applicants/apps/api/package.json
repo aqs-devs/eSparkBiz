@@ -12,9 +12,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch --env-file=.env src/app.ts",
-    "db:codegen": "dotenv -e .env -- kysely-codegen --dialect mysql --camel-case --out-file ../../packages/server-core/src/db/db-types.ts --type-mapping \"{\\\"date\\\":\\\"string\\\"}\"",
+    "db:codegen": "dotenv -e .env -- kysely-codegen --dialect mysql --camel-case --out-file ../../packages/server-core/src/db/db-types.ts --type-mapping \"{\\\"date\\\":\\\"string\\\",\\\"datetime\\\":\\\"string\\\",\\\"timestamp\\\":\\\"string\\\"}\"",
     "db:codegen:watch": "nodemon --watch src --ext sql,ts --exec \"npm run db:codegen\"",
-    "typecheck": "tsc --noEmit --ignoreDeprecations 6.0"
+    "typecheck": "tsc --noEmit --ignoreDeprecations 6.0",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
     "@job-applicants/schemas": "*",
@@ -22,6 +24,7 @@
     "@orpc/openapi": "^1.14.10",
     "@orpc/server": "^1.14.8",
     "@orpc/zod": "^1.14.8",
+    "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
     "kysely": "^0.28.16",
@@ -32,7 +35,10 @@
     "@types/express": "^5.0.6",
     "@types/node": "^25.6.0",
     "@types/swagger-ui-express": "^4.1.8",
+    "dotenv": "^17.4.2",
+    "drizzle-kit": "^0.31.10",
     "kysely-codegen": "^0.20.0",
+    "kysely-ctl": "^0.21.0",
     "nodemon": "^3.1.14",
     "swagger-ui-express": "^5.0.1",
     "tsx": "^4.21.0",

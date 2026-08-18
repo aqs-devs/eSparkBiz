@@ -40,4 +40,19 @@ export const basicInfoRouter = os.applicants.basicInfo.router({
     list: os.applicants.basicInfo.list.handler(({ input }) => {
         return service.listPaginatedApplicants(input);
     }),
+    update: os.applicants.basicInfo.update.handler(
+        withAppErrors(async ({ input }) => {
+            return service.updateApplicant(input.id, input.data);
+        }),
+    ),
+    delete: os.applicants.basicInfo.delete.handler(
+        withAppErrors(async ({ input }) => {
+            return service.deleteApplicant(input.id);
+        }),
+    ),
+    restore: os.applicants.basicInfo.restore.handler(
+        async ({ input }) => {
+            await service.restoreApplicant(input.id);
+        },
+    ),
 });

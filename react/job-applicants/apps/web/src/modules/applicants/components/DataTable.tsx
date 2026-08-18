@@ -32,6 +32,7 @@ interface DataTableProps<TData, TValue> {
     sorting: SortingState;
     setSorting: React.Dispatch<React.SetStateAction<SortingState>>;
     openFilter: (column: BasicInfoFilterColumn) => void;
+    revalidate: () => void;
 
 }
 
@@ -41,7 +42,7 @@ export function DataTable<TData, TValue>({
     sorting,
     setSorting,
     openFilter,
-
+    revalidate,
 
 }: DataTableProps<TData, TValue>) {
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -68,7 +69,8 @@ export function DataTable<TData, TValue>({
 
         meta: {
             openFilter,
-        }
+            revalidate,
+        },
     });
 
     // tanstack's internal constants.

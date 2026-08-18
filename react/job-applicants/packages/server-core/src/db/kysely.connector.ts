@@ -1,7 +1,8 @@
 import { CamelCasePlugin, DeduplicateJoinsPlugin, HandleEmptyInListsPlugin, Kysely, MysqlDialect, replaceWithNoncontingentExpression } from 'kysely';
 // import { createPool, type Pool } from 'mysql2/promise';
 import { createPool, type Pool } from "mysql2";
-import type { DBOverride } from './db-overrides.js';
+// import type { DBOverride } from './db-overrides.js';
+import type { DB } from './db-types.js';
 
 // console.log({
 //     DB_HOST: process.env.DB_HOST,
@@ -20,7 +21,7 @@ const pool:Pool = createPool({
     dateStrings: true,
 });
 
-export const db = new Kysely<DBOverride>({
+export const db = new Kysely<DB>({
     dialect: new MysqlDialect({ pool }),
     plugins: [
         new CamelCasePlugin(),

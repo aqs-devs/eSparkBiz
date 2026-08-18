@@ -9,10 +9,17 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 
+export interface _DrizzleMigrations {
+  createdAt: number | null;
+  hash: string;
+  id: Generated<number>;
+}
+
 export interface Applicant {
   city: string | null;
   country: string | null;
-  createdAt: Generated<Date>;
+  createdAt: Generated<string>;
+  deletedAt: string | null;
   designation: Generated<string>;
   dob: string;
   email: string | null;
@@ -20,7 +27,6 @@ export interface Applicant {
   fullAddress: string | null;
   gender: "female" | "male" | "other";
   id: Generated<number>;
-  isDeleted: Generated<number>;
   lastName: string;
   phone: string;
   relationshipStatus: "committed" | "single" | null;
@@ -30,15 +36,16 @@ export interface Applicant {
 
 export interface Technologies {
   applicantId: number;
-  createdAt: Generated<Date | null>;
+  createdAt: Generated<string | null>;
+  deletedAt: string | null;
   id: Generated<number>;
-  isDeleted: Generated<number>;
   label: string;
   proficiency: "beginner" | "expert" | "intermediate" | null;
-  updatedAt: Generated<Date | null>;
+  updatedAt: Generated<string | null>;
 }
 
 export interface DB {
+  _DrizzleMigrations: _DrizzleMigrations;
   applicant: Applicant;
   technologies: Technologies;
 }

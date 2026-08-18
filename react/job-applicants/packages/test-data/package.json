@@ -1,0 +1,19 @@
+{
+    "name": "@job-applicants/test-data",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts"
+    },
+    "scripts": {
+        "seed:basic-info": "tsx --env-file=../../apps/api/.env src/seed-basic-info.ts"
+    },
+    "dependencies": {
+        "@countrystatecity/countries": "^1.0.9",
+        "@faker-js/faker": "^10.0.0",
+        "@job-applicants/schemas": "*",
+        "@job-applicants/server-core": "*",
+        "fishery": "^2.3.1"
+    }
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `applicant` MODIFY COLUMN `zip_code` varchar(20);

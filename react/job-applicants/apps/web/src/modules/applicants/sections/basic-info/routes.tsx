@@ -4,6 +4,7 @@ import { loadApplicant, loadApplicants } from './loaders';
 import { ApplicantsError } from './ApplicantsError';
 import { LoadingApplicants } from './LoadingApplicants';
 import { DetailViewPage } from './pages/DetailViewPage';
+import { DetailEditPage } from './pages/DetailEditPage';
 
 const list = [
     {
@@ -28,7 +29,8 @@ const detail = [
 const edit = [
     {
         path: 'basic-info',
-        // element:  <DetailEditPage />,
+        element:  <DetailEditPage />,
+        loader: loadApplicant,
         errorElement: <ApplicantsError />,
         hydrateFallbackElement: <LoadingApplicants />
     },

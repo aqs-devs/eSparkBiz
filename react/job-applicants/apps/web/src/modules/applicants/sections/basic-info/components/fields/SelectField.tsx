@@ -7,7 +7,7 @@ import {
 } from '@job-applicants/ui/components/select';
 import type { Option, SelectFieldDefinition } from '@job-applicants/shared';
 import type { AnyFieldApi } from '@tanstack/react-form';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 type SelectFieldProps = {
     fieldDefinition: SelectFieldDefinition;
@@ -25,34 +25,34 @@ export const SelectField = React.memo(function SelectField({
     options?.length
         ? options
         : fieldDefinition.fieldProps?.options ?? [];
-    console.log({
-        key: fieldDefinition.key,
-        value: field.state.value,
-        optionCount: selectOptions.length,
-        options: options,
-    });
-    useEffect(() => {
-        console.log('Mounted', fieldDefinition.key);
-    }, []);
-    console.log(
-        fieldDefinition.key,
-        JSON.stringify(field.state.value),
-        typeof field.state.value,
-    );
-    console.log('options', selectOptions);
-    console.log('length', selectOptions.length);
-    console.log('fieldDefinition.fieldProps?.options', fieldDefinition.fieldProps?.options);
+    // console.log({
+    //     key: fieldDefinition.key,
+    //     value: field.state.value,
+    //     optionCount: selectOptions.length,
+    //     options: options,
+    // });
+    // useEffect(() => {
+    //     console.log('Mounted', fieldDefinition.key);
+    // }, []);
+    // console.log(
+    //     fieldDefinition.key,
+    //     JSON.stringify(field.state.value),
+    //     typeof field.state.value,
+    // );
+    // console.log('options', selectOptions);
+    // console.log('length', selectOptions.length);
+    // console.log('fieldDefinition.fieldProps?.options', fieldDefinition.fieldProps?.options);
 
-    selectOptions.forEach((option, index) => {
-        console.log(index, option);
-    });
+    // selectOptions.forEach((option, index) => {
+    //     console.log(index, option);
+    // });
     return (
         <Select
             value={field.state.value || undefined} //always pass a defined value.
             // value={field.state.value ?? ''} // Base UI generally expects undefined for "no value" rather than ""
             // onValueChange={field.handleChange}
             onValueChange={(value) => {
-                console.log('changed', fieldDefinition.key, value);
+                // console.log('changed', fieldDefinition.key, value);
                 field.handleChange(value);
             }}
         >
@@ -74,9 +74,9 @@ export const SelectField = React.memo(function SelectField({
 
                 {/* <SelectItem value="xyz">THIS IS THE NEW FILE</SelectItem> */}
                 <>
-                    {console.log('mapping')}
+                    {/* {console.log('mapping')} */}
                     {selectOptions.map((option) => {
-                        console.log('rendering', option);
+                        // console.log('rendering', option);
 
                         return (
                             <SelectItem key={option.value} value={option.value}>

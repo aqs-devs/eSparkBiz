@@ -1,127 +1,129 @@
 {
-  "id": "00000000-0000-0000-0000-000000000000",
-  "prevId": "",
   "version": "5",
   "dialect": "mysql",
+  "id": "451934e7-faa0-428e-9df5-fc91c0f2dfa1",
+  "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "applicant": {
       "name": "applicant",
       "columns": {
         "id": {
-          "autoincrement": true,
           "name": "id",
           "type": "int unsigned",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": true
         },
         "first_name": {
-          "autoincrement": false,
           "name": "first_name",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "last_name": {
-          "autoincrement": false,
           "name": "last_name",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "designation": {
-          "default": "'Intern'",
-          "autoincrement": false,
           "name": "designation",
           "type": "varchar(30)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Intern'"
         },
         "full_address": {
-          "autoincrement": false,
           "name": "full_address",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "email": {
-          "autoincrement": false,
           "name": "email",
           "type": "varchar(100)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "phone": {
-          "autoincrement": false,
           "name": "phone",
           "type": "varchar(20)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "country": {
-          "autoincrement": false,
           "name": "country",
           "type": "char(2)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "city": {
-          "autoincrement": false,
           "name": "city",
           "type": "varchar(30)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "state": {
-          "autoincrement": false,
           "name": "state",
           "type": "char(2)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "gender": {
-          "autoincrement": false,
           "name": "gender",
           "type": "enum('male','female','other')",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "zip_code": {
-          "autoincrement": false,
           "name": "zip_code",
           "type": "char(6)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "relationship_status": {
-          "autoincrement": false,
           "name": "relationship_status",
           "type": "enum('single','committed')",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "dob": {
-          "autoincrement": false,
           "name": "dob",
           "type": "date",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "created_at": {
-          "default": "(CURRENT_TIMESTAMP)",
-          "autoincrement": false,
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false,
+          "default": "(now())"
         },
         "deleted_at": {
-          "autoincrement": false,
           "name": "deleted_at",
           "type": "datetime",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         }
       },
+      "indexes": {},
+      "foreignKeys": {},
       "compositePrimaryKeys": {
         "applicant_id": {
           "name": "applicant_id",
@@ -130,8 +132,6 @@
           ]
         }
       },
-      "indexes": {},
-      "foreignKeys": {},
       "uniqueConstraints": {
         "phone": {
           "name": "phone",
@@ -148,131 +148,60 @@
       },
       "checkConstraint": {}
     },
-    "kysely_migration": {
-      "name": "kysely_migration",
-      "columns": {
-        "name": {
-          "autoincrement": false,
-          "name": "name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "timestamp": {
-          "autoincrement": false,
-          "name": "timestamp",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "compositePrimaryKeys": {
-        "kysely_migration_name": {
-          "name": "kysely_migration_name",
-          "columns": [
-            "name"
-          ]
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraint": {}
-    },
-    "kysely_migration_lock": {
-      "name": "kysely_migration_lock",
-      "columns": {
-        "id": {
-          "autoincrement": false,
-          "name": "id",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "is_locked": {
-          "default": 0,
-          "autoincrement": false,
-          "name": "is_locked",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "compositePrimaryKeys": {
-        "kysely_migration_lock_id": {
-          "name": "kysely_migration_lock_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraint": {}
-    },
     "technologies": {
       "name": "technologies",
       "columns": {
         "id": {
-          "autoincrement": true,
           "name": "id",
           "type": "bigint unsigned",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": true
         },
         "applicant_id": {
-          "autoincrement": false,
           "name": "applicant_id",
           "type": "int unsigned",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "label": {
-          "autoincrement": false,
           "name": "label",
           "type": "varchar(50)",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "proficiency": {
-          "autoincrement": false,
           "name": "proficiency",
           "type": "enum('beginner','intermediate','expert')",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "created_at": {
-          "default": "(CURRENT_TIMESTAMP)",
-          "autoincrement": false,
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(now())"
         },
         "updated_at": {
-          "default": "(CURRENT_TIMESTAMP)",
-          "autoincrement": false,
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
-          "onUpdate": true
+          "autoincrement": false,
+          "onUpdate": true,
+          "default": "(now())"
         },
         "deleted_at": {
-          "autoincrement": false,
           "name": "deleted_at",
           "type": "datetime",
           "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "compositePrimaryKeys": {
-        "technologies_id": {
-          "name": "technologies_id",
-          "columns": [
-            "id"
-          ]
+          "notNull": false,
+          "autoincrement": false
         }
       },
       "indexes": {
@@ -285,8 +214,8 @@
         }
       },
       "foreignKeys": {
-        "fk_technologies_applicants": {
-          "name": "fk_technologies_applicants",
+        "technologies_applicant_id_applicant_id_fk": {
+          "name": "technologies_applicant_id_applicant_id_fk",
           "tableFrom": "technologies",
           "tableTo": "applicant",
           "columnsFrom": [
@@ -297,6 +226,14 @@
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "technologies_id": {
+          "name": "technologies_id",
+          "columns": [
+            "id"
+          ]
         }
       },
       "uniqueConstraints": {
@@ -318,25 +255,7 @@
     "columns": {}
   },
   "internal": {
-    "tables": {
-      "applicant": {
-        "columns": {
-          "created_at": {
-            "isDefaultAnExpression": true
-          }
-        }
-      },
-      "technologies": {
-        "columns": {
-          "created_at": {
-            "isDefaultAnExpression": true
-          },
-          "updated_at": {
-            "isDefaultAnExpression": true
-          }
-        }
-      }
-    },
+    "tables": {},
     "indexes": {}
   }
 }

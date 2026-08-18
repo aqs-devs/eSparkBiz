@@ -1,4 +1,4 @@
-import { useLoaderData, useSearchParams } from 'react-router';
+import { Link, useLoaderData, useRevalidator, useSearchParams } from 'react-router';
 import PageNavigation from '#src/modules/applicants/components/PageNavigator';
 import { columns } from '../columns';
 import { useEffect, useState } from 'react';
@@ -6,10 +6,12 @@ import { getFilterOptions } from '@job-applicants/api-client';
 import type { loadApplicants } from '../loaders';
 import type { SortingState } from '@tanstack/react-table';
 import type { ActiveFilters, ActiveFilterValue, BasicInfoFilterColumn, BasicInfoFilterOptions } from '@job-applicants/shared';
-import { filterableBasicInfoFields } from '@job-applicants/shared';
+import { filterableBasicInfoFields, RouteBuilder } from '@job-applicants/shared';
 import { FilterBar } from '#src/modules/applicants/components/FilterBar';
 import { valueToParams } from '#src/modules/applicants/lib/filterUtils';
 import { DataTable } from '#src/modules/applicants/components/DataTable';
+import { buttonVariants } from '@job-applicants/ui/components/button';
+import { Plus } from 'lucide-react';
 
 const ListViewPage = () => {
     const { applicants, pagination } = useLoaderData() as Awaited<ReturnType<typeof loadApplicants>>;
@@ -24,6 +26,8 @@ const ListViewPage = () => {
     const [filterOptions, setFilterOptions] = useState<BasicInfoFilterOptions | null>(null);
     const [loadingFilters, setLoadingFilters] = useState(false);
     const [isFilterBarVisible, setIsFilterBarVisible] = useState(false);
+
+    const revalidator = useRevalidator();
 
     async function openFilter(column: BasicInfoFilterColumn) {
         if (activeFilters[column]) return;
@@ -99,6 +103,25 @@ const ListViewPage = () => {
 
     return (
         <div className="space-y-6">
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-2xl font-semibold tracking-tight">
+                        Applicants
+                    </h1>
+                    <p className="text-sm text-muted-foreground">
+                        Manage job applicants.
+                    </p>
+                </div>
+    
+                <Link
+                    to={RouteBuilder.applicants.basicInfo.create()}
+                    className={buttonVariants()}
+                >
+                    <Plus className="size-4" />
+                    New Applicant
+                </Link>
+            </div>
+    
             {isFilterBarVisible && (
                 <FilterBar
                     activeFilters={activeFilters}
@@ -114,15 +137,16 @@ const ListViewPage = () => {
                     onReset={resetFilters}
                 />
             )}
-
+    
             <DataTable
                 columns={columns}
                 data={applicants}
                 sorting={sorting}
                 setSorting={setSorting}
                 openFilter={openFilter}
+                revalidate={() => revalidator.revalidate()}
             />
-
+    
             <PageNavigation pageCount={pageCount} />
         </div>
     );

@@ -1,0 +1,1 @@
+export { basicInfoFactory } from './factories/basic-info.js';

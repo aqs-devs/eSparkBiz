@@ -1,8 +1,11 @@
-import { Button } from "@job-applicants/ui/components/button";
+import { Button } from '@job-applicants/ui/components/button';
+import { useTheme } from 'next-themes';
 
 export function ThemeToggle() {
+    const { resolvedTheme, setTheme } = useTheme();
+
     const toggleTheme = () => {
-        document.documentElement.classList.toggle('dark');
+        setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
     };
 
     return (
@@ -12,5 +15,5 @@ export function ThemeToggle() {
         >
             Toggle Theme
         </Button>
-    )
+    );
 }

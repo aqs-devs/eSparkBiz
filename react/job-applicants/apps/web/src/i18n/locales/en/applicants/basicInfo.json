@@ -1,0 +1,40 @@
+{
+    "section": {
+        "title": "Basic Info"
+    },
+
+    "form": {
+        "createTitle": "Create Applicant",
+        "editTitle": "Edit Applicant",
+        "createButton": "Create Applicant",
+        "saveButton": "Save Changes"
+    },
+
+    "fields": {
+        "firstName": "First Name",
+        "middleName": "Middle Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "phone": "Phone",
+        "gender": "Gender",
+        "dateOfBirth": "Date of Birth",
+        "designation": "Designation",
+        "country": "Country",
+        "state": "State",
+        "city": "City",
+        "zipcode": "ZIP Code"
+    },
+    "messages": {
+        "created": "Applicant created successfully.",
+        "updated": "Applicant updated successfully.",
+        "deleted": "Applicant deleted.",
+        "restored": "Applicant restored."
+    },
+
+    "errors": {
+        "createFailed": "Could not create applicant.",
+        "updateFailed": "Could not update applicant.",
+        "deleteFailed": "Could not delete applicant.",
+        "restoreFailed": "Could not restore applicant."
+    }
+}

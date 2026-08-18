@@ -143,7 +143,34 @@ Notice that your service layer should not change. Only the transport changes.
 | `apps/web`     | React UI                                   | database                   |
 
 ### Core Architectural Rules:
+
 1. **Dependencies flow one way**: Lower layers never depend on higher layers.
 2. **`schemas` owns domain models**: Domain schemas (`BasicInfoSchema`, `CreateBasicInfoSchema`, `BasicInfoListQuerySchema`) stay transport-agnostic.
 3. **`api-contract` owns HTTP endpoints**: Defines oRPC/HTTP routes and selectively re-exports only the request/response schemas tied to those endpoints.
 4. **React Forms consume `schemas`**: UI components import validation schemas from `@job-applicants/schemas` directly, without coupling UI validation to HTTP contract routes.
+
+##
+
+```md
+MySQL schema
+     │
+     │ introspection
+     ▼
+kysely-codegen
+     │
+     │ generated DB types
+     ▼
+db-types.ts
+     │
+     ▼
+Kysely<DB>
+     │
+     ▼
+repository
+     │
+     ▼
+mapper
+     │
+     ▼
+API schema / DTO
+```

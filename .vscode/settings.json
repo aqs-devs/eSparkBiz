@@ -1,5 +1,9 @@
 {
-    "cSpell.words": ["cmdk", "codegen"],
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "js/ts.tsdk.path": "node_modules/typescript/lib"
+    "cSpell.words": [
+        "cmdk",
+        "codegen",
+        "countrystatecity"
+    ],
+    "js/ts.tsdk.path": "react/job-applicants/node_modules/typescript/lib",
+    "typescript.tsdk": "react/job-applicants/node_modules/typescript/lib",
 }

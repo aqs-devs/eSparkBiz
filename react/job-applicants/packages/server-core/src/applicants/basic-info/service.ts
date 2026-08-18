@@ -1,5 +1,5 @@
 import * as applicantRepository from './repository.js';
-import type { BasicInfoListQuery } from '@job-applicants/schemas';
+import type { BasicInfoListQuery, UpdateBasicInfo } from '@job-applicants/schemas';
 import { filterableBasicInfoFields, type BasicInfoFilterOptions } from '@job-applicants/shared';
 import { type CreateBasicInfo } from '@job-applicants/schemas';
 import { toBasicInfoDto } from './mapper.js';
@@ -86,4 +86,23 @@ export async function getApplicant(id: number) {
     return toBasicInfoDto(
         await applicantRepository.findByIdOrThrow(id)
     );
+}
+
+export async function updateApplicant(
+    id: number,
+    data: UpdateBasicInfo,
+) {
+    await applicantRepository.update(id, data);
+
+    return toBasicInfoDto(
+        await applicantRepository.findByIdOrThrow(id)
+    );
+}
+
+export async function deleteApplicant(id: number) {
+    await applicantRepository.softDelete(id);
+}
+
+export async function restoreApplicant(id: number) {
+    await applicantRepository.restore(id);
 }

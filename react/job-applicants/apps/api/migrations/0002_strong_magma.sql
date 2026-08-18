@@ -1,0 +1,1 @@
+ALTER TABLE `applicant` MODIFY COLUMN `state` varchar(100);

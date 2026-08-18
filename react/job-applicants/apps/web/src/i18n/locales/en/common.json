@@ -1,0 +1,41 @@
+{
+    "actions": {
+        "back": "Back",
+        "cancel": "Cancel",
+        "create": "Create",
+        "save": "Save",
+        "edit": "Edit",
+        "delete": "Delete",
+        "restore": "Restore",
+        "undo": "Undo",
+        "close": "Close",
+        "retry": "Retry",
+        "selectDate": "Select date"
+    },
+
+    "sections": {
+        "basicInfo": "Basic Info",
+        "education": "Education",
+        "experience": "Experience",
+        "technologies": "Technologies"
+    },
+
+    "status": {
+        "loading": "Loading...",
+        "saving": "Saving...",
+        "deleting": "Deleting...",
+        "creating": "Creating..."
+    },
+
+    "messages": {
+        "unsavedChanges": {
+            "title": "You have unsaved changes",
+            "description": "If you leave this page, your changes will be lost."
+        }
+    },
+
+    "errors": {
+        "generic": "Something went wrong.",
+        "tryAgain": "Something went wrong. Please try again."
+    }
+}

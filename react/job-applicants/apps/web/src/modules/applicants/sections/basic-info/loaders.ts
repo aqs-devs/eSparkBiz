@@ -22,7 +22,7 @@ export const loadApplicants = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export const loadApplicant = async ({ params }: LoaderFunctionArgs) => {
-    const { id } = IdSchema.parse({ id: params.id });
+    const id = IdSchema.parse(params.id);
 
     const applicantResponse = await getApplicant(id);
 

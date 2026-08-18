@@ -21,17 +21,21 @@ import {
   BasicInfoListQuerySchema,
   BasicInfoListResponseSchema,
   BasicInfoFilterOptionsSchema,
+  UpdateBasicInfoInputSchema,
+  IdParamsSchema,
 } from "@job-applicants/schemas";
 
-// Selective re-exports of schemas specifically involved in HTTP API contracts
-export {
-  IdSchema,
-  BasicInfoSchema,
-  CreateBasicInfoSchema,
-  BasicInfoListQuerySchema,
-  BasicInfoListResponseSchema,
-  BasicInfoFilterOptionsSchema,
-};
+// // Selective re-exports of schemas specifically involved in HTTP API contracts
+// export {
+//   IdSchema,
+//   BasicInfoSchema,
+//   CreateBasicInfoSchema,
+//   BasicInfoListQuerySchema,
+//   BasicInfoListResponseSchema,
+//   BasicInfoFilterOptionsSchema,
+//   UpdateBasicInfoSchema,
+//   UpdateBasicInfoInputSchema,
+// };
 import { contractErrors } from "../errors";
 
 export const basicInfoContract = oc.router({
@@ -63,7 +67,7 @@ export const basicInfoContract = oc.router({
   //     method: "POST",
   //     path: "/applicants/show",
   //   })
-    .input(IdSchema)
+    .input(IdParamsSchema)
     .output(BasicInfoSchema),
 
   list: oc
@@ -80,4 +84,45 @@ export const basicInfoContract = oc.router({
       path: "/applicants/filter-options",
     })
     .output(BasicInfoFilterOptionsSchema),
+
+    update: oc
+    .route({
+        method: "PATCH",
+        path: "/applicants/{id}",
+        description: "Partially update an applicant's basic information.",
+        tags: ["Applicants"],
+    })
+    .errors({
+        NOT_FOUND: contractErrors.NOT_FOUND,
+        VALIDATION_ERROR: contractErrors.VALIDATION_ERROR,
+    })
+    .input(UpdateBasicInfoInputSchema)
+    .output(BasicInfoSchema),
+
+
+delete: oc
+    .route({
+        method: 'DELETE',
+        path: '/applicants/{id}',
+        description: 'Soft-delete an applicant.',
+        tags: ['Applicants'],
+        successStatus: 204,
+        outputStructure: 'detailed',
+    })
+    .errors({
+        NOT_FOUND: contractErrors.NOT_FOUND,
+    })
+    .input(IdParamsSchema),
+
+    restore: oc
+    .route({
+        method: "POST",
+        path: "/applicants/{id}/restore",
+        description: "Restore a soft-deleted applicant.",
+        tags: ["Applicants"],
+    })
+    .errors({
+        NOT_FOUND: contractErrors.NOT_FOUND,
+    })
+    .input(IdParamsSchema),
 });

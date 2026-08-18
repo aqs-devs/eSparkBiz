@@ -4,11 +4,13 @@ import { Link } from 'react-router';
 import { Button, buttonVariants } from '@job-applicants/ui/components/button';
 import { tableBasicInfoFields, type FilterableBasicInfoField, type Formatter, type TableBasicInfoField } from '@job-applicants/shared';
 import type { BasicInfo } from '@job-applicants/schemas';
+import { DeleteApplicantAction } from '../../components/DeleteApplicantAction';
 
 declare module '@tanstack/react-table' {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface TableMeta<TData extends RowData> {
         openFilter: (column: FilterableBasicInfoField['key']) => void;
+        revalidate: () => void;
     }
 }
 
@@ -80,13 +82,26 @@ const dataColumns = tableBasicInfoFields.map(createColumn);
 const actionsColumn: ColumnDef<BasicInfo> = {
     id: 'actions',
     header: 'Actions',
-    cell: ({ row }) => (
-        <Link
-            to={`/applicants/${row.original.id}/basic-info`}
-            className={buttonVariants({ variant: 'outline', size: 'sm' })}
-        >
-            View
-        </Link>
+    enableSorting: false,
+    enableHiding: false,
+    cell: ({ row, table }) => (
+        <div className="flex items-center gap-2">
+            <Link
+                to={`/applicants/${row.original.id}/basic-info`}
+                className={buttonVariants({
+                    variant: 'outline',
+                    size: 'sm',
+                })}
+            >
+                View
+            </Link>
+    
+            <DeleteApplicantAction
+                applicantId={row.original.id}
+                onDeleted={() => table.options.meta?.revalidate()}
+                onRestored={() => table.options.meta?.revalidate()}
+            />
+        </div>
     ),
 };
 

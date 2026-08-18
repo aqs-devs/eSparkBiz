@@ -10,16 +10,17 @@
 
 import { db } from '../../db/kysely.connector.js';
 // import { connection } from '../../../db/mysql2.connector.js';
-import type {
-    FindAllParams,
-    GetCountParams,
-} from './types.js';
-import { toApplicantInsert } from './mapper.js';
+import type { FindAllParams, GetCountParams } from './types.js';
+import { toApplicantInsert, toApplicantUpdate } from './mapper.js';
 // import AppError from '../../errors/AppError.js';
 import AppError from '@job-applicants/server-core/errors/AppError'; // adjust path
-import { ErrorCode, type CreateBasicInfo } from '@job-applicants/schemas';
-import type { ApplicantColumn } from "@job-applicants/shared";
-
+import {
+    ErrorCode,
+    type CreateBasicInfo,
+    type UpdateBasicInfo,
+} from '@job-applicants/schemas';
+import type { ApplicantColumn } from '@job-applicants/shared';
+import { sql } from 'kysely';
 
 // db.selectFrom('applicant')
 //     .selectAll()
@@ -57,9 +58,10 @@ export async function findAll({
     dob_from,
     dob_to,
 }: FindAllParams) {
-    console.debug(pageSize, offset, sortOn, order);
-
-    let query = db.selectFrom('applicant').selectAll();
+    let query = db
+        .selectFrom('applicant')
+        .selectAll()
+        .where('deletedAt', 'is', null);
 
     if (filters) {
         for (const [column, value] of Object.entries(filters)) {
@@ -70,38 +72,13 @@ export async function findAll({
         if (dob_to) query = query.where('dob', '<=', dob_to);
     }
 
-    // console.log("before execute");
     const result = await query
         .orderBy(sortOn, order)
         .limit(pageSize)
         .offset(offset)
         .execute();
-    // console.log("after execute", result);
 
     return result;
-
-    // const query = db
-    // .selectFrom("applicant")
-    // .selectAll()
-    // .orderBy(sortOn, order)
-    // .limit(pageSize)
-    // .offset(offset);
-
-
-    // console.log("before execute");
-
-    // const promise = query.execute();
-    
-    // console.log("execute returned", promise);
-    
-    // const result = await promise;
-    
-    // console.log("after execute");
-
-    // console.log(result);
-
-
-    // return result;
 }
 
 export async function findDistinct<K extends ApplicantColumn>(column: K) {
@@ -109,6 +86,7 @@ export async function findDistinct<K extends ApplicantColumn>(column: K) {
         .selectFrom('applicant')
         .select(column)
         .distinct()
+        .where('deletedAt', 'is', null)
         .orderBy(column)
         .execute();
 }
@@ -139,7 +117,8 @@ export async function findDistinct<K extends ApplicantColumn>(column: K) {
 export async function getCount({ filters, dob_from, dob_to }: GetCountParams) {
     let query = db
         .selectFrom('applicant')
-        .select((eb) => eb.fn.countAll().as('count'));
+        .select((eb) => eb.fn.countAll().as('count'))
+        .where('deletedAt', 'is', null)
 
     if (filters) {
         for (const [column, value] of Object.entries(filters)) {
@@ -163,11 +142,31 @@ export async function getCount({ filters, dob_from, dob_to }: GetCountParams) {
 //     return [rows];
 // }
 
+// ---
+
+// NOTE:
+// This not is just to remember that the current implementation of findById is temporary and can be changed based on the following logic:
+// 3. Don't modify findById() yet
+// This distinction matters.
+// You currently have:
+// findById(id)
+// used by things such as:
+// GET /applicants/:id
+// PATCH /applicants/:id
+// We need to decide whether those operations should see deleted records.
+// For the normal application flow, the clean rule is:
+// A soft-deleted applicant behaves as nonexistent.
+// So eventually findById() should probably include:
+// .where('deletedAt', 'is', null)
+// But let's verify how your current service/repository flow uses findById() first, because softDelete() itself deliberately needs to distinguish an existing active row from an already-deleted row.
+//
+// i've been told to "Remove that whole comment block. Otherwise six months from now it will misleadingly tell you that the change is still pending." but i won't for documentation purposes. i have a gut feeling that this would be important in the future.
 export async function findById(id: number) {
     return db
         .selectFrom('applicant')
         .selectAll()
         .where('id', '=', id)
+        .where('deletedAt', 'is', null)
         .executeTakeFirst();
 }
 
@@ -221,43 +220,57 @@ export async function insert(body: CreateBasicInfo) {
     return Number(result.insertId);
 }
 
-// import { createPool } from "mysql2/promise";
+export async function update(id: number, body: UpdateBasicInfo) {
+    const result = await db
+        .updateTable('applicant')
+        .set(toApplicantUpdate(body))
+        .where('id', '=', id)
+        .where('deletedAt', 'is', null)
+        .executeTakeFirst();
 
-// const pool = createPool({
-//     host: process.env.DB_HOST,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASSWORD,
-//     database: process.env.DB_NAME,
-//     port: Number(process.env.DB_PORT),
-// });
-// console.log(pool);
-// console.log("before");
+    if (result.numUpdatedRows === 0n) {
+        throw new AppError({
+            code: ErrorCode.NOT_FOUND,
+            message: `Applicant ${id} not found.`,
+        });
+    }
 
-// const conn = await pool.getConnection();
+    return findByIdOrThrow(id);
+}
 
-// console.log("after");
+export async function softDelete(id: number) {
+    const result = await db
+        .updateTable('applicant')
+        .set({
+            // deletedAt: new Date(),
+            deletedAt: sql`CURRENT_TIMESTAMP`,
+        })
+        .where('id', '=', id)
+        .where('deletedAt', 'is', null)
+        .executeTakeFirst();
 
-// conn.release();
-// console.log(pool.Promise === Promise);
-// console.log(pool.Promise);
-// console.log(globalThis.Promise);
+    if (result.numUpdatedRows === 0n) {
+        throw new AppError({
+            code: ErrorCode.NOT_FOUND,
+            message: `Applicant ${id} not found.`,
+        });
+    }
+}
 
+export async function restore(id: number) {
+    const result = await db
+        .updateTable('applicant')
+        .set({
+            deletedAt: null,
+        })
+        .where('id', '=', id)
+        .where('deletedAt', 'is not', null)
+        .executeTakeFirst();
 
-
-// console.log(import.meta.url);
-// console.log(createPool.toString());
-
-// import { createRequire } from "module";
-
-// const require = createRequire(import.meta.url);
-
-// console.log(require.resolve("mysql2/promise"));
-// console.log(require.resolve("mysql2"));
-
-
-
-// const [rows] = await pool.query(
-//     "SELECT * FROM applicant LIMIT 1"
-// );
-
-// console.log(rows);
+    if (result.numUpdatedRows === 0n) {
+        throw new AppError({
+            code: ErrorCode.NOT_FOUND,
+            message: `Deleted applicant ${id} not found.`,
+        });
+    }
+}
