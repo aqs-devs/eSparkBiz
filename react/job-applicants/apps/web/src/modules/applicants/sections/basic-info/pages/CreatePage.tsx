@@ -80,8 +80,6 @@ export function CreatePage() {
                 return;
             }
 
-            toast.success('Applicant created successfully.');
-
             navigate(
                 RouteBuilder.applicants.basicInfo.detail(applicantId),
             );
@@ -92,7 +90,7 @@ export function CreatePage() {
     return (
         <ApplicantFormPage
             form={form}
-            submitLabel="Create Applicant"
+            mode="create"
             cancelTo={RouteBuilder.applicants.basicInfo.list()}
         />
     );

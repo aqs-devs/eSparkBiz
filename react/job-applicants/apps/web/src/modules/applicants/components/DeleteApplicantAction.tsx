@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 import {
     deleteApplicant,
     restoreApplicant,
@@ -18,6 +19,8 @@ export function DeleteApplicantAction({
     onDeleted,
     onRestored,
 }: DeleteApplicantActionProps) {
+    const { t } = useTranslation('common');
+    const { t: tBasicInfo } = useTranslation('basicInfo');
     const [isDeleting, setIsDeleting] = useState(false);
 
     const handleDelete = async () => {
@@ -32,26 +35,28 @@ export function DeleteApplicantAction({
     
             onDeleted?.();
     
-            toast.success('Applicant deleted', {
+            toast.success(tBasicInfo('messages.deleted'), {
                 action: {
-                    label: 'Undo',
+                    label: t('actions.undo'),
                     onClick: async () => {
                         try {
                             await restoreApplicant(applicantId);
                             onRestored?.();
-                            toast.success('Applicant restored');
+                            toast.success(tBasicInfo('messages.restored'));
                         } catch {
-                            toast.error('Could not restore applicant');
+                            toast.error(tBasicInfo('errors.restoreFailed'));
                         }
                     },
                 },
             });
         } catch {
-            toast.error('Could not delete applicant');
+            toast.error(tBasicInfo('errors.deleteFailed'));
         } finally {
             setIsDeleting(false);
         }
     };
+
+    const deleteLabel = tBasicInfo('actions.deleteApplicant');
 
     return (
         <Button
@@ -60,8 +65,8 @@ export function DeleteApplicantAction({
             size="icon"
             disabled={isDeleting}
             onClick={handleDelete}
-            aria-label="Delete applicant"
-            title="Delete applicant"
+            aria-label={deleteLabel}
+            title={deleteLabel}
         >
             <Trash2 className="size-4" />
         </Button>

@@ -37,19 +37,15 @@ type DetailBasicInfoSection =
 export const detailBasicInfoSections = [
     {
         key: 'personal',
-        title: 'Personal Information',
     },
     {
         key: 'contact',
-        title: 'Contact Information',
     },
     {
         key: 'address',
-        title: 'Address',
     },
     {
         key: 'system',
-        title: 'System Information',
     },
 ] as const;
 
@@ -57,7 +53,7 @@ export const detailBasicInfoSections = [
 
 export type Option<T = string> = {
     value: T;
-    label: string;
+    label?: string;
 };
 type CommonFieldOptions = {
     placeholder?: string;
@@ -121,8 +117,6 @@ export type BasicInfoFieldBaseDefinition<
     key: TKey;
     dbColumn: TKey;
 
-    label: string;
-
     formatter?: Formatter;
 
     sortable?: boolean;
@@ -177,7 +171,6 @@ export const basicInfoFields = [
     {
         key: 'firstName',
         dbColumn: 'firstName',
-        label: 'First Name',
         fieldType: 'text',
         sortable: true,
         visibility: ['table', 'form', 'detail'],
@@ -192,7 +185,6 @@ export const basicInfoFields = [
     {
         key: 'lastName',
         dbColumn: 'lastName',
-        label: 'Last Name',
         fieldType: 'text',
         sortable: true,
         visibility: ['table', 'form', 'detail'],
@@ -203,7 +195,6 @@ export const basicInfoFields = [
     {
         key: 'designation',
         dbColumn: 'designation',
-        label: 'Designation',
         fieldType: 'text',
         sortable: false,
         visibility: ['table', 'form', 'detail'],
@@ -217,7 +208,6 @@ export const basicInfoFields = [
     {
         key: 'email',
         dbColumn: 'email',
-        label: 'E-mail',
         fieldType: 'email',
         formatter: 'email',
         sortable: true,
@@ -229,7 +219,6 @@ export const basicInfoFields = [
     {
         key: 'phone',
         dbColumn: 'phone',
-        label: 'Phone',
         fieldType: 'tel',
         formatter: 'phone',
         sortable: false,
@@ -241,7 +230,6 @@ export const basicInfoFields = [
     {
         key: 'country',
         dbColumn: 'country',
-        label: 'Country',
         fieldType: 'select',
         sortable: false,
         visibility: ['table', 'form', 'detail'],
@@ -256,7 +244,6 @@ export const basicInfoFields = [
     {
         key: 'state',
         dbColumn: 'state',
-        label: 'State',
         fieldType: 'select',
         sortable: false,
         visibility: ['table', 'form', 'detail'],
@@ -284,7 +271,6 @@ export const basicInfoFields = [
     {
         key: 'city',
         dbColumn: 'city',
-        label: 'City',
         fieldType: 'select',
         sortable: false,
         visibility: ['table', 'form', 'detail'],
@@ -299,7 +285,6 @@ export const basicInfoFields = [
     {
         key: 'gender',
         dbColumn: 'gender',
-        label: 'Gender',
         fieldType: 'radio',
         sortable: false,
         visibility: ['table', 'form', 'detail'],
@@ -310,9 +295,9 @@ export const basicInfoFields = [
         },
         fieldProps: {
             options: [
-                { value: 'male', label: 'Male' },
-                { value: 'female', label: 'Female' },
-                { value: 'other', label: 'Other' },
+                { value: 'male' },
+                { value: 'female' },
+                { value: 'other' },
             ],
         },
         section: 'personal',
@@ -321,7 +306,6 @@ export const basicInfoFields = [
     {
         key: 'zipCode',
         dbColumn: 'zipCode',
-        label: 'Zip Code',
         fieldType: 'text',
         sortable: false,
         visibility: ['table', 'form', 'detail'],
@@ -332,7 +316,6 @@ export const basicInfoFields = [
     {
         key: 'relationshipStatus',
         dbColumn: 'relationshipStatus',
-        label: 'Relationship Status',
         fieldType: 'select',
         sortable: false,
         visibility: ['table', 'form', 'detail'],
@@ -345,11 +328,9 @@ export const basicInfoFields = [
             options: [
                 {
                     value: 'single',
-                    label: 'Single',
                 },
                 {
                     value: 'committed',
-                    label: 'Committed',
                 },
             ],
         },
@@ -359,7 +340,6 @@ export const basicInfoFields = [
     {
         key: 'dob',
         dbColumn: 'dob',
-        label: 'Date of Birth',
         fieldType: 'date',
         formatter: 'date',
         sortable: false,
@@ -379,7 +359,6 @@ export const basicInfoFields = [
     {
         key: 'createdAt',
         dbColumn: 'createdAt',
-        label: 'Created At',
         fieldType: 'date',
         formatter: 'date',
         sortable: undefined,
@@ -391,7 +370,6 @@ export const basicInfoFields = [
     {
         key: 'id',
         dbColumn: 'id',
-        label: 'ID',
         fieldType: 'text',
         sortable: undefined,
         visibility: ['detail'],

@@ -12,18 +12,50 @@
 
     "fields": {
         "firstName": "First Name",
-        "middleName": "Middle Name",
         "lastName": "Last Name",
-        "email": "Email",
-        "phone": "Phone",
-        "gender": "Gender",
-        "dateOfBirth": "Date of Birth",
         "designation": "Designation",
+        "email": "E-mail",
+        "phone": "Phone",
         "country": "Country",
         "state": "State",
         "city": "City",
-        "zipcode": "ZIP Code"
+        "gender": "Gender",
+        "zipCode": "Zip Code",
+        "relationshipStatus": "Relationship Status",
+        "dob": "Date of Birth",
+        "createdAt": "Created At",
+        "id": "ID"
     },
+
+    "options": {
+        "gender": {
+            "male": "Male",
+            "female": "Female",
+            "other": "Other"
+        },
+        "relationshipStatus": {
+            "single": "Single",
+            "committed": "Committed"
+        }
+    },
+
+    "detailSections": {
+        "personal": "Personal Information",
+        "contact": "Contact Information",
+        "address": "Address",
+        "system": "System Information"
+    },
+
+    "list": {
+        "title": "Applicants",
+        "subtitle": "Manage job applicants."
+    },
+
+    "actions": {
+        "newApplicant": "New Applicant",
+        "deleteApplicant": "Delete applicant"
+    },
+
     "messages": {
         "created": "Applicant created successfully.",
         "updated": "Applicant updated successfully.",
@@ -36,5 +68,29 @@
         "updateFailed": "Could not update applicant.",
         "deleteFailed": "Could not delete applicant.",
         "restoreFailed": "Could not restore applicant."
+    },
+
+    "education": {
+        "detailTitle": "Education Details",
+        "detailDescription": "Details for an applicant's education record will appear here.",
+        "listTitle": "Applicant Education",
+        "listDescription": "This section is a placeholder for education-specific applicant data.",
+        "editPlaceholder": "Edit education details placeholder"
+    },
+
+    "experience": {
+        "detailTitle": "Experience Details",
+        "detailDescription": "This placeholder shows an applicant's experience details.",
+        "listTitle": "Applicant Experience",
+        "listDescription": "This section is a stub for applicant experience details.",
+        "editPlaceholder": "Edit experience details placeholder"
+    },
+
+    "technologies": {
+        "detailTitle": "Technology Details",
+        "detailDescription": "This placeholder shows details for an applicant's technology profile.",
+        "listTitle": "Applicant Technologies",
+        "listDescription": "This section is a placeholder for technology skills and tools.",
+        "editPlaceholder": "Edit technology details placeholder"
     }
 }

@@ -1,4 +1,5 @@
 import { Link, useLoaderData, useRevalidator, useSearchParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import PageNavigation from '#src/modules/applicants/components/PageNavigator';
 import { columns } from '../columns';
 import { useEffect, useState } from 'react';
@@ -14,6 +15,7 @@ import { buttonVariants } from '@job-applicants/ui/components/button';
 import { Plus } from 'lucide-react';
 
 const ListViewPage = () => {
+    const { t } = useTranslation('basicInfo');
     const { applicants, pagination } = useLoaderData() as Awaited<ReturnType<typeof loadApplicants>>;
     const pageCount = pagination.pageCount;
 
@@ -106,10 +108,10 @@ const ListViewPage = () => {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-2xl font-semibold tracking-tight">
-                        Applicants
+                        {t('list.title')}
                     </h1>
                     <p className="text-sm text-muted-foreground">
-                        Manage job applicants.
+                        {t('list.subtitle')}
                     </p>
                 </div>
     
@@ -118,7 +120,7 @@ const ListViewPage = () => {
                     className={buttonVariants()}
                 >
                     <Plus className="size-4" />
-                    New Applicant
+                    {t('actions.newApplicant')}
                 </Link>
             </div>
     

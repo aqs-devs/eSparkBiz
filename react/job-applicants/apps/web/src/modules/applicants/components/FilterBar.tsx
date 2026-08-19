@@ -5,6 +5,8 @@ import { Button } from "@job-applicants/ui/components/button";
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/style.css';
 import { filterableBasicInfoFields } from '@job-applicants/shared'
+import { useTranslation } from 'react-i18next';
+import { formatDate } from '#src/i18n/formatters.ts';
 
 type FilterBarProps = {
     activeFilters: ActiveFilters;
@@ -37,6 +39,8 @@ export function FilterBar({
     const popoverRef = useRef<HTMLDivElement>(null);
     const pendingChipRef = useRef<HTMLDivElement>(null);
     const [pendingDateRange, setPendingDateRange] = useState<{ from?: Date; to?: Date }>({});
+    const { t } = useTranslation('common');
+    const { t: tBasicInfo } = useTranslation('basicInfo');
 
     useEffect(() => {
         function handleClick(e: MouseEvent) {
@@ -78,9 +82,18 @@ export function FilterBar({
         return isNaN(parsed.getTime()) ? undefined : parsed;
     }
     
+    // function formatDisplayDate(date: Date | undefined): string {
+    //     if (!date) return '';
+    //     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    // }
     function formatDisplayDate(date: Date | undefined): string {
         if (!date) return '';
-        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    
+        return formatDate(date, {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+        });
     }
 
     return (
@@ -88,16 +101,29 @@ export function FilterBar({
 
             {/* Applied chips */}
             {appliedColumns.map((col) => {
-                const config = filterableBasicInfoFields.find((c) => c.key === col)!;
+                const columnLabel = tBasicInfo(`fields.${col}`);
                 const value = activeFilters[col]!;
 
                 let label: string;
                 if (Array.isArray(value)) {
-                    label = `${config.label}: ${value.join(', ')}`;
+                    label = `${columnLabel}: ${value.join(', ')}`;
                 } else {
-                    const from = value.from ? new Date(value.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : null;
-                    const to = value.to ? new Date(value.to).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : null;
-                    label = `${config.label}: ${from ?? ''}${from && to ? ' → ' : ''}${to ?? ''}`;
+                    const from = value.from
+                    ? formatDate(value.from, {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                      })
+                    : null;
+                
+                const to = value.to
+                    ? formatDate(value.to, {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                      })
+                    : null;
+                    label = `${columnLabel}: ${from ?? ''}${from && to ? ' → ' : ''}${to ?? ''}`;
                 }
 
                 return (
@@ -113,10 +139,11 @@ export function FilterBar({
             {/* Pending chip */}
             {pendingColumn && (() => {
                 const config = filterableBasicInfoFields.find((c) => c.key === pendingColumn)!;
+                const columnLabel = tBasicInfo(`fields.${pendingColumn}`);
                 return (
                     <div ref={pendingChipRef} className="relative">
                         <div className="flex items-center gap-1 rounded-full border border-blue-400 bg-white px-3 py-1 text-sm text-blue-800">
-                            <span className="font-medium">{config.label}</span>
+                            <span className="font-medium">{columnLabel}</span>
                             <X onClick={onClearPending} className="h-3 w-3 cursor-pointer opacity-50 hover:opacity-100" />
                         </div>
 
@@ -128,7 +155,7 @@ export function FilterBar({
                                         <div className="flex items-center gap-1 border rounded px-2 py-1 text-sm flex-1">
                                             <input
                                                 className="outline-none w-full"
-                                                placeholder="Start date"
+                                                placeholder={t('filters.startDate')}
                                                 value={formatDisplayDate(pendingDateRange.from)}
                                                 onChange={(e) => {
                                                     const parsed = parseInputDate(e.target.value);
@@ -144,7 +171,7 @@ export function FilterBar({
                                         <div className="flex items-center gap-1 border rounded px-2 py-1 text-sm flex-1">
                                             <input
                                                 className="outline-none w-full"
-                                                placeholder="End date"
+                                                placeholder={t('filters.endDate')}
                                                 value={formatDisplayDate(pendingDateRange.to)}
                                                 onChange={(e) => {
                                                     const parsed = parseInputDate(e.target.value);
@@ -169,7 +196,7 @@ export function FilterBar({
 
                                     <div className="flex justify-end gap-2 border-t pt-2 mt-1">
                                         <button onClick={onClearPending} className="text-xs text-gray-400 hover:text-gray-600">
-                                            Cancel
+                                            {t('actions.cancel')}
                                         </button>
                                         <button
                                             onClick={() => {
@@ -185,14 +212,14 @@ export function FilterBar({
                                             disabled={!pendingDateRange.from && !pendingDateRange.to}
                                             className="text-xs text-blue-600 hover:text-blue-800 disabled:opacity-40"
                                         >
-                                            Apply
+                                            {t('actions.apply')}
                                         </button>
                                     </div>
                                 </div>
                             ) : (
                                 <>
                                     {loadingFilters ? (
-                                        <p className="px-3 py-2 text-sm text-gray-400 italic">Loading...</p>
+                                        <p className="px-3 py-2 text-sm text-gray-400 italic">{t('status.loading')}</p>
                                     ) : (
                                         <>
                                             <div className="max-h-48 overflow-y-auto">
@@ -209,7 +236,7 @@ export function FilterBar({
                                                 ))}
                                             </div>
                                             <div className="flex justify-end gap-2 border-t px-3 py-2">
-                                                <button onClick={onClearPending} className="text-xs text-gray-400 hover:text-gray-600">Cancel</button>
+                                                <button onClick={onClearPending} className="text-xs text-gray-400 hover:text-gray-600">{t('actions.cancel')}</button>
                                                 <button
                                                     onClick={() => {
                                                         if (pendingValues.length > 0) onApplyFilter(pendingColumn, pendingValues);
@@ -217,7 +244,7 @@ export function FilterBar({
                                                     disabled={pendingValues.length === 0}
                                                     className="text-xs text-blue-600 hover:text-blue-800 disabled:opacity-40"
                                                 >
-                                                    Apply
+                                                    {t('actions.apply')}
                                                 </button>
                                             </div>
                                         </>
@@ -237,13 +264,13 @@ export function FilterBar({
                     onClick={() => setIsColumnPickerOpen((prev) => !prev)}
                 >
                     <Plus className="h-4 w-4" />
-                    Add Filter
+                    {t('actions.addFilter')}
                 </Button>
 
                 {isColumnPickerOpen && (
                     <div className="absolute left-0 top-full z-50 mt-1 w-48 rounded-md border bg-white shadow-lg">
                         {remainingColumns.length === 0 ? (
-                            <p className="px-3 py-2 text-sm text-gray-400">No more filters</p>
+                            <p className="px-3 py-2 text-sm text-gray-400">{t('filters.noMoreFilters')}</p>
                         ) : (
                             remainingColumns.map((col) => (
                                 <button
@@ -254,7 +281,7 @@ export function FilterBar({
                                         onSelectColumn(col.key);
                                     }}
                                 >
-                                    {col.label}
+                                    {tBasicInfo(`fields.${col.key}`)}
                                 </button>
                             ))
                         )}
@@ -267,7 +294,7 @@ export function FilterBar({
                 onClick={onReset}
                 className="ms-auto text-sm text-gray-400 hover:text-red-500 transition-colors"
             >
-                Reset
+                {t('actions.reset')}
             </button>
 
         </div>

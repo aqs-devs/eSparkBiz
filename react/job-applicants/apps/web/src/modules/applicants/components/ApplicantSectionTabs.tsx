@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 import { applicantSections } from '@job-applicants/shared';
 
@@ -9,6 +10,8 @@ type ApplicantSectionTabsProps = {
 export function ApplicantSectionTabs({
     applicantId,
 }: ApplicantSectionTabsProps) {
+    const { t } = useTranslation('common');
+
     return (
         <nav className="border-b">
             <ul className="flex gap-6">
@@ -25,7 +28,7 @@ export function ApplicantSectionTabs({
                                 ].join(' ')
                             }
                         >
-                            {section.label}
+                            {t(`sections.${section.key}`)}
                         </NavLink>
                     </li>
                 ))}

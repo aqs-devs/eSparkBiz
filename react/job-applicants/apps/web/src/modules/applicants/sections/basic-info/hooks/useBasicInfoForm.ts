@@ -8,6 +8,7 @@
 
 
 import { useForm } from '@tanstack/react-form';
+import { useTranslation } from 'react-i18next';
 import { createApplicant, updateApplicant } from '@job-applicants/api-client';
 import {
     CreateBasicInfoSchema,
@@ -26,6 +27,7 @@ type UseBasicInfoFormOptions = {
 export function useBasicInfoForm(
     options: UseBasicInfoFormOptions = {},
 ) {
+    const { t } = useTranslation('basicInfo');
     const {
         defaultValues = EMPTY_BASIC_INFO,
         mode = 'create',
@@ -51,9 +53,9 @@ export function useBasicInfoForm(
                     form.reset(data);
 
                     onSuccess?.();
-                    toast.success('Applicant created successfully.');
+                    toast.success(t('messages.created'));
                 } catch {
-                    toast.error('Failed to create applicant.');
+                    toast.error(t('errors.createFailed'));
                 }
 
                 return;
@@ -71,9 +73,9 @@ export function useBasicInfoForm(
                 form.reset(data);
 
                 onSuccess?.();
-                toast.success('Applicant updated successfully.');
+                toast.success(t('messages.updated'));
             } catch {
-                toast.error('Failed to update applicant.');
+                toast.error(t('errors.updateFailed'));
             }
         },
     });

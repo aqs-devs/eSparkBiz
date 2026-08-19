@@ -1,8 +1,14 @@
 import type { RouteObject } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { ListViewPage } from './pages/ListViewPage';
 import { DetailViewPage } from './pages/DetailViewPage';
 import { LoadingApplicants } from '../basic-info/LoadingApplicants';
 import { ApplicantsError } from '../basic-info/ApplicantsError';
+
+function EditEducationPlaceholder() {
+  const { t } = useTranslation('basicInfo');
+  return <div className="text-muted">{t('education.editPlaceholder')}</div>;
+}
 
 const list = [
   {
@@ -25,7 +31,7 @@ const detail = [
 const edit = [
   {
     path: 'education',
-    element: <div className="text-muted">Edit education details placeholder</div>,
+    element: <EditEducationPlaceholder />,
     errorElement: <ApplicantsError />,
     hydrateFallbackElement: <LoadingApplicants />,
   },

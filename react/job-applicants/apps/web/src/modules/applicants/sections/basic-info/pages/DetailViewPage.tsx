@@ -84,45 +84,15 @@ import { formatFieldValue } from '../lib/formatFieldValue';
 import { ApplicantHeader } from '#src/modules/applicants/components/ApplicantHeader.tsx';
 import { ApplicantSectionTabs } from '#src/modules/applicants/components/ApplicantSectionTabs.tsx';
 import { ApplicantToolbar } from '#src/modules/applicants/components/ApplicantToolbar.tsx';
+import { useTranslation } from 'react-i18next';
 
 export function DetailViewPage() {
+    const { t } = useTranslation('basicInfo');
     const { applicant } = useLoaderData() as Awaited<
         ReturnType<typeof loadApplicant>
     >;
 
     return (
-        // <section className="mx-auto flex max-w-5xl flex-col gap-6">
-        //     <ApplicantToolbar applicantId={applicant.id} />
-
-        //     <ApplicantHeader applicant={applicant} />
-
-        //     <ApplicantSectionTabs applicantId={applicant.id} />
-
-        //     {detailBasicInfoSections.map((section) => (
-        //         <Card key={section.key}>
-        //             <CardHeader>
-        //                 <CardTitle>{section.title}</CardTitle>
-        //             </CardHeader>
-
-        //             <CardContent className="grid gap-6 md:grid-cols-2">
-        //                 {detailBasicInfoFields
-        //                     .filter((field) => field.section === section.key)
-        //                     .map((field) => (
-        //                         <Field key={field.key} orientation="vertical">
-        //                             <FieldLabel>{field.label}</FieldLabel>
-
-        //                             <FieldContent>
-        //                                 {formatFieldValue(
-        //                                     field,
-        //                                     applicant[field.key],
-        //                                 )}
-        //                             </FieldContent>
-        //                         </Field>
-        //                     ))}
-        //             </CardContent>
-        //         </Card>
-        //     ))}
-        // </section>
         <section className="mx-auto flex max-w-5xl flex-col gap-6">
             <ApplicantToolbar applicantId={applicant.id} />
 
@@ -135,7 +105,7 @@ export function DetailViewPage() {
                     <Card key={section.key}>
                         <CardHeader>
                             <CardTitle className="text-lg">
-                                {section.title}
+                                {t(`detailSections.${section.key}`)}
                             </CardTitle>
                         </CardHeader>
 
@@ -150,14 +120,14 @@ export function DetailViewPage() {
                                         orientation="vertical"
                                     >
                                         <FieldLabel className="text-xs uppercase tracking-wide text-muted-foreground">
-                                            {field.label}
+                                            {t(`fields.${field.key}`)}
                                         </FieldLabel>
 
                                         <FieldContent className="mt-1 font-medium">
-                                            {formatFieldValue(
+                                            {t(`options.${field.key}.${applicant[field.key]}`, { defaultValue: formatFieldValue(
                                                 field,
                                                 applicant[field.key],
-                                            )}
+                                            ) })}
                                         </FieldContent>
                                     </Field>
                                 ))}

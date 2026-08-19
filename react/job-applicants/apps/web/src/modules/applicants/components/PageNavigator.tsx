@@ -1,4 +1,5 @@
 import { Link, useSearchParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { buttonVariants } from '@job-applicants/ui/components/button';
 import { buildApplicantsQueryParams } from '../lib/applicantsQueryParamBuilder';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -9,6 +10,7 @@ type PageNavigationProps = {
 };
 
 const PageNavigation = ({ pageCount }: PageNavigationProps) => {
+    const { t } = useTranslation('common');
     const [searchParams, setSearchParams] = useSearchParams();
     const page = Number(searchParams.get('page')) || 1;
     const pageSize = Number(searchParams.get('pageSize')) || 10;
@@ -40,14 +42,14 @@ const PageNavigation = ({ pageCount }: PageNavigationProps) => {
                             });
                         }}
                     >
-                        <option value="10">Show 10</option>
-                        <option value="25">Show 25</option>
-                        <option value="50">Show 50</option>
-                        <option value="100">Show 100</option>
+                        <option value="10">{t('pagination.show', { count: 10 })}</option>
+                        <option value="25">{t('pagination.show', { count: 25 })}</option>
+                        <option value="50">{t('pagination.show', { count: 50 })}</option>
+                        <option value="100">{t('pagination.show', { count: 100 })}</option>
                     </select>
                 </div>
                 <div>
-                    Page {page} of {pageCount}
+                    {t('pagination.pageOf', { page, pageCount })}
                 </div>
 
                 <div className="flex items-center space-x-2">
@@ -55,6 +57,7 @@ const PageNavigation = ({ pageCount }: PageNavigationProps) => {
                         to={buildApplicantsQueryParams(searchParams, {
                             page: page - 1,
                         })}
+                        aria-label={t('pagination.previous')}
                         aria-disabled={page <= 1}
                         className={cn(
                             buttonVariants({
@@ -71,6 +74,7 @@ const PageNavigation = ({ pageCount }: PageNavigationProps) => {
                         to={buildApplicantsQueryParams(searchParams, {
                             page: page + 1,
                         })}
+                        aria-label={t('pagination.next')}
                         aria-disabled={page >= pageCount}
                         className={cn(
                             buttonVariants({

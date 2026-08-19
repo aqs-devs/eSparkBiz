@@ -1,0 +1,10 @@
+{
+    "users": {
+        "title": "Users",
+        "description": "This is a users module placeholder. Add user management views here later."
+    },
+    "profile": {
+        "title": "User Profile",
+        "details": "Profile details for user ID: {{id}}"
+    }
+}

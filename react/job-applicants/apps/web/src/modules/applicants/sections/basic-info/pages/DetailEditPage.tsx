@@ -19,7 +19,7 @@ export function DetailEditPage() {
     return (
         <ApplicantFormPage
             form={form}
-            submitLabel="Save Changes"
+            mode="edit"
             cancelTo={RouteBuilder.applicants.basicInfo.list()}
         />
     );

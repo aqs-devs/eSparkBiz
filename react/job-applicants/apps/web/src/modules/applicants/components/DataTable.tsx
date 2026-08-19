@@ -24,6 +24,7 @@ import {
 } from '@job-applicants/ui/components/table';
 
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { BasicInfoFilterColumn } from '@job-applicants/shared';
 
 interface DataTableProps<TData, TValue> {
@@ -45,6 +46,7 @@ export function DataTable<TData, TValue>({
     revalidate,
 
 }: DataTableProps<TData, TValue>) {
+    const { t } = useTranslation('common');
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
     const table = useReactTable({
@@ -127,7 +129,7 @@ export function DataTable<TData, TValue>({
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    No results.
+                                    {t('table.noResults')}
                                 </TableCell>
                             </TableRow>
                         )}

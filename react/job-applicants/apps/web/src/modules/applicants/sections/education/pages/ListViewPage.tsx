@@ -1,8 +1,12 @@
+import { useTranslation } from 'react-i18next';
+
 const ListViewPage = () => {
+  const { t } = useTranslation('basicInfo');
+
   return (
     <section className="space-y-4">
-      <h1 className="text-2xl font-semibold">Applicant Education</h1>
-      <p className="text-sm text-muted-foreground">This section is a placeholder for education-specific applicant data.</p>
+      <h1 className="text-2xl font-semibold">{t('education.listTitle')}</h1>
+      <p className="text-sm text-muted-foreground">{t('education.listDescription')}</p>
     </section>
   );
 };

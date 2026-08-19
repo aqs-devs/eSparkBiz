@@ -17,22 +17,18 @@ import { RouteBuilder } from "./routes";
 export const applicantSections = [
     {
         key: 'basicInfo',
-        label: 'Basic Info',
         to: (id: number) => RouteBuilder.applicants.basicInfo.detail(id),
     },
     {
         key: 'education',
-        label: 'Education',
         to: (id: number) => RouteBuilder.applicants.education.detail(id),
     },
     {
         key: 'experience',
-        label: 'Experience',
         to: (id: number) => RouteBuilder.applicants.experience.detail(id),
     },
     {
         key: 'technologies',
-        label: 'Technologies',
         to: (id: number) => RouteBuilder.applicants.technologies.detail(id),
     },
 ] as const;

@@ -19,6 +19,8 @@ import {
     formatDateForInput,
     parseDate
 } from '@job-applicants/shared'
+import { formatDate } from '#src/i18n/formatters.ts';
+import { useTranslation } from 'react-i18next';
 
 type DateFieldOptions = {
     fieldDefinition: DateFieldDefinition;
@@ -33,6 +35,7 @@ export function DateField({ fieldDefinition, field }: DateFieldOptions) {
     const { min, max } = fieldDefinition.fieldProps ?? {};
 
     // console.log(fieldDefinition.fieldProps?.max);
+    const { t } = useTranslation('common');
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
@@ -45,7 +48,9 @@ export function DateField({ fieldDefinition, field }: DateFieldOptions) {
                         !value && 'text-muted-foreground',
                     )}
                 >
-                    {value ? value.toLocaleDateString() : 'Select date'}
+                    {value
+                        ? formatDate(value)
+                        : t('actions.selectDate')}                    
 
                     <CalendarIcon className="h-4 w-4 opacity-50" />
                 </Button>

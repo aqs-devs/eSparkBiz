@@ -1,6 +1,7 @@
 {
     "actions": {
         "back": "Back",
+        "backToApplicants": "Back to applicants",
         "cancel": "Cancel",
         "create": "Create",
         "save": "Save",
@@ -10,7 +11,14 @@
         "undo": "Undo",
         "close": "Close",
         "retry": "Retry",
-        "selectDate": "Select date"
+        "selectDate": "Select date",
+        "apply": "Apply",
+        "reset": "Reset",
+        "addFilter": "Add Filter",
+        "stay": "Stay",
+        "leave": "Leave",
+        "view": "View",
+        "select": "Select..."
     },
 
     "sections": {
@@ -34,8 +42,33 @@
         }
     },
 
+    "table": {
+        "noResults": "No results.",
+        "actions": "Actions"
+    },
+
+    "pagination": {
+        "show": "Show {{count}}",
+        "pageOf": "Page {{page}} of {{pageCount}}",
+        "previous": "Previous page",
+        "next": "Next page"
+    },
+
+    "phoneInput": {
+        "searchCountry": "Search country...",
+        "noCountryFound": "No country found."
+    },
+
     "errors": {
         "generic": "Something went wrong.",
-        "tryAgain": "Something went wrong. Please try again."
+        "tryAgain": "Something went wrong. Please try again.",
+        "applicationError": "Application error",
+        "unknown": "Unknown error occurred."
+    },
+
+    "filters": {
+        "startDate": "Start date",
+        "endDate": "End date",
+        "noMoreFilters": "No more filters"
     }
 }

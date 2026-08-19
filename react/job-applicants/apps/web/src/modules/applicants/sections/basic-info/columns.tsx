@@ -1,10 +1,12 @@
 import type {CellContext, ColumnDef, HeaderContext, RowData,} from '@tanstack/react-table';
 import { ArrowUpDown, ListFilter } from 'lucide-react';
 import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { Button, buttonVariants } from '@job-applicants/ui/components/button';
 import { tableBasicInfoFields, type FilterableBasicInfoField, type Formatter, type TableBasicInfoField } from '@job-applicants/shared';
 import type { BasicInfo } from '@job-applicants/schemas';
 import { DeleteApplicantAction } from '../../components/DeleteApplicantAction';
+import { formatDate } from '#src/i18n/formatters.ts';
 
 declare module '@tanstack/react-table' {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -25,11 +27,13 @@ function createColumn(field: TableBasicInfoField): ColumnDef<BasicInfo> {
     };
 }
 
-function createHeader(field: TableBasicInfoField,): ColumnDef<BasicInfo>['header'] {
-    return ({ table, column }: HeaderContext<BasicInfo, unknown>) => {
-        // console.log("rendering header", field.key);
-        return(
-                <div className="flex items-center gap-2">
+function createHeader(field: TableBasicInfoField): ColumnDef<BasicInfo>['header'] {
+    return function Header({ table, column }: HeaderContext<BasicInfo, unknown>) {
+        const { t } = useTranslation('basicInfo');
+        const label = t(`fields.${field.key}`);
+
+        return (
+            <div className="flex items-center gap-2">
                 {field.sortable ? (
                     <Button
                         variant="ghost"
@@ -37,11 +41,11 @@ function createHeader(field: TableBasicInfoField,): ColumnDef<BasicInfo>['header
                             column.toggleSorting(column.getIsSorted() === "asc")
                         }
                     >
-                        <span>{field.label}</span>
+                        <span>{label}</span>
                         <ArrowUpDown className="h-4 w-4" />
                     </Button>
                 ) : (
-                    <span>{field.label}</span>
+                    <span>{label}</span>
                 )}
 
                 {field.filter && (
@@ -53,8 +57,9 @@ function createHeader(field: TableBasicInfoField,): ColumnDef<BasicInfo>['header
                         <ListFilter />
                     </Button>
                 )}
-                </div>
-    )};
+            </div>
+        );
+    };
 }
 
 function createCellFormatter(formatter: Formatter) {
@@ -65,9 +70,14 @@ function createCellFormatter(formatter: Formatter) {
 
                 if (!value) return '—';
 
-                return new Date(value).toLocaleDateString('en-US', {
+                // return new Date(value).toLocaleDateString('en-US', {
+                //     day: 'numeric',
+                //     month: 'long',
+                //     year: 'numeric',
+                // });
+                return formatDate(value, {
+                    month: 'short',
                     day: 'numeric',
-                    month: 'long',
                     year: 'numeric',
                 });
             };
@@ -79,12 +89,15 @@ function createCellFormatter(formatter: Formatter) {
 
 const dataColumns = tableBasicInfoFields.map(createColumn);
 
-const actionsColumn: ColumnDef<BasicInfo> = {
-    id: 'actions',
-    header: 'Actions',
-    enableSorting: false,
-    enableHiding: false,
-    cell: ({ row, table }) => (
+function ActionsHeader() {
+    const { t } = useTranslation('common');
+    return <span>{t('table.actions')}</span>;
+}
+
+function ActionsCell({ row, table }: CellContext<BasicInfo, unknown>) {
+    const { t } = useTranslation('common');
+
+    return (
         <div className="flex items-center gap-2">
             <Link
                 to={`/applicants/${row.original.id}/basic-info`}
@@ -93,7 +106,7 @@ const actionsColumn: ColumnDef<BasicInfo> = {
                     size: 'sm',
                 })}
             >
-                View
+                {t('actions.view')}
             </Link>
     
             <DeleteApplicantAction
@@ -102,7 +115,15 @@ const actionsColumn: ColumnDef<BasicInfo> = {
                 onRestored={() => table.options.meta?.revalidate()}
             />
         </div>
-    ),
+    );
+}
+
+const actionsColumn: ColumnDef<BasicInfo> = {
+    id: 'actions',
+    header: ActionsHeader,
+    enableSorting: false,
+    enableHiding: false,
+    cell: ActionsCell,
 };
 
 export const columns: ColumnDef<BasicInfo>[] = [...dataColumns, actionsColumn];

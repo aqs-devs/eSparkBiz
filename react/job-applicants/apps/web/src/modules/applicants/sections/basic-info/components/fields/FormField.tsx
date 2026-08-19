@@ -1,4 +1,5 @@
 import { Field, FieldError, FieldLabel } from '@job-applicants/ui/components/field';
+import { useTranslation } from 'react-i18next';
 
 import type { FormBasicInfoField, Option } from '@job-applicants/shared';
 import type { AnyFieldApi } from '@tanstack/react-form';
@@ -16,13 +17,14 @@ export function FormField({
     field,
     options = [],
 }: FormFieldProps) {
+    const { t } = useTranslation('basicInfo');
     const isInvalid =
         field.state.meta.isTouched && !field.state.meta.isValid;
 
     return (
         <Field data-invalid={isInvalid}>
             <FieldLabel htmlFor={fieldDefinition.key}>
-                {fieldDefinition.label}
+                {t(`fields.${fieldDefinition.key}`)}
             </FieldLabel>
 
             {renderFieldComponent(
