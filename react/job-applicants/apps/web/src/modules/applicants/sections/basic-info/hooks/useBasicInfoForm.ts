@@ -39,8 +39,24 @@ export function useBasicInfoForm(
         defaultValues,
 
         validators: {
-            onChange: CreateBasicInfoSchema,
-            onSubmit: CreateBasicInfoSchema,
+            onChange: ({ value }) => {
+                const result = CreateBasicInfoSchema.safeParse(value);
+
+                if (!result.success) {
+                    return result.error.flatten().fieldErrors;
+                }
+
+                return undefined;
+            },
+            onSubmit: ({ value }) => {
+                const result = CreateBasicInfoSchema.safeParse(value);
+
+                if (!result.success) {
+                    return result.error.flatten().fieldErrors;
+                }
+
+                return undefined;
+            },
         },
 
         onSubmit: async ({ value }) => {

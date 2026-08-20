@@ -1,4 +1,5 @@
 import { useParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 export function ProfilePage() {
   const { id } = useParams();

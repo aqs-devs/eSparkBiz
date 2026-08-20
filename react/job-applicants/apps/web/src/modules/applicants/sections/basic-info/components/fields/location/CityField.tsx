@@ -25,8 +25,8 @@ export function CityField({ form }: Props) {
                             field={field}
                             // form={form}
                             options={getCityOptions(
-                                countryCode,
-                                stateCode,
+                                countryCode ?? '',
+                                stateCode ?? '',
                             )}
                         />
                     )}

@@ -1,0 +1,85 @@
+{
+  "section": {
+    "title": "المعلومات الأساسية"
+  },
+  "form": {
+    "createTitle": "إنشاء متقدم",
+    "editTitle": "تعديل المتقدم",
+    "createButton": "إنشاء متقدم",
+    "saveButton": "حفظ التغييرات"
+  },
+  "fields": {
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "designation": "المنصب",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "country": "الدولة",
+    "state": "الولاية",
+    "city": "المدينة",
+    "gender": "الجنس",
+    "zipCode": "الرمز البريدي",
+    "relationshipStatus": "الحالة الاجتماعية",
+    "dob": "تاريخ الميلاد",
+    "createdAt": "تاريخ الإنشاء",
+    "id": "المعرّف"
+  },
+  "options": {
+    "gender": {
+      "male": "ذكر",
+      "female": "أنثى",
+      "other": "أخرى"
+    },
+    "relationshipStatus": {
+      "single": "أعزب/عزباء",
+      "committed": "مخطوب/مخطوبة"
+    }
+  },
+  "detailSections": {
+    "personal": "المعلومات الشخصية",
+    "contact": "معلومات الاتصال",
+    "address": "العنوان",
+    "system": "معلومات النظام"
+  },
+  "list": {
+    "title": "المتقدمون",
+    "subtitle": "إدارة المتقدمين للوظائف."
+  },
+  "actions": {
+    "newApplicant": "متقدم جديد",
+    "deleteApplicant": "حذف المتقدم"
+  },
+  "messages": {
+    "created": "تم إنشاء المتقدم بنجاح.",
+    "updated": "تم تحديث المتقدم بنجاح.",
+    "deleted": "تم حذف المتقدم.",
+    "restored": "تم استعادة المتقدم."
+  },
+  "errors": {
+    "createFailed": "تعذّر إنشاء المتقدم.",
+    "updateFailed": "تعذّر تحديث المتقدم.",
+    "deleteFailed": "تعذّر حذف المتقدم.",
+    "restoreFailed": "تعذّر استعادة المتقدم."
+  },
+  "education": {
+    "detailTitle": "تفاصيل التعليم",
+    "detailDescription": "ستظهر تفاصيل سجل تعليم المتقدم هنا.",
+    "listTitle": "تعليم المتقدم",
+    "listDescription": "هذا القسم عنصر نائب لبيانات التعليم الخاصة بالمتقدم.",
+    "editPlaceholder": "تعديل عنصر نائب لتفاصيل التعليم"
+  },
+  "experience": {
+    "detailTitle": "تفاصيل الخبرة",
+    "detailDescription": "يعرض هذا العنصر النائب تفاصيل خبرة المتقدم.",
+    "listTitle": "خبرة المتقدم",
+    "listDescription": "هذا القسم عنصر نائب لبيانات خبرة المتقدم.",
+    "editPlaceholder": "تعديل عنصر نائب لتفاصيل الخبرة"
+  },
+  "technologies": {
+    "detailTitle": "تفاصيل التقنية",
+    "detailDescription": "يعرض هذا العنصر النائب تفاصيل ملف المتقدم التقني.",
+    "listTitle": "تقنيات المتقدم",
+    "listDescription": "هذا القسم عنصر نائب لمهارات وأدوات تقنيات المتقدم.",
+    "editPlaceholder": "تعديل عنصر نائب لتفاصيل التقنية"
+  }
+}

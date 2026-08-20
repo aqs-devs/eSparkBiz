@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router';
 import { useBasicInfoForm } from '../hooks/useBasicInfoForm';
 
 import { ApplicantFormPage } from './ApplicantFormPage';
-import { toast } from 'sonner';
 
 // export function CreatePage() {
 //     const form = useApplicantForm();
@@ -75,14 +74,8 @@ export function CreatePage() {
 
     const form = useBasicInfoForm({
         mode: 'create',
-        onSuccess: (applicantId) => {
-            if (applicantId === undefined) {
-                return;
-            }
-
-            navigate(
-                RouteBuilder.applicants.basicInfo.detail(applicantId),
-            );
+        onSuccess: () => {
+            navigate(RouteBuilder.applicants.basicInfo.list());
         },
     });
 

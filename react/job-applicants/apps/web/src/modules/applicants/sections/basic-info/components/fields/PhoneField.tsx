@@ -3,8 +3,10 @@ import { PhoneInput } from "./PhoneInput";
 
 export function PhoneField({
     field,
+    fieldDefinition: _fieldDefinition,
 }: {
     field: AnyFieldApi;
+    fieldDefinition?: unknown;
 }) {
     return (
         <PhoneInput

@@ -1,0 +1,68 @@
+{
+  "actions": {
+    "back": "رجوع",
+    "backToApplicants": "العودة إلى المتقدمين",
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "restore": "استعادة",
+    "undo": "تراجع",
+    "close": "إغلاق",
+    "retry": "إعادة المحاولة",
+    "selectDate": "اختر التاريخ",
+    "apply": "تطبيق",
+    "reset": "إعادة تعيين",
+    "addFilter": "إضافة فلتر",
+    "stay": "البقاء",
+    "leave": "مغادرة",
+    "view": "عرض",
+    "select": "اختر..."
+  },
+  "sections": {
+    "basicInfo": "المعلومات الأساسية",
+    "education": "التعليم",
+    "experience": "الخبرة",
+    "technologies": "التقنيات"
+  },
+  "language": "اللغة",
+  "selectLanguage": "اختر اللغة",
+  "status": {
+    "loading": "جارٍ التحميل...",
+    "saving": "جارٍ الحفظ...",
+    "deleting": "جارٍ الحذف...",
+    "creating": "جارٍ الإنشاء..."
+  },
+  "messages": {
+    "unsavedChanges": {
+      "title": "لديك تغييرات غير محفوظة",
+      "description": "إذا غادرت هذه الصفحة، ستفقد التغييرات."
+    }
+  },
+  "table": {
+    "noResults": "لا توجد نتائج.",
+    "actions": "الإجراءات"
+  },
+  "pagination": {
+    "show": "عرض {{count}}",
+    "pageOf": "الصفحة {{page}} من {{pageCount}}",
+    "previous": "الصفحة السابقة",
+    "next": "الصفحة التالية"
+  },
+  "phoneInput": {
+    "searchCountry": "البحث عن البلد...",
+    "noCountryFound": "لم يتم العثور على بلد."
+  },
+  "errors": {
+    "generic": "حدث خطأ ما.",
+    "tryAgain": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "applicationError": "خطأ في التطبيق",
+    "unknown": "حدث خطأ غير معروف."
+  },
+  "filters": {
+    "startDate": "تاريخ البداية",
+    "endDate": "تاريخ النهاية",
+    "noMoreFilters": "لا توجد فلاتر أخرى"
+  }
+}

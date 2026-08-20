@@ -6,7 +6,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(() => {
   const apiTarget = process.env.VITE_API_TARGET || 'http://localhost:3000';
 
   return {

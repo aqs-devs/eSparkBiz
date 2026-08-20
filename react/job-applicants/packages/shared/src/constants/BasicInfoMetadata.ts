@@ -7,7 +7,7 @@
 //     { key: 'dob',                 label: 'Date of Birth',       type: 'daterange',  paramKeys: ['dob_from', 'dob_to'] },
 // ] as const;
 import { z } from "zod";
-import type { BasicInfo, BasicInfoFilterOptionsSchema, CreateBasicInfo } from '@job-applicants/schemas';
+import type { BasicInfo, BasicInfoFilterOptionsSchema } from '@job-applicants/schemas';
 import type { BasicInfoFieldDefinition } from '../types/fieldDefinition';
 import { today } from '../date';
 
@@ -534,27 +534,20 @@ export type ActiveFilterValue = string[] | DateRangeValue;
 export type ActiveFilters = Partial<Record<BasicInfoFilterColumn, ActiveFilterValue>>;
 
 
-const x = formBasicInfoFields;
-type X = typeof formBasicInfoFields[number];
-
-
 // type FormKey = keyof CreateBasicInfo;
 // type FormBasicInfoField = typeof formBasicInfoFields[number];
 // type FormKey = FormBasicInfoField["key"];
 type FormKey =
     Exclude<keyof BasicInfo, "id" | "createdAt" | "isDeleted">;
-type FormBasicInfoField = Extract<
+export type FormBasicInfoField = Extract<
     BasicInfoField,
     { key: FormKey }
 >;
 
+export type TableBasicInfoField = (typeof tableBasicInfoFields)[number];
+
 // type FilterableBasicInfoField = typeof filterableBasicInfoFields[number];
 // type FilterKey = FilterableBasicInfoField["key"];
-type FilterKey =
-    Extract<
-        BasicInfoField,
-        { filter: FilterConfig }
-    >["key"];
 export type FilterableBasicInfoField =
     Extract<
         BasicInfoField,

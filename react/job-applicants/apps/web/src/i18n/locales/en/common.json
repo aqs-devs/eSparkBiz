@@ -28,6 +28,8 @@
         "technologies": "Technologies"
     },
 
+    "language": "Language",
+    "selectLanguage": "Select language",
     "status": {
         "loading": "Loading...",
         "saving": "Saving...",

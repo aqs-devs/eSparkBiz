@@ -15,7 +15,6 @@
 import { oc } from "@orpc/contract";
 
 import {
-  IdSchema,
   BasicInfoSchema,
   CreateBasicInfoSchema,
   BasicInfoListQuerySchema,

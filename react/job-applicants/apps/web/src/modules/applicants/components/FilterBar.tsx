@@ -129,7 +129,7 @@ export function FilterBar({
                 return (
                     <div key={col} className="flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800 max-w-48">
                         <span className="truncate">{label}</span>
-                        <button onClick={() => onRemoveFilter(col)} className="ml-1 shrink-0 rounded-full hover:bg-blue-200 p-0.5">
+                        <button onClick={() => onRemoveFilter(col)} className="ms-1 shrink-0 rounded-full hover:bg-blue-200 p-0.5">
                             <X className="h-3 w-3" />
                         </button>
                     </div>
@@ -147,7 +147,7 @@ export function FilterBar({
                             <X onClick={onClearPending} className="h-3 w-3 cursor-pointer opacity-50 hover:opacity-100" />
                         </div>
 
-                        <div className="absolute left-0 top-full z-50 mt-1 rounded-md border bg-white shadow-lg">
+                        <div className="absolute start-0 top-full z-50 mt-1 rounded-md border bg-white shadow-lg">
                             {config.filter.type === 'daterange' ? (
                                 <div className="p-3 w-fit">
                                     {/* From / To text inputs */}
@@ -223,7 +223,7 @@ export function FilterBar({
                                     ) : (
                                         <>
                                             <div className="max-h-48 overflow-y-auto">
-                                                {(filterOptions?.[pendingColumn] ?? []).map((opt) => (
+                                                {((filterOptions?.[pendingColumn as keyof NonNullable<typeof filterOptions>] ?? []) as string[]).map((opt) => (
                                                     <label key={opt} className="flex items-center gap-2 px-3 py-1.5 hover:bg-gray-50 cursor-pointer text-sm">
                                                         <input
                                                             type="checkbox"
@@ -268,14 +268,14 @@ export function FilterBar({
                 </Button>
 
                 {isColumnPickerOpen && (
-                    <div className="absolute left-0 top-full z-50 mt-1 w-48 rounded-md border bg-white shadow-lg">
+                    <div className="absolute start-0 top-full z-50 mt-1 w-48 rounded-md border bg-white shadow-lg">
                         {remainingColumns.length === 0 ? (
                             <p className="px-3 py-2 text-sm text-gray-400">{t('filters.noMoreFilters')}</p>
                         ) : (
                             remainingColumns.map((col) => (
                                 <button
                                     key={col.key}
-                                    className="w-full px-3 py-2 text-left text-sm hover:bg-gray-100"
+                                    className="w-full px-3 py-2 text-start text-sm hover:bg-gray-100"
                                     onClick={() => {
                                         setIsColumnPickerOpen(false);
                                         onSelectColumn(col.key);

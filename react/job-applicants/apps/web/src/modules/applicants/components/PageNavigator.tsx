@@ -10,10 +10,13 @@ type PageNavigationProps = {
 };
 
 const PageNavigation = ({ pageCount }: PageNavigationProps) => {
-    const { t } = useTranslation('common');
+    const { t, i18n } = useTranslation('common');
     const [searchParams, setSearchParams] = useSearchParams();
     const page = Number(searchParams.get('page')) || 1;
     const pageSize = Number(searchParams.get('pageSize')) || 10;
+    // Use the i18n state rather than reading the DOM so the component is driven
+    // by the application's locale state and is reactive to language changes.
+    const isRTL = i18n.dir() === 'rtl';
 
     return (
         <>
@@ -52,7 +55,7 @@ const PageNavigation = ({ pageCount }: PageNavigationProps) => {
                     {t('pagination.pageOf', { page, pageCount })}
                 </div>
 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-2">
                     <Link
                         to={buildApplicantsQueryParams(searchParams, {
                             page: page - 1,
@@ -67,7 +70,7 @@ const PageNavigation = ({ pageCount }: PageNavigationProps) => {
                             page <= 1 && 'pointer-events-none opacity-50',
                         )}
                     >
-                        <ChevronLeft />
+                        {isRTL ? <ChevronRight /> : <ChevronLeft />}
                     </Link>
 
                     <Link
@@ -85,7 +88,7 @@ const PageNavigation = ({ pageCount }: PageNavigationProps) => {
                                 'pointer-events-none opacity-50',
                         )}
                     >
-                        <ChevronRight />
+                        {isRTL ? <ChevronLeft /> : <ChevronRight />}
                     </Link>
                 </div>
             </div>

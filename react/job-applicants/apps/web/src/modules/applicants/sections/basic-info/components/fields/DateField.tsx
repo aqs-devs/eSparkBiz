@@ -44,7 +44,7 @@ export function DateField({ fieldDefinition, field }: DateFieldOptions) {
                     type="button"
                     variant="outline"
                     className={cn(
-                        'w-full justify-between text-left font-normal',
+                        'w-full justify-between text-start font-normal',
                         !value && 'text-muted-foreground',
                     )}
                 >
@@ -61,9 +61,14 @@ export function DateField({ fieldDefinition, field }: DateFieldOptions) {
                     mode="single"
                     captionLayout="dropdown"
                     selected={value}
-                    disabled={{
-                        before: parseDate(min),
-                        after: parseDate(max),
+                    disabled={(date) => {
+                        const minDate = min ? parseDate(min) : undefined;
+                        const maxDate = max ? parseDate(max) : undefined;
+
+                        if (minDate && date < minDate) return true;
+                        if (maxDate && date > maxDate) return true;
+
+                        return false;
                     }}
                     onSelect={(date) => {
                         field.handleChange(formatDateForInput(date));

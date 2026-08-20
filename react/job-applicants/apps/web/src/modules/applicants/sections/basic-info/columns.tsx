@@ -17,12 +17,14 @@ declare module '@tanstack/react-table' {
 }
 
 function createColumn(field: TableBasicInfoField): ColumnDef<BasicInfo> {
+    const formatter = 'formatter' in field ? field.formatter : undefined;
+
     return {
         accessorKey: field.key,
         header: createHeader(field),
 
-        ...(field.formatter && {
-            cell: createCellFormatter(field.formatter),
+        ...(formatter && {
+            cell: createCellFormatter(formatter),
         }),
     };
 }

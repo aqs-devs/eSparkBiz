@@ -21,7 +21,7 @@ export function StateField({ form }: Props) {
                             fieldDefinition={stateFieldDefinition}
                             field={field}
                             // form={form}
-                            options={getStateOptions(countryCode)}
+                            options={getStateOptions(countryCode ?? '')}
                         />
                     )}
                 </form.Field>

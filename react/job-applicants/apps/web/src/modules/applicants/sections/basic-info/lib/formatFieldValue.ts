@@ -35,8 +35,8 @@ export function formatFieldValue(
     }
 
     const options =
-        'fieldProps' in field && field.fieldProps && 'options' in field.fieldProps
-            ? field.fieldProps.options
+        'fieldProps' in field
+            ? (field.fieldProps as { options?: readonly { value: string; label?: string }[] } | undefined)?.options
             : undefined;
 
     if (options) {

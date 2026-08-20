@@ -4,7 +4,7 @@ import { Link, useBlocker } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
 import { BasicInfoForm } from '../components/BasicInfoForm';
-import { Button } from '@job-applicants/ui/components/button';
+import { Button, buttonVariants } from '@job-applicants/ui/components/button';
 import {
     Tabs,
     TabsContent,
@@ -99,15 +99,12 @@ export function ApplicantFormPage({
                 </Tabs>
 
                 <div className="mt-6 flex justify-end gap-2">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        asChild
+                    <Link
+                        to={cancelTo}
+                        className={buttonVariants({ variant: 'outline' })}
                     >
-                        <Link to={cancelTo}>
-                            {t('actions.cancel')}
-                        </Link>
-                    </Button>
+                        {t('actions.cancel')}
+                    </Link>
 
                     <form.Subscribe
                         selector={(state) => state.isSubmitting}
