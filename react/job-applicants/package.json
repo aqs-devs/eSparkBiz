@@ -11,6 +11,7 @@
     "@faker-js/faker": "^10.6.0",
     "concurrently": "^9.2.1",
     "dotenv-cli": "^11.0.0",
+    "fallow": "^3.17.0",
     "fishery": "^2.4.0",
     "typescript": "^6.0.3"
   },

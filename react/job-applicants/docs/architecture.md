@@ -174,3 +174,13 @@ mapper
      ▼
 API schema / DTO
 ```
+
+## `Docs/` and `.agents/skills/`
+
+Here's an example:
+
+- project-specific rules → docs/accessibility.md
+- agent-specific procedures/workflows → .agents/skills/accessibility/references/
+- general technical reference material → potentially references/
+
+> Docs explain the project's rules. Skills explain how an agent applies those rules.
