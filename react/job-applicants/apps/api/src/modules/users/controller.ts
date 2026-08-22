@@ -7,7 +7,7 @@ export async function list(req: Request, res: Response) {
 }
 
 export async function show(req: Request, res: Response) {
-  const id = Number(req.params.id);
+  const id = Number(req.params['id']);
   const user = await getUserByIdService(id);
   res.json(user);
 }

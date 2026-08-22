@@ -28,6 +28,10 @@ import { RadioField } from './RadioField';
 import { DateField } from './DateField';
 import { PhoneField } from './PhoneField';
 
+function assertNever(value: never): never {
+    throw new Error(`Unhandled field type: ${String(value)}`);
+}
+
 export function renderFieldComponent(
     fieldDefinition: FormBasicInfoField,
     field: AnyFieldApi,
@@ -60,6 +64,6 @@ export function renderFieldComponent(
                 <RadioField fieldDefinition={fieldDefinition} field={field} />
             );
         default:
-            return null;
+            return assertNever(fieldDefinition);
     }
 }

@@ -4,11 +4,9 @@
         "target": "ES2023",
         "module": "ESNext",
         "moduleResolution": "bundler",
-        "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
 
-        "allowJs": true,
         "noEmit": true,
 
         "types": ["node"],
@@ -18,12 +16,10 @@
     },
     "include": [
         "src",
-        "src/modules/basic-info/.validator.express-validator.js",
-        "src/modules/applicants/basic-info/.openapi.ts",
-        "src/modules/applicants/basic-info/.controller.ts",
-        "src/modules/applicants/basic-info/.router.ts",
-        "src/.orpc.ts",
-        "src/modules/applicants/basic-info/.procedure.ts",
+    ],
+    "exclude": ["node_modules"],
+    "$comments": [
+        "You're explicitly pulling individual files from packages/server-core into the API project's compilation. That means you effectively have package code being checked as part of another project's root set.",
         "../../packages/server-core/src/applicants/basic-info/service.ts",
         "../../packages/server-core/src/applicants/basic-info/repository.ts",
         "../../packages/server-core/src/applicants/basic-info/mapper.ts",
@@ -33,7 +29,6 @@
         "../../packages/server-core/src/db/db-types.ts",
         "../../packages/server-core/src/errors",
         "../../packages/schemas/dto-basicInfoQuery.ts",
-        "../../packages/schemas/src/applicants/schema.ts"
-, "src/.openapi.ts"    ],
-    "exclude": ["node_modules"]
+        "../../packages/schemas/src/applicants/schema.ts",
+    ]
 }

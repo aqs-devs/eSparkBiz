@@ -1,4 +1,19 @@
-function handleError(err, req, res, next) {
+import type { NextFunction, Request, Response } from "express";
+
+// Define custom error interface for typed error properties
+interface CustomError extends Error {
+  status?: number;
+  statusCode?: number;
+  code?: string;
+}
+
+function handleError(
+  err: CustomError,
+  req: Request,
+  res: Response,
+  // Express requires all 4 parameters to identify this as an error middleware
+  next: NextFunction 
+) {
     console.error(err);
 
     const status = err.status || 500;

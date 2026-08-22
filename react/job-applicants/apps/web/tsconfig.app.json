@@ -30,8 +30,6 @@
         "noUnusedParameters": true,
         "erasableSyntaxOnly": true,
         "noFallthroughCasesInSwitch": true,
-
-        "allowJs": true,
     },
 
     "include": ["src", "../../packages/ui/src/layout/ThemeToggle.tsx", "../../packages/api-client/src/basic-info.ts"]

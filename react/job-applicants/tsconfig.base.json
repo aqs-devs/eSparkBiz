@@ -1,4 +1,14 @@
 {
-  "$comment": "Temporary placeholder. Move shared compilerOptions here as the monorepo matures.",
-  "compilerOptions": {}
+  "$comment": "Shared TypeScript compiler policy for the monorepo.",
+  "compilerOptions": {
+      "strict": true,
+
+      "noUncheckedIndexedAccess": true,
+      "exactOptionalPropertyTypes": false,
+      "noImplicitReturns": true,
+      "noImplicitOverride": true,
+      "noPropertyAccessFromIndexSignature": true,
+      "noUncheckedSideEffectImports": true,
+      "forceConsistentCasingInFileNames": true
+  }
 }

@@ -1,4 +1,3 @@
-import Header from '@job-applicants/ui/layout/Header';
 import { Outlet } from 'react-router';
 
 const ApplicantsLayoutPage = () => {

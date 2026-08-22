@@ -4,7 +4,6 @@
     "target": "ES2023",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "strict": true,
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
@@ -14,7 +13,10 @@
       "@job-applicants/ui/*": [
         "./src/*"
       ]
-    }
+    },
+
+    "noPropertyAccessFromIndexSignature": false
   },
+  "$comments": "shadcn-generated components use dot access on index-signature types. Do not modify generated components merely to satisfy this project-wide rule.",
   "include": ["."]
 }
