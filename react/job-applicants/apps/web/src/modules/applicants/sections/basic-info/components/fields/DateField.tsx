@@ -25,9 +25,16 @@ import { useTranslation } from 'react-i18next';
 type DateFieldOptions = {
     fieldDefinition: DateFieldDefinition;
     field: AnyFieldApi;
+    isInvalid: boolean;
+    ariaDescribedBy?: string;
 };
 
-export function DateField({ fieldDefinition, field }: DateFieldOptions) {
+export function DateField({
+    fieldDefinition,
+    field,
+    isInvalid,
+    ariaDescribedBy,
+}: DateFieldOptions) {
     const [open, setOpen] = useState(false);
 
     const value = parseDate(field.state.value);
@@ -43,6 +50,9 @@ export function DateField({ fieldDefinition, field }: DateFieldOptions) {
                 <Button
                     type="button"
                     variant="outline"
+                    id={fieldDefinition.key}
+                    aria-invalid={isInvalid}
+                    aria-describedby={ariaDescribedBy}
                     className={cn(
                         'w-full justify-between text-start font-normal',
                         !value && 'text-muted-foreground',

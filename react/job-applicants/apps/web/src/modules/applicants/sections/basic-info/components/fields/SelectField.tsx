@@ -14,12 +14,16 @@ type SelectFieldProps = {
     fieldDefinition: SelectFieldDefinition;
     field: AnyFieldApi;
     options?: readonly Option[];
+    isInvalid: boolean;
+    ariaDescribedBy?: string;
 };
 
 export const SelectField = React.memo(function SelectField({
     fieldDefinition,
     field,
     options,
+    isInvalid,
+    ariaDescribedBy,
 }: SelectFieldProps) {
     const { t } = useTranslation('common');
     const { t: tBasicInfo } = useTranslation('basicInfo');
@@ -36,7 +40,11 @@ export const SelectField = React.memo(function SelectField({
                 field.handleChange(value);
             }}
         >
-            <SelectTrigger>
+            <SelectTrigger
+                id={fieldDefinition.key}
+                aria-invalid={isInvalid}
+                aria-describedby={ariaDescribedBy}
+            >
                 <SelectValue placeholder={t('actions.select')} />
             </SelectTrigger>
 

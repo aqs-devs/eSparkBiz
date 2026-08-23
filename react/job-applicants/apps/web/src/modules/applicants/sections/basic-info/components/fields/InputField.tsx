@@ -5,9 +5,16 @@ import { Input } from '@job-applicants/ui/components/input';
 type InputFieldProps = {
     fieldDefinition: InputFieldDefinition<'text' | 'email' | 'tel'>;
     field: AnyFieldApi;
+    isInvalid: boolean;
+    ariaDescribedBy?: string;
 };
 
-export function InputField({ fieldDefinition, field }: InputFieldProps) {
+export function InputField({
+    fieldDefinition,
+    field,
+    isInvalid,
+    ariaDescribedBy,
+}: InputFieldProps) {
     return (
         <Input
             id={fieldDefinition.key}
@@ -18,6 +25,8 @@ export function InputField({ fieldDefinition, field }: InputFieldProps) {
             onBlur={field.handleBlur}
             placeholder={fieldDefinition.fieldProps?.placeholder}
             disabled={fieldDefinition.fieldProps?.disabled}
+            aria-invalid={isInvalid}
+            aria-describedby={ariaDescribedBy}
         />
     );
 }
