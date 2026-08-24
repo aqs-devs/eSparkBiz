@@ -12,7 +12,7 @@ export function DetailEditPage() {
         mode: 'edit',
         applicantId: applicant.id,
         onSuccess: () => {
-            navigate(`/applicants/${applicant.id}/basic-info`);
+            navigate(RouteBuilder.applicants.basicInfo.detail(applicant.id));
         },
     });
 

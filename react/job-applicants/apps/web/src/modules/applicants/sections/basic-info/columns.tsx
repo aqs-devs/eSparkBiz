@@ -3,7 +3,13 @@ import { ArrowUpDown, ListFilter } from 'lucide-react';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Button, buttonVariants } from '@job-applicants/ui/components/button';
-import { tableBasicInfoFields, type FilterableBasicInfoField, type Formatter, type TableBasicInfoField } from '@job-applicants/shared';
+import {
+    RouteBuilder,
+    tableBasicInfoFields,
+    type FilterableBasicInfoField,
+    type Formatter,
+    type TableBasicInfoField,
+} from '@job-applicants/shared';
 import type { BasicInfo } from '@job-applicants/schemas';
 import { DeleteApplicantAction } from '../../components/DeleteApplicantAction';
 import { formatDate } from '#src/i18n/formatters.ts';
@@ -102,7 +108,7 @@ function ActionsCell({ row, table }: CellContext<BasicInfo, unknown>) {
     return (
         <div className="flex items-center gap-2">
             <Link
-                to={`/applicants/${row.original.id}/basic-info`}
+                to={RouteBuilder.applicants.basicInfo.detail(row.original.id)}
                 className={buttonVariants({
                     variant: 'outline',
                     size: 'sm',

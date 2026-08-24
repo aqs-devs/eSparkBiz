@@ -37,7 +37,7 @@ import { formatFieldValue } from '../lib/formatFieldValue';
 //                     </CardTitle>
 //                     <CardAction>
 //                         <Link
-//                             to={`/applicants/${applicant.id}/edit/basic-info`}
+//                             to={RouteBuilder.applicants.basicInfo.edit(applicant.id)}
 //                             className={buttonVariants({
 //                                 variant: 'outline',
 //                                 size: 'sm',
