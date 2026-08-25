@@ -24,10 +24,21 @@ type UseBasicInfoFormOptions = {
     onSuccess?: () => void;
 };
 
+function validateBasicInfo(value: BasicInfoFormValues) {
+    const result = CreateBasicInfoSchema.safeParse(value);
+
+    if (!result.success) {
+        return result.error.flatten().fieldErrors;
+    }
+
+    return undefined;
+}
+
 export function useBasicInfoForm(
     options: UseBasicInfoFormOptions = {},
 ) {
     const { t } = useTranslation('basicInfo');
+
     const {
         defaultValues = EMPTY_BASIC_INFO,
         mode = 'create',
@@ -39,24 +50,9 @@ export function useBasicInfoForm(
         defaultValues,
 
         validators: {
-            onChange: ({ value }) => {
-                const result = CreateBasicInfoSchema.safeParse(value);
+            onChange: ({ value }) => validateBasicInfo(value),
 
-                if (!result.success) {
-                    return result.error.flatten().fieldErrors;
-                }
-
-                return undefined;
-            },
-            onSubmit: ({ value }) => {
-                const result = CreateBasicInfoSchema.safeParse(value);
-
-                if (!result.success) {
-                    return result.error.flatten().fieldErrors;
-                }
-
-                return undefined;
-            },
+            onSubmit: ({ value }) => validateBasicInfo(value),
         },
 
         onSubmit: async ({ value }) => {
@@ -70,8 +66,10 @@ export function useBasicInfoForm(
 
                     onSuccess?.();
                     toast.success(t('messages.created'));
-                } catch {
+                } catch (error) {
                     toast.error(t('errors.createFailed'));
+
+                    throw error;
                 }
 
                 return;
@@ -90,8 +88,10 @@ export function useBasicInfoForm(
 
                 onSuccess?.();
                 toast.success(t('messages.updated'));
-            } catch {
+            } catch (error) {
                 toast.error(t('errors.updateFailed'));
+
+                throw error;
             }
         },
     });

@@ -106,7 +106,7 @@ delete: oc
         description: 'Soft-delete an applicant.',
         tags: ['Applicants'],
         successStatus: 204,
-        outputStructure: 'detailed',
+        // outputStructure: 'detailed', //outputStructure: 'detailed' is intended for a response object containing things such as status, headers, and body. But your client does not need a response body: `await deleteApplicant(applicantId);`
     })
     .errors({
         NOT_FOUND: contractErrors.NOT_FOUND,
