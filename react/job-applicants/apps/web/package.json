@@ -8,7 +8,9 @@
         "build": "tsc -b && vite build",
         "lint": "eslint .",
         "preview": "vite preview",
-        "typecheck": "tsc --noEmit --ignoreDeprecations 6.0"
+        "typecheck": "tsc --noEmit --ignoreDeprecations 6.0",
+        "test": "vitest",
+        "test:run": "vitest run"
     },
     "dependencies": {
         "@base-ui/react": "^1.5.0",

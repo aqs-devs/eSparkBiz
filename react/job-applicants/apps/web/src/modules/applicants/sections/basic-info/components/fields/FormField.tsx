@@ -31,6 +31,7 @@ export function FormField({
     const isInvalid =
         field.state.meta.isTouched &&
         !field.state.meta.isValid;
+
     const errorId = `${fieldDefinition.key}-error`;
 
     return (
@@ -52,15 +53,16 @@ export function FormField({
                 {
                     options,
                     isInvalid,
-                    ariaDescribedBy: isInvalid ? errorId : undefined,
+                    ariaDescribedBy: isInvalid
+                        ? errorId
+                        : undefined,
                 },
             )}
 
-            {isInvalid && (
-                <FieldError
-                    id={errorId}
-                    errors={field.state.meta.errors}
-                />
+            {isInvalid && field.state.meta.errors[0] && (
+                <FieldError id={errorId}>
+                    {field.state.meta.errors[0]}
+                </FieldError>
             )}
         </Field>
     );

@@ -46,7 +46,8 @@ export function DateField({
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger>
+        <PopoverTrigger
+            render={
                 <Button
                     type="button"
                     variant="outline"
@@ -57,14 +58,15 @@ export function DateField({
                         'w-full justify-between text-start font-normal',
                         !value && 'text-muted-foreground',
                     )}
-                >
-                    {value
-                        ? formatDate(value)
-                        : t('actions.selectDate')}                    
+                />
+            }
+        >
+            {value
+                ? formatDate(value)
+                : t('actions.selectDate')}
 
-                    <CalendarIcon className="h-4 w-4 opacity-50" />
-                </Button>
-            </PopoverTrigger>
+            <CalendarIcon className="h-4 w-4 opacity-50" />
+        </PopoverTrigger>
 
             <PopoverContent className="w-auto p-0" align="start">
                 <Calendar

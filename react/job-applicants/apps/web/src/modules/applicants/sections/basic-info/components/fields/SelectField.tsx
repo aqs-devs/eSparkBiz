@@ -33,9 +33,19 @@ export const SelectField = React.memo(function SelectField({
         ? options
         : fieldDefinition.fieldProps?.options ?? [];
 
+    const items = selectOptions.map((option) => ({
+        value: option.value,
+        label:
+            option.label ??
+            tBasicInfo(`options.${fieldDefinition.key}.${option.value}`, {
+                defaultValue: option.value,
+            }),
+    }));
+
     return (
         <Select
-            value={field.state.value || undefined} //always pass a defined value.
+            items={items}
+            value={field.state.value ?? null}
             onValueChange={(value) => {
                 field.handleChange(value);
             }}
@@ -49,12 +59,10 @@ export const SelectField = React.memo(function SelectField({
             </SelectTrigger>
 
             <SelectContent>
-                {selectOptions.map((option) => {
-                    const label = option.label ?? tBasicInfo(`options.${fieldDefinition.key}.${option.value}`, { defaultValue: option.value });
-
+                {items.map((item) => {
                     return (
-                        <SelectItem key={option.value} value={option.value}>
-                            {label}
+                        <SelectItem key={item.value} value={item.value}>
+                            {item.label}
                         </SelectItem>
                     );
                 })}

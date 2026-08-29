@@ -19,10 +19,17 @@ import { toast } from 'sonner';
 
 type UseBasicInfoFormOptions = {
     defaultValues?: BasicInfoFormValues;
-    mode?: 'create' | 'edit';
-    applicantId?: number;
     onSuccess?: () => void;
-};
+} & (
+    | {
+          mode?: 'create';
+          applicantId?: never;
+      }
+    | {
+          mode: 'edit';
+          applicantId: number;
+      }
+);
 
 function validateBasicInfo(value: BasicInfoFormValues) {
     const result = CreateBasicInfoSchema.safeParse(value);
