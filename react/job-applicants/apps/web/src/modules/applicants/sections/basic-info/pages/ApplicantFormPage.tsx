@@ -59,7 +59,7 @@ export function ApplicantFormPage({
                 onSubmit={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    form.handleSubmit();
+                    void form.handleSubmit(); // handleSubmit() is asynchronous and returns a promise. TanStack's documentation shows the same basic pattern, but its API explicitly treats submission as an async operation.
                 }}
             >
                 <Tabs defaultValue="basic-info">
