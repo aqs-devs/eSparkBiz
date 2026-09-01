@@ -58,7 +58,8 @@
 
     "phoneInput": {
         "searchCountry": "Search country...",
-        "noCountryFound": "No country found."
+        "noCountryFound": "No country found.",
+        "selectCountry": "Select phone country and calling code"
     },
 
     "errors": {

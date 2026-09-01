@@ -7,7 +7,7 @@ import { PhoneField } from './PhoneField';
 function TestPhone({ value = '', invalid = false }: { value?: string; invalid?: boolean }) {
     const form = useForm({ defaultValues: { phone: value } });
     const definition = getFormFieldDefinition('phone');
-    return <form.Field name="phone">{(field) => <PhoneField field={field} fieldDefinition={definition} isInvalid={invalid} ariaDescribedBy={invalid ? 'phone-error' : undefined} />}</form.Field>;
+    return <><label htmlFor="phone">Phone</label><form.Field name="phone">{(field) => <PhoneField field={field} fieldDefinition={definition} isInvalid={invalid} ariaDescribedBy={invalid ? 'phone-error' : undefined} />}</form.Field></>;
 }
 
 test('renders a phone textbox with its value and updates the form value', () => {
@@ -24,4 +24,11 @@ test('exposes phone validation state and described-by', () => {
     rerender(<TestPhone invalid />);
     expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
     expect(screen.getByRole('textbox')).toHaveAttribute('aria-describedby', 'phone-error');
+});
+
+test('associates the phone input with its field label and names the country selector', () => {
+    render(<TestPhone />);
+
+    expect(screen.getByRole('textbox', { name: 'Phone' })).toHaveAttribute('id', 'phone');
+    expect(screen.getByRole('button', { name: 'Select phone country and calling code' })).toBeInTheDocument();
 });

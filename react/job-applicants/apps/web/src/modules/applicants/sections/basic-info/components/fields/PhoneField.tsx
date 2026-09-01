@@ -27,6 +27,7 @@ type PhoneFieldProps = {
 
 export function PhoneField({
     field,
+    fieldDefinition,
     isInvalid,
     ariaDescribedBy,
 }: PhoneFieldProps) {
@@ -37,7 +38,7 @@ export function PhoneField({
             onChange={(value) => field.handleChange(value ?? '')}
             aria-invalid={isInvalid}
             aria-describedby={ariaDescribedBy}
-            // id={fieldDefinition.key}
+            id={fieldDefinition.key}
         />
     );
 }

@@ -52,7 +52,8 @@
   },
   "phoneInput": {
     "searchCountry": "البحث عن البلد...",
-    "noCountryFound": "لم يتم العثور على بلد."
+    "noCountryFound": "لم يتم العثور على بلد.",
+    "selectCountry": "اختر دولة الهاتف ورمز الاتصال"
   },
   "errors": {
     "generic": "حدث خطأ ما.",
