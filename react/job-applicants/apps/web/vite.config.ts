@@ -7,7 +7,11 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vite.dev/config/
 export default defineConfig(() => {
-  const apiTarget = process.env.VITE_API_TARGET || 'http://localhost:3000';
+  const apiTarget = process.env.VITE_API_TARGET;
+
+  if (!apiTarget) {
+    throw new Error('Missing VITE_API_TARGET in apps/web/.env. Set it to http://localhost:3000 for local development.');
+  }
 
   return {
     plugins: [react(), tailwindcss()],

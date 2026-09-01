@@ -5,7 +5,7 @@
 // 3. register routes
 // 4. start server
 
-// import 'dotenv/config';
+import 'dotenv/config';
 import e, { urlencoded } from 'express';
 // import {
 //     applicantsRouter,
