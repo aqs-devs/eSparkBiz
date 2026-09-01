@@ -4,7 +4,6 @@ import './index.css';
 import { RouterProvider } from 'react-router';
 import router from './app/router.js';
 import { ThemeProvider } from '@job-applicants/ui/components/theme-provider';
-import { Toaster } from '@job-applicants/ui/components/sonner';
 import i18n from './i18n';
 
 // Explicit set of RTL language codes makes intent clear and is easier to extend.
@@ -30,7 +29,6 @@ function App() {
     return (
         <>
             <RouterProvider router={router} />
-            <Toaster />
         </>
     );
 }

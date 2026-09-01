@@ -48,6 +48,7 @@ export function ApplicantFormPage({
 
     return (
         <section className="mx-auto flex max-w-full flex-col gap-6">
+            <h1 className="sr-only">{tBasicInfo('title')}</h1>
             <Link
                 to={cancelTo}
                 className="self-start text-sm text-muted-foreground hover:text-foreground"
