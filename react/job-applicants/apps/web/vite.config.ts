@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath, URL } from 'node:url'
@@ -6,11 +6,16 @@ import { fileURLToPath, URL } from 'node:url'
 
 
 // https://vite.dev/config/
-export default defineConfig(() => {
-  const apiTarget = process.env.VITE_API_TARGET;
+export default defineConfig(({ mode }) => {
+  const envDir = fileURLToPath(new URL('.', import.meta.url));
+  const env = loadEnv(mode, envDir, 'VITE_');
+
+  const apiTarget = env.VITE_API_TARGET;
 
   if (!apiTarget) {
-    throw new Error('Missing VITE_API_TARGET in apps/web/.env. Set it to http://localhost:3000 for local development.');
+    throw new Error(
+      'Missing VITE_API_TARGET in apps/web/.env. Set it to http://localhost:3000 for local development.',
+    );
   }
 
   return {
