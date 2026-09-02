@@ -8,6 +8,7 @@
 // } from '@job-applicants/ui/components/tabs';
 import { RouteBuilder } from '@job-applicants/shared';
 import { useNavigate } from 'react-router';
+import { useRef } from 'react';
 import { useBasicInfoForm } from '../hooks/useBasicInfoForm';
 
 import { ApplicantFormPage } from './ApplicantFormPage';
@@ -71,10 +72,12 @@ import { ApplicantFormPage } from './ApplicantFormPage';
 
 export function CreatePage() {
     const navigate = useNavigate();
+    const allowNavigationRef = useRef(false);
 
     const form = useBasicInfoForm({
         mode: 'create',
         onSuccess: () => {
+            allowNavigationRef.current = true;
             navigate(RouteBuilder.applicants.basicInfo.list());
         },
     });
@@ -85,6 +88,7 @@ export function CreatePage() {
             form={form}
             mode="create"
             cancelTo={RouteBuilder.applicants.basicInfo.list()}
+            allowNavigationRef={allowNavigationRef}
         />
     );
 }

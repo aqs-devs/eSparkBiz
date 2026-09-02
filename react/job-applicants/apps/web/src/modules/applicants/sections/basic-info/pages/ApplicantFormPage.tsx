@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, type RefObject } from 'react';
 import { useSelector } from '@tanstack/react-form';
 import { Link, useBlocker } from 'react-router';
 import { useTranslation } from 'react-i18next';
@@ -17,12 +17,14 @@ type ApplicantFormPageProps = {
     form: ReturnType<typeof useBasicInfoForm>;
     mode: 'create' | 'edit';
     cancelTo: string;
+    allowNavigationRef?: RefObject<boolean>;
 };
 
 export function ApplicantFormPage({
     form,
     mode,
     cancelTo,
+    allowNavigationRef,
 }: ApplicantFormPageProps) {
     const { t } = useTranslation('common');
     const { t: tBasicInfo } = useTranslation('basicInfo');
@@ -40,10 +42,17 @@ export function ApplicantFormPage({
             ({ currentLocation, nextLocation }) =>
                 isDirty &&
                 !isSubmitting &&
+                !allowNavigationRef?.current &&
                 currentLocation.pathname !== nextLocation.pathname,
-            [isDirty, isSubmitting],
+            [allowNavigationRef, isDirty, isSubmitting],
         ),
     );
+
+    useEffect(() => {
+        if (blocker.state === 'blocked' && !isDirty) {
+            blocker.proceed();
+        }
+    }, [blocker, isDirty]);
 
     const submitLabel =
         mode === 'create'

@@ -71,7 +71,7 @@ export function useBasicInfoForm(
 
                     form.reset(data);
 
-                    onSuccess?.();
+                    setTimeout(() => onSuccess?.(), 0);
                     toast.success(t('messages.created'));
                 } catch (error) {
                     toast.error(t('errors.createFailed'));
@@ -93,7 +93,7 @@ export function useBasicInfoForm(
 
                 form.reset(data);
 
-                onSuccess?.();
+                setTimeout(() => onSuccess?.(), 0);
                 toast.success(t('messages.updated'));
             } catch (error) {
                 toast.error(t('errors.updateFailed'));

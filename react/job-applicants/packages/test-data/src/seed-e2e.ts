@@ -7,7 +7,7 @@ export const e2eApplicant: CreateBasicInfo = {
     lastName: 'Test Applicant',
     designation: 'Software Engineer',
     email: 'e2e.applicant@example.test',
-    phone: '+15555550123',
+    phone: '+14155552671',
     country: 'US',
     state: 'CA',
     city: 'San Francisco',
