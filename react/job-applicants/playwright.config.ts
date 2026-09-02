@@ -5,7 +5,6 @@ const baseURL =
 
 export default defineConfig({
     testDir: './tests/e2e',
-
     use: {
         baseURL,
         ...devices['Desktop Chrome'],
@@ -21,12 +20,25 @@ export default defineConfig({
     projects: [
         {
             name: 'setup',
-            testMatch: /setup\.ts/,
+            testMatch: /[\\/]setup\.ts$/,
         },
         {
             name: 'chromium',
             use: { ...devices['Desktop Chrome'] },
             dependencies: ['setup'],
+            testIgnore: /delete-applicant\.spec\.ts/,
+        },
+        {
+            name: 'delete-setup',
+            // Delete mutates the shared E2E applicant, so it runs after the
+            // normal Chromium suite and resets the database before its test.
+            testMatch: /[\\/]delete-setup\.ts$/,
+            dependencies: ['chromium'],
+        },
+        {
+            name: 'delete',
+            testMatch: /delete-applicant\.spec\.ts/,
+            dependencies: ['delete-setup'],
         },
     ],
 
