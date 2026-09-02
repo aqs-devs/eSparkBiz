@@ -7,9 +7,9 @@ test('can open an applicant from the list', async ({ page }) => {
         page.getByRole('heading', { name: /applicants/i }),
     ).toBeVisible();
 
-    const firstApplicant = page
-        .getByRole('row')
-        .nth(1);
+    const firstApplicant = page.getByRole('row', {
+        name: /E2E Test Applicant/i,
+    });
 
     await expect(firstApplicant).toBeVisible();
 

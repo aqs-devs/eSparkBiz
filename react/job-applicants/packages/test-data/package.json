@@ -7,7 +7,9 @@
         ".": "./src/index.ts"
     },
     "scripts": {
-        "seed:basic-info": "tsx --env-file=../../apps/api/.env src/seed-basic-info.ts"
+        "seed:basic-info": "tsx --env-file=../../apps/api/.env src/seed-basic-info.ts",
+        "seed:e2e": "tsx --env-file=../../apps/api/.env.test src/seed-e2e.ts",
+        "prepare:e2e": "tsx --env-file=../../apps/api/.env.test src/prepare-e2e.ts"
     },
     "dependencies": {
         "@countrystatecity/countries": "^1.0.9",

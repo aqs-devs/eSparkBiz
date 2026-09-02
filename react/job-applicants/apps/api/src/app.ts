@@ -5,7 +5,6 @@
 // 3. register routes
 // 4. start server
 
-import 'dotenv/config';
 import e, { urlencoded } from 'express';
 // import {
 //     applicantsRouter,
@@ -94,5 +93,4 @@ catch (error) {
 
 // const spec = generateOpenApiDocument();
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
-
 

@@ -12,11 +12,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch --env-file=.env src/app.ts",
+    "dev:test": "tsx --env-file=.env.test src/app.ts",
     "db:codegen": "dotenv -e .env -- kysely-codegen --dialect mysql --camel-case --out-file ../../packages/server-core/src/db/db-types.ts --type-mapping \"{\\\"date\\\":\\\"string\\\",\\\"datetime\\\":\\\"string\\\",\\\"timestamp\\\":\\\"string\\\"}\"",
     "db:codegen:watch": "nodemon --watch src --ext sql,ts --exec \"npm run db:codegen\"",
     "typecheck": "tsc --noEmit --ignoreDeprecations 6.0",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:migrate:test": "dotenv -e .env.test -- drizzle-kit migrate",
+    "db:seed:test": "npm run db:migrate:test && npm run prepare:e2e -w @job-applicants/test-data"
   },
   "dependencies": {
     "@job-applicants/schemas": "*",

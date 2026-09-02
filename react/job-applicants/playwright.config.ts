@@ -20,8 +20,13 @@ export default defineConfig({
 
     projects: [
         {
+            name: 'setup',
+            testMatch: /setup\.ts/,
+        },
+        {
             name: 'chromium',
             use: { ...devices['Desktop Chrome'] },
+            dependencies: ['setup'],
         },
     ],
 
@@ -35,7 +40,7 @@ export default defineConfig({
         },
         {
             name: 'api',
-            command: 'npm run dev -w api',
+            command: 'npm run dev:test -w api',
             // url: 'http://127.0.0.1:3000',
             port: 3000,
             timeout: 30_000,

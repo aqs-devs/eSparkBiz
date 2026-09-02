@@ -27,17 +27,21 @@ export function ApplicantFormPage({
     const { t } = useTranslation('common');
     const { t: tBasicInfo } = useTranslation('basicInfo');
 
-    const isDirty = useSelector(
+    const { isDirty, isSubmitting } = useSelector(
         form.store,
-        (state) => state.isDirty,
+        (state) => ({
+            isDirty: state.isDirty,
+            isSubmitting: state.isSubmitting,
+        }),
     );
 
     const blocker = useBlocker(
         useCallback(
             ({ currentLocation, nextLocation }) =>
                 isDirty &&
+                !isSubmitting &&
                 currentLocation.pathname !== nextLocation.pathname,
-            [isDirty],
+            [isDirty, isSubmitting],
         ),
     );
 
