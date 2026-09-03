@@ -120,6 +120,7 @@ function ActionsCell({ row, table }: CellContext<BasicInfo, unknown>) {
             <DeleteApplicantAction
                 applicantId={row.original.id}
                 onDeleted={() => table.options.meta?.revalidate()}
+                onRestored={() => table.options.meta?.revalidate()}
             />
         </div>
     );

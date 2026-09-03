@@ -53,6 +53,11 @@ export function ApplicantToolbar({
                         RouteBuilder.applicants.basicInfo.list(),
                     );
                 }}
+                onRestored={() => {
+                    navigate(
+                        RouteBuilder.applicants.basicInfo.list(),
+                    );
+                }}
             />
         </div>
     );

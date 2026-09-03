@@ -26,7 +26,7 @@ export default defineConfig({
             name: 'chromium',
             use: { ...devices['Desktop Chrome'] },
             dependencies: ['setup'],
-            testIgnore: /delete-applicant\.spec\.ts/,
+            testIgnore: /(?:delete|restore)-applicant\.spec\.ts/,
         },
         {
             name: 'delete-setup',
@@ -39,6 +39,17 @@ export default defineConfig({
             name: 'delete',
             testMatch: /delete-applicant\.spec\.ts/,
             dependencies: ['delete-setup'],
+        },
+
+        {
+            name: 'restore-setup',
+            testMatch: /[\\/]restore-setup\.ts$/,
+            dependencies: ['delete'],
+        },
+        {
+            name: 'restore',
+            testMatch: /restore-applicant\.spec\.ts/,
+            dependencies: ['restore-setup'],
         },
     ],
 
