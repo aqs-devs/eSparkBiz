@@ -184,3 +184,25 @@ Here's an example:
 - general technical reference material → potentially references/
 
 > Docs explain the project's rules. Skills explain how an agent applies those rules.
+
+## UI Package Ownership
+
+packages/ui is the shared UI workspace.
+
+It owns:
+
+- shadcn UI primitives
+- reusable UI components
+- reusable UI hooks
+- reusable UI utilities
+- generic third-party UI infrastructure such as OpenStatus data-table components
+
+apps/web owns:
+
+- application-specific pages
+- domain-specific components
+- applicant-specific table columns
+- applicant-specific filters
+- application/business logic
+
+The boundary is based on reusability/domain ownership, not on which library originally provided the code.
