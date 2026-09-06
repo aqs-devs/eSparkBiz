@@ -133,11 +133,12 @@ export const BasicInfoListQuerySchema = z.object({
 
     order: z.enum(['asc', 'desc']).default('asc'),
 
-    city: z.string().optional(),
-    designation: z.string().optional(),
-    state: z.string().optional(),
-    gender: z.enum(['male', 'female', 'other']).optional(),
-    relationship_status: z.enum(['single', 'committed']).optional(),
+    city: z.array(z.string()).optional(),
+    designation: z.array(z.string()).optional(),
+    state: z.array(z.string()).optional(),
+    country: z.array(z.string()).optional(),
+    gender: z.array(z.enum(['male', 'female', 'other'])).optional(),
+    relationship_status: z.array(z.enum(['single', 'committed'])).optional(),
 
     dob_from: z.iso.date().optional().openapi({ example: '1990-01-01' }),
     dob_to: z.iso.date().optional().openapi({ example: '2000-12-31' }),

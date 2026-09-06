@@ -1,46 +1,85 @@
-import { Link, useLoaderData, useRevalidator, useSearchParams } from 'react-router';
+import { Link, useLoaderData, useRevalidator } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { useQueryStates } from 'nuqs';
 import PageNavigation from '#src/modules/applicants/components/PageNavigator';
 import { columns } from '../columns';
 import { useEffect, useState } from 'react';
 import { getFilterOptions } from '@job-applicants/api-client';
 import type { loadApplicants } from '../loaders';
 import type { SortingState } from '@tanstack/react-table';
-import type { ActiveFilters, ActiveFilterValue, BasicInfoFilterColumn, BasicInfoFilterOptions } from '@job-applicants/shared';
-import { filterableBasicInfoFields, RouteBuilder } from '@job-applicants/shared';
+import type {
+    ActiveFilters,
+    ActiveFilterValue,
+    BasicInfoFilterColumn,
+    BasicInfoFilterOptions,
+} from '@job-applicants/shared';
+import { RouteBuilder } from '@job-applicants/shared';
 import { FilterBar } from '#src/modules/applicants/components/FilterBar';
-import { valueToParams } from '#src/modules/applicants/lib/filterUtils';
 import { DataTable } from '#src/modules/applicants/components/DataTable';
 import { buttonVariants } from '@job-applicants/ui/components/button';
 import { Plus } from 'lucide-react';
+import { toast } from 'sonner';
+import {
+    basicInfoListQueryOptions,
+    basicInfoListQueryParsers,
+} from '../listQueryState';
 
 const ListViewPage = () => {
     const { t } = useTranslation('basicInfo');
     const { applicants, pagination } = useLoaderData() as Awaited<ReturnType<typeof loadApplicants>>;
     const pageCount = pagination.pageCount;
-
-    const [sorting, setSorting] = useState<SortingState>([]);
-    const [searchParams, setSearchParams] = useSearchParams();
-
-    const [activeFilters, setActiveFilters] = useState<ActiveFilters>({});
+    const [queryState, setQueryState] = useQueryStates(
+        basicInfoListQueryParsers,
+        basicInfoListQueryOptions,
+    );
+    const {
+        page,
+        sortOn,
+        order,
+        city,
+        designation,
+        state,
+        country,
+        gender,
+        relationshipStatus,
+        dobFrom,
+        dobTo,
+    } = queryState;
     const [pendingColumn, setPendingColumn] = useState<BasicInfoFilterColumn | null>(null);
     const [pendingValues, setPendingValues] = useState<string[]>([]);
     const [filterOptions, setFilterOptions] = useState<BasicInfoFilterOptions | null>(null);
     const [loadingFilters, setLoadingFilters] = useState(false);
     const [isFilterBarVisible, setIsFilterBarVisible] = useState(false);
-
     const revalidator = useRevalidator();
 
+    const sorting: SortingState = sortOn
+        ? [{ id: sortOn, desc: order === 'desc' }]
+        : [];
+    const activeFilters: ActiveFilters = {
+        ...(city.length > 0 ? { city } : {}),
+        ...(designation.length > 0 ? { designation } : {}),
+        ...(state.length > 0 ? { state } : {}),
+        ...(country.length > 0 ? { country } : {}),
+        ...(gender.length > 0 ? { gender } : {}),
+        ...(relationshipStatus.length > 0 ? { relationshipStatus } : {}),
+        ...(dobFrom || dobTo ? { dob: { from: dobFrom ?? undefined, to: dobTo ?? undefined } } : {}),
+    };
+
+    useEffect(() => {
+        if (Object.keys(activeFilters).length > 0) setIsFilterBarVisible(true);
+    }, [activeFilters]);
+
     async function openFilter(column: BasicInfoFilterColumn) {
-        if (activeFilters[column]) return;
         setIsFilterBarVisible(true);
         setPendingColumn(column);
-        setPendingValues([]);
+        const currentValue = activeFilters[column];
+        setPendingValues(Array.isArray(currentValue) ? currentValue : []);
         if (filterOptions || loadingFilters) return;
         setLoadingFilters(true);
         try {
-            const result = await getFilterOptions();
-            setFilterOptions(result);
+            setFilterOptions(await getFilterOptions());
+        } catch {
+            toast.error(t('errors.filterOptionsFailed'));
         } finally {
             setLoadingFilters(false);
         }
@@ -50,58 +89,76 @@ const ListViewPage = () => {
         setPendingColumn(null);
         setPendingValues([]);
     }
-    
+
+    function updateFilter(column: BasicInfoFilterColumn, value: ActiveFilterValue | null) {
+        const next = { page: 1 };
+        switch (column) {
+            case 'city':
+                setQueryState({ ...next, city: value ?? [] });
+                break;
+            case 'designation':
+                setQueryState({ ...next, designation: value ?? [] });
+                break;
+            case 'state':
+                setQueryState({ ...next, state: value ?? [] });
+                break;
+            case 'country':
+                setQueryState({ ...next, country: value ?? [] });
+                break;
+            case 'gender':
+                setQueryState({ ...next, gender: value ?? [] });
+                break;
+            case 'relationshipStatus':
+                setQueryState({ ...next, relationshipStatus: value ?? [] });
+                break;
+            case 'dob': {
+                const dateRange = value && !Array.isArray(value) ? value : {};
+                setQueryState({
+                    ...next,
+                    dobFrom: dateRange.from ?? null,
+                    dobTo: dateRange.to ?? null,
+                });
+                break;
+            }
+        }
+    }
 
     function applyFilter(column: BasicInfoFilterColumn, value: ActiveFilterValue) {
-        setActiveFilters((prev) => ({ ...prev, [column]: value }));
+        updateFilter(column, value);
         setPendingColumn(null);
         setPendingValues([]);
-        const config = filterableBasicInfoFields.find((field) => field.key === column)!;
-        const params = new URLSearchParams(searchParams);
-        config.filter.paramKeys.forEach((key) => params.delete(key));
-        valueToParams(column, value).forEach(([k, v]) => params.append(k, v));
-        params.set('page', '1');
-        setSearchParams(params);
     }
 
     function removeFilter(column: BasicInfoFilterColumn) {
-        setActiveFilters((prev) => {
-            const next = { ...prev };
-            delete next[column];
-            return next;
-        });
-        const config = filterableBasicInfoFields.find((field) => field.key === column)!;
-        const params = new URLSearchParams(searchParams);
-        config.filter.paramKeys.forEach((key) => params.delete(key));
-        params.set('page', '1');
-        setSearchParams(params);
+        updateFilter(column, null);
     }
 
     function resetFilters() {
-        setActiveFilters({});
         setPendingColumn(null);
         setPendingValues([]);
         setIsFilterBarVisible(false);
-        const params = new URLSearchParams(searchParams);
-        filterableBasicInfoFields.forEach((field) => {
-            field.filter.paramKeys.forEach((key) => params.delete(key));
+        setQueryState({
+            page: 1,
+            city: [],
+            designation: [],
+            state: [],
+            country: [],
+            gender: [],
+            relationshipStatus: [],
+            dobFrom: null,
+            dobTo: null,
         });
-        params.set('page', '1');
-        setSearchParams(params);
     }
 
-    useEffect(() => {
-        const sort = sorting[0];
-        const params = new URLSearchParams(searchParams);
-        if (sort) {
-            params.set('sortOn', sort.id);
-            params.set('order', sort.desc ? 'desc' : 'asc');
-        } else {
-            params.delete('sortOn');
-            params.delete('order');
-        }
-        setSearchParams(params);
-    }, [sorting]);
+    function setSorting(nextSorting: React.SetStateAction<SortingState>) {
+        const next = typeof nextSorting === 'function' ? nextSorting(sorting) : nextSorting;
+        const sort = next[0];
+        setQueryState({
+            page: 1,
+            sortOn: sort?.id ?? null,
+            order: sort ? (sort.desc ? 'desc' : 'asc') : null,
+        });
+    }
 
     return (
         <div className="space-y-6">
@@ -114,7 +171,7 @@ const ListViewPage = () => {
                         {t('list.subtitle')}
                     </p>
                 </div>
-    
+
                 <Link
                     to={RouteBuilder.applicants.basicInfo.create()}
                     className={buttonVariants()}
@@ -123,7 +180,7 @@ const ListViewPage = () => {
                     {t('actions.newApplicant')}
                 </Link>
             </div>
-    
+
             {isFilterBarVisible && (
                 <FilterBar
                     activeFilters={activeFilters}
@@ -139,7 +196,7 @@ const ListViewPage = () => {
                     onReset={resetFilters}
                 />
             )}
-    
+
             <DataTable
                 columns={columns}
                 data={applicants}
@@ -148,7 +205,7 @@ const ListViewPage = () => {
                 openFilter={openFilter}
                 revalidate={() => revalidator.revalidate()}
             />
-    
+
             <PageNavigation pageCount={pageCount} />
         </div>
     );

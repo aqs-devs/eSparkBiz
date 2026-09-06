@@ -9,13 +9,13 @@ export type FindAllParams = {
     offset: number;
     sortOn?: ApplicantColumn;
     order?: 'asc' | 'desc';
-    filters?: Partial<Record<ApplicantColumn, string>>;
+    filters?: Partial<Record<ApplicantColumn, string[]>>;
     dob_from?: string;
     dob_to?: string;
 };
 
 export type GetCountParams = {
-    filters?: Partial<Record<ApplicantColumn, string>>;
+    filters?: Partial<Record<ApplicantColumn, string[]>>;
     dob_from?: string;
     dob_to?: string;
 };

@@ -7,9 +7,9 @@ import { pluckFirstColumn } from '../../utils/shape-shifter.js';
 import { City, Country, State } from 'country-state-city';
 
 export async function listPaginatedApplicants( query: BasicInfoListQuery /* removed {pageSize, page, sortOn, order} */ ) {
-    const { page, pageSize, sortOn, order, city, designation, state, gender, relationship_status, dob_from, dob_to } = query;
+    const { page, pageSize, sortOn, order, city, designation, state, country, gender, relationship_status, dob_from, dob_to } = query;
     
-    const filters = { city, designation, state, gender, relationship_status };
+    const filters = { city, designation, state, country, gender, relationship_status };
 
     const offset = (page - 1) * pageSize;
 

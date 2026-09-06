@@ -1,7 +1,6 @@
 import type {
     ColumnDef,
     SortingState,
-    ColumnFiltersState,
 } from '@tanstack/react-table';
 
 import {
@@ -47,8 +46,6 @@ export function DataTable<TData, TValue>({
 
 }: DataTableProps<TData, TValue>) {
     const { t } = useTranslation('common');
-    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-
     const table = useReactTable({
         data,
         columns,
@@ -60,13 +57,11 @@ export function DataTable<TData, TValue>({
         // getSortedRowModel: getSortedRowModel(), //client side sorting is not required
         manualSorting: true,
 
-        onColumnFiltersChange: setColumnFilters,
         // getFilteredRowModel: getFilteredRowModel(),
         manualFiltering: true,
 
         state: {
             sorting,
-            columnFilters,
         },
 
         meta: {

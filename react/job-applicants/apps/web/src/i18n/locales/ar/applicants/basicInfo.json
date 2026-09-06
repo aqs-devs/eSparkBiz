@@ -59,7 +59,8 @@
     "createFailed": "تعذّر إنشاء المتقدم.",
     "updateFailed": "تعذّر تحديث المتقدم.",
     "deleteFailed": "تعذّر حذف المتقدم.",
-    "restoreFailed": "تعذّر استعادة المتقدم."
+    "restoreFailed": "تعذّر استعادة المتقدم.",
+    "filterOptionsFailed": "تعذّر تحميل خيارات التصفية."
   },
   "education": {
     "detailTitle": "تفاصيل التعليم",

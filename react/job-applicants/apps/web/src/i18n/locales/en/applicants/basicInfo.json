@@ -67,7 +67,8 @@
         "createFailed": "Could not create applicant.",
         "updateFailed": "Could not update applicant.",
         "deleteFailed": "Could not delete applicant.",
-        "restoreFailed": "Could not restore applicant."
+        "restoreFailed": "Could not restore applicant.",
+        "filterOptionsFailed": "Could not load filter options."
     },
 
     "education": {

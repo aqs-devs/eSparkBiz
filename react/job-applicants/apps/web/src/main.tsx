@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { RouterProvider } from 'react-router';
+import { NuqsAdapter } from 'nuqs/adapters/react-router/v7';
 import router from './app/router.js';
 import { ThemeProvider } from '@job-applicants/ui/components/theme-provider';
 import i18n from './i18n';
@@ -28,7 +29,9 @@ function App() {
 
     return (
         <>
-            <RouterProvider router={router} />
+            <NuqsAdapter>
+                <RouterProvider router={router} />
+            </NuqsAdapter>
         </>
     );
 }

@@ -64,13 +64,13 @@ export async function findAll({
         .where('deletedAt', 'is', null);
 
     if (filters) {
-        for (const [column, value] of Object.entries(filters)) {
-            if (value === undefined) continue;
-            query = query.where(column as ApplicantColumn, '=', value); //this prevents injection using Kyesely types
+        for (const [column, values] of Object.entries(filters)) {
+            if (!values || values.length === 0) continue;
+            query = query.where(column as ApplicantColumn, 'in', values);
         }
-        if (dob_from) query = query.where('dob', '>=', dob_from);
-        if (dob_to) query = query.where('dob', '<=', dob_to);
     }
+    if (dob_from) query = query.where('dob', '>=', dob_from);
+    if (dob_to) query = query.where('dob', '<=', dob_to);
 
     const result = await query
         .orderBy(sortOn, order)
@@ -121,9 +121,9 @@ export async function getCount({ filters, dob_from, dob_to }: GetCountParams) {
         .where('deletedAt', 'is', null)
 
     if (filters) {
-        for (const [column, value] of Object.entries(filters)) {
-            if (value === undefined) continue;
-            query = query.where(column as ApplicantColumn, '=', value);
+        for (const [column, values] of Object.entries(filters)) {
+            if (!values || values.length === 0) continue;
+            query = query.where(column as ApplicantColumn, 'in', values);
         }
     }
     if (dob_from) query = query.where('dob', '>=', dob_from);

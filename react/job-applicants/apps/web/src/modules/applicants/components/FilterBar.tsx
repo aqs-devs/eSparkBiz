@@ -43,6 +43,18 @@ export function FilterBar({
     const { t: tBasicInfo } = useTranslation('basicInfo');
 
     useEffect(() => {
+        const value = pendingColumn ? activeFilters[pendingColumn] : undefined;
+        setPendingDateRange(
+            value && !Array.isArray(value)
+                ? {
+                      from: value.from ? parseInputDate(value.from) : undefined,
+                      to: value.to ? parseInputDate(value.to) : undefined,
+                  }
+                : {},
+        );
+    }, [activeFilters, pendingColumn]);
+
+    useEffect(() => {
         function handleClick(e: MouseEvent) {
             if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) {
                 setIsColumnPickerOpen(false);
@@ -129,7 +141,7 @@ export function FilterBar({
                 return (
                     <div key={col} className="flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800 max-w-48">
                         <span className="truncate">{label}</span>
-                        <button onClick={() => onRemoveFilter(col)} className="ms-1 shrink-0 rounded-full hover:bg-blue-200 p-0.5">
+                        <button type="button" onClick={() => onRemoveFilter(col)} className="ms-1 shrink-0 rounded-full hover:bg-blue-200 p-0.5">
                             <X className="h-3 w-3" />
                         </button>
                     </div>
@@ -144,7 +156,9 @@ export function FilterBar({
                     <div ref={pendingChipRef} className="relative">
                         <div className="flex items-center gap-1 rounded-full border border-blue-400 bg-white px-3 py-1 text-sm text-blue-800">
                             <span className="font-medium">{columnLabel}</span>
-                            <X onClick={onClearPending} className="h-3 w-3 cursor-pointer opacity-50 hover:opacity-100" />
+                            <button type="button" onClick={onClearPending} aria-label={t('actions.cancel')}>
+                                <X className="h-3 w-3 cursor-pointer opacity-50 hover:opacity-100" />
+                            </button>
                         </div>
 
                         <div className="absolute start-0 top-full z-50 mt-1 rounded-md border bg-white shadow-lg">

@@ -37,7 +37,9 @@
     "@orpc/openapi-client": "^1.14.8",
     "@orpc/server": "^1.14.8",
     "@orpc/tanstack-query": "^1.14.8",
-    "@orpc/zod": "^1.14.8"
+    "@orpc/zod": "^1.14.8",
+    "nuqs": "^2.10.1",
+    "zustand": "^5.0.15"
   },
   "allowScripts": {
     "@scarf/scarf@1.4.0": true,
