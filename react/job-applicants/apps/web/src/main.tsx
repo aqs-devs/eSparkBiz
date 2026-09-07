@@ -6,6 +6,7 @@ import { NuqsAdapter } from 'nuqs/adapters/react-router/v7';
 import router from './app/router.js';
 import { ThemeProvider } from '@job-applicants/ui/components/theme-provider';
 import i18n from './i18n';
+import { TooltipProvider } from '@job-applicants/ui/components/tooltip';
 
 // Explicit set of RTL language codes makes intent clear and is easier to extend.
 const RTL_LANGUAGES = new Set(['ar']);
@@ -36,13 +37,17 @@ function App() {
     );
 }
 
-createRoot(document.getElementById('root')!).render(
+const root = createRoot(document.getElementById('root')!);
+
+root.render(
     <ThemeProvider
         attribute="class"
         defaultTheme="system"
         enableSystem
         disableTransitionOnChange
     >
-        <App />
+        <TooltipProvider>
+            <App />
+        </TooltipProvider>
     </ThemeProvider>,
 );

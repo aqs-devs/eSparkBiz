@@ -69,10 +69,9 @@ export function useBasicInfoForm(
                 try {
                     await createApplicant(data);
 
-                    form.reset(data);
-
-                    setTimeout(() => onSuccess?.(), 0);
+                    onSuccess?.();
                     toast.success(t('messages.created'));
+                    form.reset(data);
                 } catch (error) {
                     toast.error(t('errors.createFailed'));
 
@@ -91,10 +90,9 @@ export function useBasicInfoForm(
             try {
                 await updateApplicant(applicantId, data);
 
-                form.reset(data);
-
-                setTimeout(() => onSuccess?.(), 0);
+                onSuccess?.();
                 toast.success(t('messages.updated'));
+                form.reset(data);
             } catch (error) {
                 toast.error(t('errors.updateFailed'));
 

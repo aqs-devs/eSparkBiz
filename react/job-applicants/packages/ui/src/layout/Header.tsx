@@ -11,10 +11,10 @@ const Logo = () => (
 const Header = () => {
     return (
       <header className="border-b bg-background">
-          <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-6">
+          <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-4 sm:gap-3 sm:px-6">
               <Logo />
 
-              <div className="flex items-center gap-3">
+              <div className="flex shrink-0 items-center gap-2 sm:gap-3">
                   <LanguageSwitcher />
                   <ThemeToggle />
               </div>

@@ -35,30 +35,32 @@ export function ApplicantToolbar({
                 {t('actions.back')}
             </Link>
 
-            <Link
-                to={RouteBuilder.applicants.basicInfo.edit(applicantId)}
-                className={buttonVariants({
-                    variant: 'outline',
-                })}
-            >
-                <SquarePen className="size-4 shrink-0" />
-                {t('actions.edit')}
-            </Link>
+            <div className="flex items-center gap-2">
+                <Link
+                    to={RouteBuilder.applicants.basicInfo.edit(applicantId)}
+                    className={buttonVariants({
+                        variant: 'outline',
+                    })}
+                >
+                    <SquarePen className="size-4 shrink-0" />
+                    {t('actions.edit')}
+                </Link>
 
-            {/* <DeleteApplicantAction applicantId={applicantId} /> */}
-            <DeleteApplicantAction
-                applicantId={applicantId}
-                onDeleted={() => {
-                    navigate(
-                        RouteBuilder.applicants.basicInfo.list(),
-                    );
-                }}
-                onRestored={() => {
-                    navigate(
-                        RouteBuilder.applicants.basicInfo.list(),
-                    );
-                }}
-            />
+                {/* <DeleteApplicantAction applicantId={applicantId} /> */}
+                <DeleteApplicantAction
+                    applicantId={applicantId}
+                    onDeleted={() => {
+                        navigate(
+                            RouteBuilder.applicants.basicInfo.list(),
+                        );
+                    }}
+                    onRestored={() => {
+                        navigate(
+                            RouteBuilder.applicants.basicInfo.list(),
+                        );
+                    }}
+                />
+            </div>
         </div>
     );
 }
