@@ -1,6 +1,5 @@
-// infrastructure, not features.
+import { QueryClient } from '@tanstack/react-query';
 
-// queryClient.ts creates the TanStack QueryClient.
-// orpc.ts creates the typed oRPC client.
-
-// Every feature imports them.
+// Shared application-level client. Feature-specific queries belong in their
+// respective modules and should reuse this instance.
+export const queryClient = new QueryClient();

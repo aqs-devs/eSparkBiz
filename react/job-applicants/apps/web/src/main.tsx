@@ -7,6 +7,8 @@ import router from './app/router.js';
 import { ThemeProvider } from '@job-applicants/ui/components/theme-provider';
 import i18n from './i18n';
 import { TooltipProvider } from '@job-applicants/ui/components/tooltip';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './lib/queryClient';
 
 // Explicit set of RTL language codes makes intent clear and is easier to extend.
 const RTL_LANGUAGES = new Set(['ar']);
@@ -40,14 +42,16 @@ function App() {
 const root = createRoot(document.getElementById('root')!);
 
 root.render(
-    <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-    >
-        <TooltipProvider>
-            <App />
-        </TooltipProvider>
-    </ThemeProvider>,
+    <QueryClientProvider client={queryClient}>
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+        >
+            <TooltipProvider>
+                <App />
+            </TooltipProvider>
+        </ThemeProvider>
+    </QueryClientProvider>,
 );
