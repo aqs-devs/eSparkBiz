@@ -1,4 +1,4 @@
-import { basicInfoRouter } from "./applicants/basic-info/procedure";
+import { basicInfoRouter } from "./applicants/basic-info/procedure.ts";
 
 export const appRouter = {
     applicants: {

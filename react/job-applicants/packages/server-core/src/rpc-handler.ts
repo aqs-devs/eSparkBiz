@@ -2,7 +2,7 @@
 
 import { RPCHandler } from "@orpc/server/node";
 import { onError, ValidationError } from "@orpc/server";
-import { appRouter } from "./routes";
+import { appRouter } from "./routes.ts";
 
 
 export const rpcHandler = new RPCHandler(appRouter, {

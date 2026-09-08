@@ -1,10 +1,10 @@
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { useForm } from '@tanstack/react-form';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import { expect, test, vi } from 'vitest';
 import type { BasicInfoFormValues } from '@job-applicants/schemas';
 import { ApplicantFormPage } from './ApplicantFormPage';
 import type { ApplicantForm } from '../hooks/useBasicInfoForm';
+import { useBasicInfoForm } from '../hooks/useBasicInfoForm';
 
 vi.mock('../components/BasicInfoForm', () => ({
     BasicInfoForm: () => <div data-testid="basic-info-form" />,
@@ -18,7 +18,7 @@ const values: BasicInfoFormValues = {
 };
 
 function createForm() {
-    return useForm({ defaultValues: values });
+    return useBasicInfoForm({ defaultValues: values });
 }
 
 function renderPage(mode: 'create' | 'edit', form: ApplicantForm, initialEntries = ['/form']) {
@@ -29,7 +29,7 @@ function renderPage(mode: 'create' | 'edit', form: ApplicantForm, initialEntries
     return render(<RouterProvider router={router} />);
 }
 
-function FormHarness({ mode = 'create', submitting = false, dirty = false, onForm }: { mode?: 'create' | 'edit'; submitting?: boolean; dirty?: boolean; onForm: (form: ApplicantForm) => void }) {
+function FormHarness({ submitting = false, dirty = false, onForm }: { mode?: 'create' | 'edit'; submitting?: boolean; dirty?: boolean; onForm: (form: ApplicantForm) => void }) {
     const form = createForm();
     form.handleSubmit = vi.fn().mockResolvedValue(undefined) as ApplicantForm['handleSubmit'];
     if (submitting) form.store.state.isSubmitting = true;

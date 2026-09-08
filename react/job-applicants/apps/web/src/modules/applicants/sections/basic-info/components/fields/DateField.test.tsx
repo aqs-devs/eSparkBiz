@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { useForm } from '@tanstack/react-form';
 import { getFormFieldDefinition } from '@job-applicants/shared';
 import { expect, test } from 'vitest';

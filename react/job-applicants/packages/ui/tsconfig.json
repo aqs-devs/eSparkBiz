@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
+    "compilerOptions": {
     "target": "ES2023",
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -15,7 +15,13 @@
       ]
     },
 
-    "noPropertyAccessFromIndexSignature": false
+    "noPropertyAccessFromIndexSignature": false,
+    "composite": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "noEmit": false,
+    "outDir": "./dist",
+    "rootDir": "./src"
   },
   "$comments": "shadcn-generated components use dot access on index-signature types. Do not modify generated components merely to satisfy this project-wide rule.",
   "include": ["."]

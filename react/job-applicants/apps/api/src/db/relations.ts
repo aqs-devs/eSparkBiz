@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm/relations";
-import { applicant, technologies } from "./schema";
+import { applicant, technologies } from "./schema.ts";
 
 export const technologiesRelations = relations(technologies, ({one}) => ({
 	applicant: one(applicant, {

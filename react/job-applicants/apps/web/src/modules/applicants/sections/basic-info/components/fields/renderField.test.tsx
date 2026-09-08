@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { getFormFieldDefinition } from '@job-applicants/shared';
+import type { BasicInfoFormValues } from '@job-applicants/schemas';
 import { useForm } from '@tanstack/react-form';
 import { expect, test } from 'vitest';
 
@@ -16,16 +17,21 @@ function TestRenderFormField({
         | 'country'
         | 'gender';
 }) {
-    const form = useForm({
-        defaultValues: {
+    const defaultValues: BasicInfoFormValues = {
             firstName: '',
+            lastName: '',
+            designation: '',
             email: '',
             phone: '',
             dob: '',
             country: null,
+            state: null,
+            city: null,
             gender: 'male',
-        },
-    });
+            zipCode: null,
+            relationshipStatus: null,
+    };
+    const form = useForm({ defaultValues });
 
     const fieldDefinition = getFormFieldDefinition(fieldKey);
 

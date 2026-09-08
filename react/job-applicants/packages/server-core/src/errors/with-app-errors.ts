@@ -1,4 +1,4 @@
-import { translateAppError } from './app-error';
+import { translateAppError } from './app-error.ts';
 
 // export function withAppErrors<
 //     TErrors extends Record<string, (options?: any) => never>,

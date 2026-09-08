@@ -7,7 +7,11 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
 
-        "noEmit": true,
+        "composite": true,
+        "declaration": true,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "rewriteRelativeImportExtensions": true,
 
         "types": ["node"],
 
@@ -18,17 +22,8 @@
         "src",
     ],
     "exclude": ["node_modules"],
-    "$comments": [
-        "You're explicitly pulling individual files from packages/server-core into the API project's compilation. That means you effectively have package code being checked as part of another project's root set.",
-        "../../packages/server-core/src/applicants/basic-info/service.ts",
-        "../../packages/server-core/src/applicants/basic-info/repository.ts",
-        "../../packages/server-core/src/applicants/basic-info/mapper.ts",
-        "../../packages/server-core/src/applicants/basic-info/types.ts",
-        "../../packages/server-core/src/db/kysely.connector.ts",
-        "../../packages/server-core/src/utils/shape-shifter.ts",
-        "../../packages/server-core/src/db/db-types.ts",
-        "../../packages/server-core/src/errors",
-        "../../packages/schemas/dto-basicInfoQuery.ts",
-        "../../packages/schemas/src/applicants/schema.ts",
+    "references": [
+        { "path": "../../packages/schemas" },
+        { "path": "../../packages/server-core" }
     ]
 }

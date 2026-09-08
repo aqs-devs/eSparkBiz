@@ -11,7 +11,7 @@
 //
 // The component should only be responsible for rendering those sections.
 
-import { RouteBuilder } from "./routes";
+import { RouteBuilder } from "./routes.ts";
 
 
 export const applicantSections = [

@@ -6,7 +6,7 @@ import type {
     SelectFieldOptions,
     RadioFieldOptions,
     TextareaFieldOptions,
-} from '../constants/BasicInfoMetadata';
+} from '../constants/BasicInfoMetadata.ts';
 
 // If you later make basicInfoFields generic enough that each element preserves the relationship
 

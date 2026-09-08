@@ -6,7 +6,7 @@ import {
     onError 
 } from "@orpc/server";
 
-import { appRouter } from "./routes";
+import { appRouter } from "./routes.ts";
 
 // export const openApiHandler = new OpenAPIHandler(appRouter, {
 //   interceptors: [

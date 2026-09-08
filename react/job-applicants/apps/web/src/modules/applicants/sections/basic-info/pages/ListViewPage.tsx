@@ -33,7 +33,6 @@ const ListViewPage = () => {
         basicInfoListQueryOptions,
     );
     const {
-        page,
         sortOn,
         order,
         city,
@@ -92,24 +91,25 @@ const ListViewPage = () => {
 
     function updateFilter(column: BasicInfoFilterColumn, value: ActiveFilterValue | null) {
         const next = { page: 1 };
+        const values = Array.isArray(value) ? value : [];
         switch (column) {
             case 'city':
-                setQueryState({ ...next, city: value ?? [] });
+                setQueryState({ ...next, city: values });
                 break;
             case 'designation':
-                setQueryState({ ...next, designation: value ?? [] });
+                setQueryState({ ...next, designation: values });
                 break;
             case 'state':
-                setQueryState({ ...next, state: value ?? [] });
+                setQueryState({ ...next, state: values });
                 break;
             case 'country':
-                setQueryState({ ...next, country: value ?? [] });
+                setQueryState({ ...next, country: values });
                 break;
             case 'gender':
-                setQueryState({ ...next, gender: value ?? [] });
+                setQueryState({ ...next, gender: values });
                 break;
             case 'relationshipStatus':
-                setQueryState({ ...next, relationshipStatus: value ?? [] });
+                setQueryState({ ...next, relationshipStatus: values });
                 break;
             case 'dob': {
                 const dateRange = value && !Array.isArray(value) ? value : {};
@@ -153,9 +153,17 @@ const ListViewPage = () => {
     function setSorting(nextSorting: React.SetStateAction<SortingState>) {
         const next = typeof nextSorting === 'function' ? nextSorting(sorting) : nextSorting;
         const sort = next[0];
+        const sortOn = sort?.id;
         setQueryState({
             page: 1,
-            sortOn: sort?.id ?? null,
+            sortOn:
+                sortOn === 'id' ||
+                sortOn === 'firstName' ||
+                sortOn === 'lastName' ||
+                sortOn === 'createdAt' ||
+                sortOn === 'email'
+                    ? sortOn
+                    : null,
             order: sort ? (sort.desc ? 'desc' : 'asc') : null,
         });
     }

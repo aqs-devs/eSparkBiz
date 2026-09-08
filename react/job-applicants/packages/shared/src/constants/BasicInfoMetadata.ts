@@ -8,8 +8,8 @@
 // ] as const;
 import { z } from "zod";
 import type { BasicInfo, BasicInfoFilterOptionsSchema } from '@job-applicants/schemas';
-import type { BasicInfoFieldDefinition } from '../types/fieldDefinition';
-import { today } from '../date';
+import type { BasicInfoFieldDefinition } from '../types/fieldDefinition.ts';
+import { today } from '../date.ts';
 
 type Visibility = 'table' | 'form' | 'detail';
 
@@ -511,16 +511,16 @@ export const formBasicInfoFields = basicInfoFields.filter(
 // export type BasicInfoFilterOptions = Partial<Record<string, string[]>>;
 export type BasicInfoFilterOptions = z.infer<typeof BasicInfoFilterOptionsSchema>;
 
-export function getFormFieldDefinition(
-    key: FormBasicInfoField['key'],
-): FormBasicInfoField {
+export function getFormFieldDefinition<K extends BasicInfoField['key']>(
+    key: K,
+): Extract<BasicInfoField, { key: K }> {
     const field = formBasicInfoFields.find((field) => field.key === key);
 
     if (!field) {
         throw new Error(`Unknown form field: ${key}`);
     }
 
-    return field;
+    return field as Extract<BasicInfoField, { key: K }>;
 }
 
 export type BasicInfoFilterColumn = typeof filterableBasicInfoFields[number]['key'];
@@ -537,12 +537,13 @@ export type ActiveFilters = Partial<Record<BasicInfoFilterColumn, ActiveFilterVa
 // type FormKey = keyof CreateBasicInfo;
 // type FormBasicInfoField = typeof formBasicInfoFields[number];
 // type FormKey = FormBasicInfoField["key"];
-type FormKey =
-    Exclude<keyof BasicInfo, "id" | "createdAt" | "isDeleted">;
-export type FormBasicInfoField = Extract<
-    BasicInfoField,
-    { key: FormKey }
->;
+type FormBasicInfoFieldByVisibility<T> =
+    T extends { visibility: readonly (infer V)[] }
+        ? 'form' extends V
+            ? T
+            : never
+        : never;
+export type FormBasicInfoField = FormBasicInfoFieldByVisibility<BasicInfoField>;
 
 export type TableBasicInfoField = (typeof tableBasicInfoFields)[number];
 
@@ -585,5 +586,3 @@ export function hasRemoteOptions(
         field.filter.type === "enum"
     );
 }
-
-

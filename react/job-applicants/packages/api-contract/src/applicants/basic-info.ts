@@ -35,7 +35,7 @@ import {
 //   UpdateBasicInfoSchema,
 //   UpdateBasicInfoInputSchema,
 // };
-import { contractErrors } from "../errors";
+import { contractErrors } from "../errors.ts";
 
 export const basicInfoContract = oc.router({
   create: oc

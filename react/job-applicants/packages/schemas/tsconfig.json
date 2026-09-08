@@ -5,9 +5,14 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
     "verbatimModuleSyntax": true,
-    "noEmit": true,
-    "skipLibCheck": true
+    "noEmit": false,
+    "skipLibCheck": true,
+    "composite": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "rootDir": "./src"
   },
-  "include": [".", "../../apps/api/src/modules/applicants/basic-info/schema.ts"]
+  "include": ["src"]
 }

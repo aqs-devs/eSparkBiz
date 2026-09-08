@@ -30,7 +30,7 @@ import { DateField } from './DateField';
 import { PhoneField } from './PhoneField';
 
 function assertNever(value: never): never {
-    throw new Error('Unhandled field type');
+    throw new Error(`Unhandled field type: ${String(value)}`);
 }
 
 type RenderFormFieldOptions = {

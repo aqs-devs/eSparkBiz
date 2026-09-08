@@ -5,14 +5,13 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "src/app.js",
-  "imports": {
-    "#src/*": "./src/*"
-  },
+  "main": "dist/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch --env-file=.env src/app.ts",
     "dev:test": "tsx --env-file=.env.test src/app.ts",
+    "build": "tsc -b",
+    "start": "node --env-file=.env dist/app.js",
     "db:codegen": "dotenv -e .env -- kysely-codegen --dialect mysql --camel-case --out-file ../../packages/server-core/src/db/db-types.ts --type-mapping \"{\\\"date\\\":\\\"string\\\",\\\"datetime\\\":\\\"string\\\",\\\"timestamp\\\":\\\"string\\\"}\"",
     "db:codegen:watch": "nodemon --watch src --ext sql,ts --exec \"npm run db:codegen\"",
     "typecheck": "tsc --noEmit --ignoreDeprecations 6.0",
@@ -22,6 +21,7 @@
     "db:seed:test": "npm run db:migrate:test && npm run prepare:e2e -w @job-applicants/test-data"
   },
   "dependencies": {
+    "@job-applicants/server-core": "*",
     "@job-applicants/schemas": "*",
     "@job-applicants/shared": "*",
     "@orpc/openapi": "^1.14.10",
@@ -34,7 +34,6 @@
     "mysql2": "^3.21.1"
   },
   "devDependencies": {
-    "@asteasolutions/zod-to-openapi": "^8.5.0",
     "@types/express": "^5.0.6",
     "@types/node": "^25.6.0",
     "@types/swagger-ui-express": "^4.1.8",

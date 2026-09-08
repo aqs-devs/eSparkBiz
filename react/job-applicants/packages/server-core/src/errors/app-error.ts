@@ -1,4 +1,4 @@
-import AppError from "./AppError";
+import AppError from "./AppError.ts";
 
 export function translateAppError<
     T extends Record<string, (options?: any) => unknown>,

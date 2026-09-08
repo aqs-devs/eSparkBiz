@@ -24,7 +24,7 @@ import type {
 } from '@job-applicants/schemas';
 import { formBasicInfoFields } from '@job-applicants/shared';
 import type { Insertable, Selectable, Updateable } from 'kysely';
-import type { Applicant } from '../../db/db-types';
+import type { Applicant } from '../../db/db-types.ts';
 
 // console.log(
 //     formBasicInfoFields.map(f => ({

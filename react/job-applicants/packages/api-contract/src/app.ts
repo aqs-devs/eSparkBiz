@@ -1,4 +1,4 @@
-import { basicInfoContract } from "./applicants/basic-info";
+import { basicInfoContract } from "./applicants/basic-info.ts";
 
 export const appContract = {
   applicants: {

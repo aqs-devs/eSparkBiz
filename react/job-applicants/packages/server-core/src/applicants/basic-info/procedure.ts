@@ -15,8 +15,8 @@
 //   }),
 // });
 
-import * as service from './service';
-import { os } from '../../orpc.builder'; //replaced with `rpc`
+import * as service from './service.ts';
+import { os } from '../../orpc.builder.ts'; //replaced with `rpc`
 import { withAppErrors } from '../../errors/with-app-errors.ts';
 
 // const os = implement(appContract);
