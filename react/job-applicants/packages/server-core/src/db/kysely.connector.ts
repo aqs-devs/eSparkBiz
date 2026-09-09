@@ -2,6 +2,7 @@ import { CamelCasePlugin, DeduplicateJoinsPlugin, HandleEmptyInListsPlugin, Kyse
 import { createPool, type Pool } from 'mysql2';
 // import type { DBOverride } from './db-overrides.js';
 import type { DB } from './db-types.js';
+import fs from 'node:fs';
 
 const databaseUrl = process.env['DATABASE_URL'];
 
@@ -16,6 +17,15 @@ const pool: Pool = createPool({
     user: decodeURIComponent(url.username),
     password: decodeURIComponent(url.password),
     database: decodeURIComponent(url.pathname.slice(1)),
+    ...(url.searchParams.get('ssl-mode') === 'REQUIRED'
+    ? {
+          ssl: {
+              ca: fs.readFileSync(
+                  new URL('../../../../apps/api/certs/ca.pem', import.meta.url),
+              ),
+          },
+      }
+    : {}),
     typeCast(field, next) {
         if (field.type === 'DATE' || field.type === 'DATETIME' || field.type === 'TIMESTAMP') {
             return field.string();
