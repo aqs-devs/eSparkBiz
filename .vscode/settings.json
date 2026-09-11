@@ -2,7 +2,8 @@
     "cSpell.words": [
         "cmdk",
         "codegen",
-        "countrystatecity"
+        "countrystatecity",
+        "Nuqs"
     ],
     "js/ts.tsdk.path": "react/job-applicants/node_modules/typescript/lib",
     "typescript.tsdk": "react/job-applicants/node_modules/typescript/lib",
