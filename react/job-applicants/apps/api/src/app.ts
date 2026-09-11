@@ -6,6 +6,7 @@
 // 4. start server
 
 import e, { urlencoded } from 'express';
+import cors from 'cors';
 // import {
 //     applicantsRouter,
 // } from './modules/applicants/.router.js';
@@ -17,6 +18,27 @@ import { openApiHandler, rpcHandler } from "@job-applicants/server-core";
 
 const app = e();
 
+const webOrigin = process.env['WEB_ORIGIN'];
+
+if (process.env['NODE_ENV'] === 'production' && !webOrigin) {
+    throw new Error('WEB_ORIGIN is required in production.');
+}
+
+app.use(
+    cors({
+        origin: (origin, callback) => {
+            if (!origin || origin === webOrigin) {
+                callback(null, true);
+                return;
+            }
+
+            callback(null, false);
+        },
+        methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        optionsSuccessStatus: 204,
+    }),
+);
 
 app.use(urlencoded({ extended: true }));
 app.use(e.json()); // React frontend sends JSON request bodies via POST. For oRPC Node adapter, Express must parse JSON before the handler.
