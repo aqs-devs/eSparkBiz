@@ -31,6 +31,11 @@
         "noFallthroughCasesInSwitch": true,
     },
 
-    "include": ["src", "../../packages/api-client/src/basic-info.ts"],
-    "references": [{ "path": "../../packages/ui" }]
+    "include": ["src"],
+    "references": [
+        { "path": "../../packages/schemas" },
+        { "path": "../../packages/shared" },
+        { "path": "../../packages/api-client" },
+        { "path": "../../packages/ui" }
+    ]
 }
