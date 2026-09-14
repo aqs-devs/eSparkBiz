@@ -197,3 +197,58 @@
             Error state
 
 - [ ]  Database constraints
+
+- [ ] Abstract shared form infrastructure
+    ```md
+    apps/web
+    │
+    └── applicants
+        │
+        └── BasicInfoForm
+            │
+            ├── TanStack Form
+            ├── Zod
+            ├── FormField
+            └── shadcn/Base UI
+
+I'd eventually want something more like:
+
+```md
+    apps/web
+    │
+    ├── components/
+    │   └── form/
+    │       ├── FormField
+    │       ├── FormError
+    │       ├── FormSubmit
+    │       └── ...
+    │
+    ├── lib/
+    │   └── form/
+    │       ├── validation.ts
+    │       ├── focus-first-error.ts
+    │       └── ...
+    │
+    └── modules/
+        └── applicants/
+            └── sections/
+                └── basic-info/
+                    └── BasicInfoForm
+```
+
+    The important thing isn't the exact folders.
+
+    ---
+
+    ```md
+    UniversalFormEngine
+    FormManager
+    AdvancedFormController
+    FormStrategyFactory
+
+    ---
+
+    Extract repeated mechanisms
+    When Education/Form X needs the same behavior, don't copy it.
+    Extract it.
+    That's when your opinionated layer starts becoming real.
