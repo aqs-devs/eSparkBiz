@@ -1,4 +1,4 @@
-import { act, render } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { useEffect } from 'react';
 import { expect, test, vi, beforeEach } from 'vitest';
 import { useBasicInfoForm, type ApplicantForm } from './useBasicInfoForm';
@@ -24,6 +24,38 @@ function Harness({ options, onForm }: { options?: Parameters<typeof useBasicInfo
     const form = useBasicInfoForm(options);
     useEffect(() => onForm(form), [form, onForm]);
     return null;
+}
+
+function FocusHarness({ values, onForm }: { values: BasicInfoFormValues; onForm: (form: ApplicantForm) => void }) {
+    const form = useBasicInfoForm({ mode: 'create', defaultValues: values });
+    useEffect(() => onForm(form), [form, onForm]);
+
+    return (
+        <form onSubmit={(event) => {
+            event.preventDefault();
+            void form.handleSubmit();
+        }}>
+            <form.Field name="firstName">
+                {(field) => (
+                    <input
+                        id="firstName"
+                        value={field.state.value}
+                        onChange={(event) => field.handleChange(event.target.value)}
+                    />
+                )}
+            </form.Field>
+            <form.Field name="email">
+                {(field) => (
+                    <input
+                        id="email"
+                        value={field.state.value}
+                        onChange={(event) => field.handleChange(event.target.value)}
+                    />
+                )}
+            </form.Field>
+            <button type="submit">Create Applicant</button>
+        </form>
+    );
 }
 
 beforeEach(() => {
@@ -93,4 +125,62 @@ test('invalid form data does not call the API client', async () => {
     render(<Harness options={{ mode: 'create', defaultValues: { ...validValues, email: 'not-an-email' } }} onForm={(value) => { form = value; }} />);
     await act(() => form.handleSubmit());
     expect(createApplicant).not.toHaveBeenCalled();
+});
+
+test('failed submission focuses the first invalid field in form order', async () => {
+    let form!: ApplicantForm;
+    const scrollIntoView = vi.fn();
+    HTMLElement.prototype.scrollIntoView = scrollIntoView;
+
+    render(
+        <FocusHarness
+            values={{ ...validValues, firstName: '', email: 'not-an-email' }}
+            onForm={(value) => { form = value; }}
+        />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Create Applicant' }));
+
+    await waitFor(() => expect(document.activeElement).toBe(document.getElementById('firstName')));
+    expect(scrollIntoView).toHaveBeenCalledWith({ block: 'center' });
+    expect(form.state.submissionAttempts).toBe(1);
+});
+
+test('failed submission focuses a later invalid field when earlier fields are valid', async () => {
+    const scrollIntoView = vi.fn();
+    HTMLElement.prototype.scrollIntoView = scrollIntoView;
+
+    render(
+        <FocusHarness
+            values={{ ...validValues, email: 'not-an-email' }}
+            onForm={() => undefined}
+        />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Create Applicant' }));
+
+    await waitFor(() => expect(document.activeElement).toBe(document.getElementById('email')));
+    expect(scrollIntoView).toHaveBeenCalledWith({ block: 'center' });
+});
+
+test('successful submission does not trigger invalid-field focus', async () => {
+    let form!: ApplicantForm;
+    const scrollIntoView = vi.fn();
+    HTMLElement.prototype.scrollIntoView = scrollIntoView;
+    const sentinel = document.createElement('button');
+    document.body.appendChild(sentinel);
+    sentinel.focus();
+
+    render(
+        <FocusHarness
+            values={validValues}
+            onForm={(value) => { form = value; }}
+        />,
+    );
+
+    await act(() => form.handleSubmit());
+
+    expect(scrollIntoView).not.toHaveBeenCalled();
+    expect(document.activeElement).toBe(sentinel);
+    sentinel.remove();
 });

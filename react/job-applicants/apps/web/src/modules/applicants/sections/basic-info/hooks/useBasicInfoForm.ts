@@ -8,12 +8,14 @@
 
 
 import { useForm } from '@tanstack/react-form';
+import type { FormApi } from '@tanstack/form-core';
 import { useTranslation } from 'react-i18next';
 import { createApplicant, updateApplicant } from '@job-applicants/api-client';
 import {
     CreateBasicInfoSchema,
     type BasicInfoFormValues,
 } from '@job-applicants/schemas';
+import { formBasicInfoFields } from '@job-applicants/shared';
 import { EMPTY_BASIC_INFO } from '#src/constants';
 import { toast } from 'sonner';
 
@@ -54,6 +56,33 @@ function validateBasicInfo(value: BasicInfoFormValues) {
     return undefined;
 }
 
+type FormMetaReader = Pick<FormApi<BasicInfoFormValues>, 'getFieldMeta'>;
+
+function focusFirstInvalidField(form: FormMetaReader) {
+    const fieldOrder = formBasicInfoFields.map((field) => field.key);
+
+    for (const fieldName of fieldOrder) {
+        const fieldMeta = form.getFieldMeta(fieldName);
+
+        if (!fieldMeta?.errors?.length) continue;
+
+        const fieldElement = document.getElementById(fieldName);
+        const focusTarget =
+            fieldElement?.matches('[role="radio"], input, button, select, textarea')
+                ? fieldElement
+                : fieldElement?.querySelector<HTMLElement>(
+                      '[role="radio"], input, button, select, textarea',
+                  );
+
+        if (focusTarget) {
+            focusTarget.focus();
+            focusTarget.scrollIntoView?.({ block: 'center' });
+        }
+
+        return;
+    }
+}
+
 export function useBasicInfoForm(
     options: UseBasicInfoFormOptions = {},
 ) {
@@ -73,6 +102,10 @@ export function useBasicInfoForm(
             onChange: ({ value }) => validateBasicInfo(value),
 
             onSubmit: ({ value }) => validateBasicInfo(value),
+        },
+
+        onSubmitInvalid: ({ formApi }) => {
+            focusFirstInvalidField(formApi);
         },
 
         onSubmit: async ({ value }) => {
