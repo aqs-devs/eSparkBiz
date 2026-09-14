@@ -29,7 +29,8 @@ export function FormField({
     const { t } = useTranslation('basicInfo');
 
     const isInvalid =
-        field.state.meta.isTouched &&
+        (field.state.meta.isTouched ||
+            field.form.state.submissionAttempts > 0) &&
         !field.state.meta.isValid;
 
     const errorId = `${fieldDefinition.key}-error`;
@@ -45,6 +46,9 @@ export function FormField({
                 }
             >
                 {t(`fields.${fieldDefinition.key}`)}
+                {fieldDefinition.required && (
+                    <span aria-hidden="true"> *</span>
+                )}
             </FieldLabel>
 
             {renderFormField(

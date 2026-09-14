@@ -116,6 +116,7 @@ export type BasicInfoFieldBaseDefinition<
 > = {
     key: TKey;
     dbColumn: TKey;
+    required?: boolean;
 
     formatter?: Formatter;
 
@@ -171,6 +172,7 @@ export const basicInfoFields = [
     {
         key: 'firstName',
         dbColumn: 'firstName',
+        required: true,
         fieldType: 'text',
         sortable: true,
         visibility: ['table', 'form', 'detail'],
@@ -185,6 +187,7 @@ export const basicInfoFields = [
     {
         key: 'lastName',
         dbColumn: 'lastName',
+        required: true,
         fieldType: 'text',
         sortable: true,
         visibility: ['table', 'form', 'detail'],
@@ -195,6 +198,7 @@ export const basicInfoFields = [
     {
         key: 'designation',
         dbColumn: 'designation',
+        required: true,
         fieldType: 'text',
         sortable: false,
         visibility: ['table', 'form', 'detail'],
@@ -208,6 +212,7 @@ export const basicInfoFields = [
     {
         key: 'email',
         dbColumn: 'email',
+        required: true,
         fieldType: 'email',
         formatter: 'email',
         sortable: true,
@@ -219,6 +224,7 @@ export const basicInfoFields = [
     {
         key: 'phone',
         dbColumn: 'phone',
+        required: true,
         fieldType: 'tel',
         formatter: 'phone',
         sortable: false,
@@ -285,6 +291,7 @@ export const basicInfoFields = [
     {
         key: 'gender',
         dbColumn: 'gender',
+        required: true,
         fieldType: 'radio',
         sortable: false,
         visibility: ['table', 'form', 'detail'],
@@ -340,6 +347,7 @@ export const basicInfoFields = [
     {
         key: 'dob',
         dbColumn: 'dob',
+        required: true,
         fieldType: 'date',
         formatter: 'date',
         sortable: false,

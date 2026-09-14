@@ -35,7 +35,20 @@ function validateBasicInfo(value: BasicInfoFormValues) {
     const result = CreateBasicInfoSchema.safeParse(value);
 
     if (!result.success) {
-        return result.error.flatten().fieldErrors;
+        const fields = result.error.issues.reduce<Record<string, string>>(
+            (errors, issue) => {
+                const fieldName = issue.path[0];
+
+                if (typeof fieldName === 'string' && errors[fieldName] === undefined) {
+                    errors[fieldName] = issue.message;
+                }
+
+                return errors;
+            },
+            {},
+        );
+
+        return { fields };
     }
 
     return undefined;

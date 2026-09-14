@@ -32,6 +32,39 @@ function TestFormField() {
     );
 }
 
+function TestFormWithSubmit() {
+    const form = useForm({
+        defaultValues: {
+            firstName: '',
+        },
+    });
+
+    const fieldDefinition = getFormFieldDefinition('firstName');
+
+    return (
+        <form onSubmit={(event) => {
+            event.preventDefault();
+            void form.handleSubmit();
+        }}>
+            <form.Field
+                name="firstName"
+                validators={{
+                    onSubmit: ({ value }) =>
+                        value ? undefined : 'First name is required',
+                }}
+            >
+                {(field) => (
+                    <FormField
+                        fieldDefinition={fieldDefinition}
+                        field={field}
+                    />
+                )}
+            </form.Field>
+            <button type="submit">Create Applicant</button>
+        </form>
+    );
+}
+
 test('renders a labelled input', () => {
     render(<TestFormField />);
 
@@ -127,4 +160,18 @@ test('does not expose validation state before the field is touched', () => {
     expect(input).toHaveAttribute('aria-invalid', 'false');
     expect(input).not.toHaveAttribute('aria-describedby');
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+});
+
+test('exposes validation state for an untouched invalid field after submit', async () => {
+    render(<TestFormWithSubmit />);
+
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Create Applicant' }));
+
+    await waitFor(() => {
+        expect(screen.getByRole('alert')).toHaveTextContent(
+            'First name is required',
+        );
+    });
 });
