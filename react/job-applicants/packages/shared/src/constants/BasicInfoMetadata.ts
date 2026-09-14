@@ -551,7 +551,9 @@ type FormBasicInfoFieldByVisibility<T> =
             ? T
             : never
         : never;
-export type FormBasicInfoField = FormBasicInfoFieldByVisibility<BasicInfoField>;
+export type FormBasicInfoField = FormBasicInfoFieldByVisibility<BasicInfoField> & {
+    required?: boolean;
+};
 
 export type TableBasicInfoField = (typeof tableBasicInfoFields)[number];
 

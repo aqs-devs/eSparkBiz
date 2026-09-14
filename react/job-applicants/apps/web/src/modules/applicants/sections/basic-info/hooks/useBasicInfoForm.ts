@@ -8,7 +8,6 @@
 
 
 import { useForm } from '@tanstack/react-form';
-import type { FormApi } from '@tanstack/form-core';
 import { useTranslation } from 'react-i18next';
 import { createApplicant, updateApplicant } from '@job-applicants/api-client';
 import {
@@ -56,7 +55,19 @@ function validateBasicInfo(value: BasicInfoFormValues) {
     return undefined;
 }
 
-type FormMetaReader = Pick<FormApi<BasicInfoFormValues>, 'getFieldMeta'>;
+type FormMetaReader = {
+    getFieldMeta: (field: keyof BasicInfoFormValues) => unknown;
+};
+
+function hasErrors(meta: unknown): meta is { errors: readonly unknown[] } {
+    return (
+        typeof meta === 'object' &&
+        meta !== null &&
+        'errors' in meta &&
+        Array.isArray(meta.errors) &&
+        meta.errors.length > 0
+    );
+}
 
 function focusFirstInvalidField(form: FormMetaReader) {
     const fieldOrder = formBasicInfoFields.map((field) => field.key);
@@ -64,7 +75,7 @@ function focusFirstInvalidField(form: FormMetaReader) {
     for (const fieldName of fieldOrder) {
         const fieldMeta = form.getFieldMeta(fieldName);
 
-        if (!fieldMeta?.errors?.length) continue;
+        if (!hasErrors(fieldMeta)) continue;
 
         const fieldElement = document.getElementById(fieldName);
         const focusTarget =
