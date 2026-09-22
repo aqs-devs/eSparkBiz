@@ -7,6 +7,8 @@
 
 import e, { urlencoded } from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
 // import {
 //     applicantsRouter,
 // } from './modules/applicants/.router.js';
@@ -23,6 +25,33 @@ const webOrigin = process.env['WEB_ORIGIN'];
 if (process.env['NODE_ENV'] === 'production' && !webOrigin) {
     throw new Error('WEB_ORIGIN is required in production.');
 }
+
+app.use(helmet());
+
+if (process.env['NODE_ENV'] === 'development') {
+    app.use(morgan('dev'));
+}
+
+// The oRPC Scalar integration renders a CDN script and an inline initializer.
+// Keep Helmet's default CSP everywhere else and relax only the docs route.
+app.use('/api/docs', (req, res, next) => {
+    const contentSecurityPolicy = res.getHeader('Content-Security-Policy');
+
+    if (typeof contentSecurityPolicy === 'string') {
+        res.setHeader(
+            'Content-Security-Policy',
+            contentSecurityPolicy.replace(
+                "script-src 'self'",
+                "script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'",
+            ).replace(
+                "default-src 'self'",
+                "default-src 'self';connect-src 'self' https://cdn.jsdelivr.net https://api.scalar.com",
+            ),
+        );
+    }
+
+    next();
+});
 
 app.use(
     cors({
