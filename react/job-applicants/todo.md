@@ -52,7 +52,7 @@
                 ...
     ```
 
-    - [ ] modules
+    - [x] modules
 
     ```md
     modules/
