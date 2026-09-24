@@ -11,6 +11,8 @@ import commonAr from './locales/ar/common.json';
 import basicInfoAr from './locales/ar/applicants/basicInfo.json';
 import authAr from './locales/ar/auth.json';
 import usersAr from './locales/ar/users.json';
+import docs from './locales/en/docs.json';
+import docsAr from './locales/ar/docs.json';
 
 export const resources = {
   en: {
@@ -18,12 +20,14 @@ export const resources = {
     basicInfo,
     auth,
     users,
+    docs,
   },
   ar: {
     common: commonAr,
     basicInfo: basicInfoAr,
     auth: authAr,
     users: usersAr,
+    docs: docsAr,
   },
 } as const;
 

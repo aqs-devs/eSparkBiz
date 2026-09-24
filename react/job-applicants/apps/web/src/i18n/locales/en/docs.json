@@ -1,0 +1,32 @@
+{
+  "projectDocumentation": "Project documentation",
+  "description": "A data storage for people applying to job portals.",
+  "liveApp": "Live App",
+  "github": "GitHub",
+  "apiDocumentation": "API Documentation",
+  "home": "Home",
+  "documentation": "Documentation",
+  "onThisPage": "On this page",
+  "theApplication": "The App",
+  "deployment": "Deployment",
+  "deploymentFirst": "This deployment is configured for direct access to the main application.",
+  "deploymentSecond": "Authentication and authorization are not enforced in the demo deployment, allowing the applicant management interface to be explored directly.",
+  "userInterface": "User Interface",
+  "ui": ["Responsive layout", "Light and dark themes", "Accessible form controls and navigation", "Applicant list with pagination, sorting, and filtering", "Applicant detail and editing views", "Reusable UI components"],
+  "theCode": "The Code",
+  "codePolicy": "Code Policy",
+  "principles": {
+    "separation": {"title": "Separation of Concerns", "items": ["Especially separating data and code: contract-first.", "Feature-oriented architecture through the directory structure."]},
+    "source": {"title": "Single Source of Truth", "items": ["Reduce management: updating once updates everywhere.", "Make code more refactorable."]},
+    "automation": {"title": "Automation", "items": ["Prefer automation over manually updating, generating, and synchronizing things.", "Reduce human intervention."]},
+    "modularity": {"title": "Modularity & Abstraction", "items": ["If something is used in many places, create a package for it."]},
+    "extraction": {"title": "Extraction", "items": ["Extract mechanisms rather than duplicating them.", "This forms an opinionated layer."]},
+    "readability": {"title": "Readability", "items": ["Use domain/business jargon rather than technology or implementation jargon. Know the customer/stakeholder.", "Use self-explanatory function and variable names.", "Use comments for “why”, not “what”."]}
+  },
+  "repositoryStructure": "Repository Structure",
+  "viewOnGithub": "View on GitHub",
+  "knownLimitations": "Known Limitations",
+  "limitations": ["Only Basic Info is currently implemented; infrastructure exists for other applicant sections.", "Authentication and authorization are not implemented.", "Applicant profile sections beyond Basic Info are incomplete.", "The application is intended as a demonstration/project rather than production hiring platform.", "Currently focused on the recruiter and applicant data-management workflow."],
+  "caseStudy": "Case Study",
+  "evolution": "Evolution"
+}
