@@ -1,5 +1,6 @@
 import { BriefcaseBusiness, Users } from 'lucide-react';
 import { useLocation } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 import {
     Sidebar,
@@ -11,6 +12,7 @@ import { NavMain } from './nav-main';
 
 export function AppSidebar() {
     const location = useLocation();
+    const { i18n } = useTranslation();
 
     const isApplicantsActive = location.pathname.startsWith('/applicants');
     const isUsersActive = location.pathname.startsWith('/users');
@@ -30,7 +32,11 @@ export function AppSidebar() {
     ];
 
     return (
-        <Sidebar collapsible="icon">
+        <Sidebar
+            side={i18n.dir() === 'rtl' ? 'right' : 'left'}
+            className="top-16 h-[calc(100svh-4rem)]"
+            collapsible="icon"
+        >
             <SidebarContent>
                 <NavMain items={items} />
             </SidebarContent>

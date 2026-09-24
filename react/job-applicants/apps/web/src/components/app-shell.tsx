@@ -21,7 +21,7 @@ export function AppShell() {
             <SidebarInset className="min-w-0">
                 <header className="flex h-12 shrink-0 items-center gap-2 border-b px-4">
                     <SidebarTrigger />
-                    <Separator orientation="vertical" className="mr-2 h-4" />
+                    <Separator orientation="vertical" className="me-2 h-4" />
                     <span className="text-xs font-medium text-muted-foreground">
                         {title}
                     </span>
