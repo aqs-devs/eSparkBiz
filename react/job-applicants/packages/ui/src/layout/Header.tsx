@@ -3,8 +3,12 @@ import { ThemeToggle } from './ThemeToggle';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 const Logo = () => (
-    <NavLink to="/">
-      <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
+    <NavLink to="/" aria-label="Job Applicants home" className="shrink-0">
+      <img
+        src="/logo.png"
+        alt="Job Applicants"
+        className="h-8 w-auto object-contain dark:invert"
+      />
     </NavLink>
 );
 

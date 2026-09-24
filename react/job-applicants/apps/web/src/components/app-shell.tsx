@@ -14,7 +14,7 @@ export function AppShell() {
     const title = pathname.startsWith('/users') ? 'Users' : 'Applicants';
 
     return (
-        <SidebarProvider>
+        <SidebarProvider defaultOpen={false}>
             <nav aria-label="Primary navigation">
                 <AppSidebar />
             </nav>
