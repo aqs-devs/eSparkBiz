@@ -1,13 +1,17 @@
 import Header from "@job-applicants/ui/layout/Header";
 import Footer from "@job-applicants/ui/layout/Footer";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { Toaster } from '@job-applicants/ui/components/sonner';
 
 
 const Root = () => {
+    const { pathname } = useLocation();
+    const usesAppShell =
+        pathname.startsWith('/applicants') || pathname.startsWith('/users');
+
     return (
         <>
-            <Header />
+            {!usesAppShell && <Header />}
             <Outlet />
             <Footer />
             <Toaster />

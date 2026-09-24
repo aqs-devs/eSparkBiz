@@ -34,7 +34,7 @@ export function AppSidebar() {
     return (
         <Sidebar
             side={i18n.dir() === 'rtl' ? 'right' : 'left'}
-            className="top-16 h-[calc(100svh-4rem)]"
+            aria-label="Primary navigation"
             collapsible="icon"
         >
             <SidebarContent>

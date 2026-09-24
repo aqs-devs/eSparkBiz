@@ -8,6 +8,7 @@ import {
 import { Separator } from '@job-applicants/ui/components/separator';
 
 import { AppSidebar } from './app-sidebar';
+import Header from '@job-applicants/ui/layout/Header';
 
 export function AppShell() {
     const { pathname } = useLocation();
@@ -15,10 +16,9 @@ export function AppShell() {
 
     return (
         <SidebarProvider defaultOpen={false}>
-            <nav aria-label="Primary navigation">
-                <AppSidebar />
-            </nav>
+            <AppSidebar />
             <SidebarInset className="min-w-0">
+                <Header />
                 <header className="flex h-12 shrink-0 items-center gap-2 border-b px-4">
                     <SidebarTrigger />
                     <Separator orientation="vertical" className="me-2 h-4" />
