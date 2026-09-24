@@ -11,16 +11,12 @@ import { TooltipProvider } from '@job-applicants/ui/components/tooltip';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './lib/queryClient';
 
-// Explicit set of RTL language codes makes intent clear and is easier to extend.
-const RTL_LANGUAGES = new Set(['ar']);
-
 function App() {
     useEffect(() => {
         const updateDocumentDirection = (language = i18n.language) => {
-            const lang = String(language ?? '').toLowerCase();
-            const isRTL = RTL_LANGUAGES.has(lang);
-            document.documentElement.lang = language;
-            document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+            const lang = String(language ?? 'en');
+            document.documentElement.lang = lang;
+            document.documentElement.dir = i18n.dir(lang);
         };
 
         updateDocumentDirection();
