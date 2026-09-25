@@ -5,6 +5,7 @@ import { GlobeIcon } from 'lucide-react';
 export function LanguageSwitcher() {
   const { i18n, t } = useTranslation('common');
   const value = i18n.resolvedLanguage ?? 'en';
+  const languageLabel = value === 'ar' ? 'العربية' : 'English';
 
   return (
     <Select
@@ -14,10 +15,11 @@ export function LanguageSwitcher() {
         void i18n.changeLanguage(language);
       }}
     >
-      {/* Trigger shows a globe icon as requested; keep the SelectValue for accessibility but visually hide it */}
       <SelectTrigger aria-label={t('selectLanguage')} className="w-fit">
         <GlobeIcon className="size-4 text-muted-foreground" />
-        <SelectValue className="sr-only" placeholder={t('language')} />
+        <SelectValue className="max-[360px]:hidden" placeholder={t('language')}>
+          {languageLabel}
+        </SelectValue>
       </SelectTrigger>
       <SelectContent>
         {/* Hide the check indicator for language items so no tick is shown when selected */}
