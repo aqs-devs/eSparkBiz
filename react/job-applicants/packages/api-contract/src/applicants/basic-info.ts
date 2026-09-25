@@ -57,6 +57,7 @@ export const basicInfoContract = oc.router({
       .route({
         method: "GET",
         path: "/applicants/{id}",
+      tags: ["Applicants"],
       })
       .errors({
         NOT_FOUND: contractErrors.NOT_FOUND,
@@ -73,6 +74,7 @@ export const basicInfoContract = oc.router({
     .route({
       method: "GET",
       path: "/applicants",
+      tags: ["Applicants"],
     })
     .input(BasicInfoListQuerySchema)
     .output(BasicInfoListResponseSchema),
@@ -81,6 +83,7 @@ export const basicInfoContract = oc.router({
     .route({
       method: "GET",
       path: "/applicants/filter-options",
+      tags: ["Applicants"],
     })
     .output(BasicInfoFilterOptionsSchema),
 
