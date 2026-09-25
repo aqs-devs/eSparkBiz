@@ -90,8 +90,10 @@ function createCellFormatter(formatter: Formatter) {
                 });
             };
 
-        default:
-            return undefined;
+        case 'email':
+        case 'phone':
+            return ({ getValue }: CellContext<BasicInfo, unknown>) =>
+                (getValue() as string | null) || '—';
     }
 }
 

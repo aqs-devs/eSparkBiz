@@ -1,280 +1,3 @@
-// // // import {
-// // //     getCitiesOfState,
-// // //     getCountries,
-// // //     getStatesOfCountry,
-// // // } from '@countrystatecity/countries';
-
-// // // type Location = {
-// // //     country: string;
-// // //     state: string;
-// // //     city: string;
-// // //     zipCode: string;
-// // // };
-
-// // // // const randomElement = <T>(items: T[]): T => {
-// // // //     if (items.length === 0) {
-// // // //         throw new Error('Cannot select from an empty array');
-// // // //     }
-
-// // // //     return items[Math.floor(Math.random() * items.length)]!;
-// // // // };
-
-// // // // export const randomLocation = async (): Promise<Location> => {
-// // // //     const countries = await getCountries();
-
-// // // //     const country = randomElement(countries);
-
-// // // //     const states = await getStatesOfCountry(country.iso2);
-
-// // // //     if (states.length === 0) {
-// // // //         throw new Error(
-// // // //             `Country ${country.iso2} has no states or regions`,
-// // // //         );
-// // // //     }
-
-// // // //     const state = randomElement(states);
-
-// // // //     const cities = await getCitiesOfState(
-// // // //         country.iso2,
-// // // //         state.iso2,
-// // // //     );
-
-// // // //     if (cities.length === 0) {
-// // // //         throw new Error(
-// // // //             `State ${country.iso2}/${state.iso2} has no cities`,
-// // // //         );
-// // // //     }
-
-// // // //     const city = randomElement(cities);
-
-// // // //     return {
-// // // //         country: country.iso2,
-// // // //         state: state.iso2,
-// // // //         city: city.name,
-// // // //         zipCode: '',
-// // // //     };
-// // // // };
-
-// // // const randomElement = <T>(items: T[]): T => {
-// // //     if (items.length === 0) {
-// // //         throw new Error('Cannot select from an empty array');
-// // //     }
-
-// // //     return items[Math.floor(Math.random() * items.length)]!;
-// // // };
-
-// // // const shuffle = <T>(items: T[]): T[] => {
-// // //     return [...items].sort(() => Math.random() - 0.5);
-// // // };
-
-// // // export const randomLocation = async (): Promise<Location> => {
-// // //     const countries = shuffle(await getCountries());
-
-// // //     for (const country of countries) {
-// // //         const states = shuffle(
-// // //             await getStatesOfCountry(country.iso2),
-// // //         );
-
-// // //         for (const state of states) {
-// // //             const cities = await getCitiesOfState(
-// // //                 country.iso2,
-// // //                 state.iso2,
-// // //             );
-
-// // //             if (cities.length === 0) {
-// // //                 continue;
-// // //             }
-
-// // //             const city = randomElement(cities);
-
-// // //             return {
-// // //                 country: country.iso2,
-// // //                 state: state.iso2,
-// // //                 city: city.name,
-// // //                 zipCode: '',
-// // //             };
-// // //         }
-// // //     }
-
-// // //     throw new Error(
-// // //         'Could not find a country, state, and city combination',
-// // //     );
-// // // };
-
-// // import { Country, State, City } from '@countrystatecity/countries';
-// // import { faker } from '@faker-js/faker';
-
-// // export type RandomLocation = {
-// //     country: string;
-// //     state: string;
-// //     city: string;
-// //     zipCode: string | null;
-// // };
-
-// // const MAX_STATE_ATTEMPTS = 10;
-
-// // export const randomLocation = async (): Promise<RandomLocation> => {
-// //     const countries = Country.getAllCountries();
-
-// //     for (let attempt = 0; attempt < MAX_STATE_ATTEMPTS; attempt++) {
-// //         const country = faker.helpers.arrayElement(countries);
-
-// //         const states = State.getStatesOfCountry(country.iso2);
-
-// //         if (states.length === 0) {
-// //             return {
-// //                 country: country.iso2,
-// //                 state: '',
-// //                 city: '',
-// //                 zipCode: null,
-// //             };
-// //         }
-
-// //         const state = faker.helpers.arrayElement(states);
-
-// //         const cities = City.getCitiesOfState(
-// //             country.iso2,
-// //             state.iso2,
-// //         );
-
-// //         if (cities.length === 0) {
-// //             continue;
-// //         }
-
-// //         const city = faker.helpers.arrayElement(cities);
-
-// //         return {
-// //             country: country.iso2,
-// //             state: state.iso2,
-// //             city: city.name,
-// //             zipCode: city.zipCode || null,
-// //         };
-// //     }
-
-// //     throw new Error(
-// //         `Unable to generate a location after ${MAX_STATE_ATTEMPTS} attempts`,
-// //     );
-// // };
-
-
-// // import {
-// //     City,
-// //     Country,
-// //     State,
-// // } from '@countrystatecity/countries';
-// // import { faker } from '@faker-js/faker';
-
-// // export type RandomLocation = {
-// //     country: string;
-// //     state: string;
-// //     city: string;
-// //     zipCode: string | null;
-// // };
-
-// // const MAX_ATTEMPTS = 20;
-
-// // export const randomLocation = async (): Promise<RandomLocation> => {
-// //     const countries = Country.getAllCountries();
-
-// //     for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-// //         const country = faker.helpers.arrayElement(countries);
-
-// //         const states = State.getStatesOfCountry(country.iso2);
-
-// //         // Some countries have no states/provinces in the dataset.
-// //         if (states.length === 0) {
-// //             continue;
-// //         }
-
-// //         const state = faker.helpers.arrayElement(states);
-
-// //         const cities = City.getCitiesOfState(
-// //             country.iso2,
-// //             state.iso2,
-// //         );
-
-// //         // Some states in the dataset have no cities.
-// //         if (cities.length === 0) {
-// //             continue;
-// //         }
-
-// //         const city = faker.helpers.arrayElement(cities);
-
-// //         return {
-// //             country: country.iso2,
-// //             state: state.iso2,
-// //             city: city.name,
-// //             zipCode: city.zipCode?.trim() || null,
-// //         };
-// //     }
-
-// //     throw new Error(
-// //         `Could not generate a valid country/state/city combination after ${MAX_ATTEMPTS} attempts`,
-// //     );
-// // };
-
-// import {
-//     getCitiesOfState,
-//     getCountries,
-//     getStatesOfCountry,
-// } from '@countrystatecity/countries';
-
-// import { faker } from '@faker-js/faker';
-
-// export type RandomLocation = {
-//     country: string;
-//     state: string;
-//     city: string;
-//     zipCode: string | null;
-// };
-
-// const MAX_ATTEMPTS = 20;
-
-// export const randomLocation = async (): Promise<RandomLocation> => {
-//     const countries = await getCountries();
-
-//     for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-//         const country = faker.helpers.arrayElement(countries);
-
-//         const states = await getStatesOfCountry(country.iso2);
-
-//         if (states.length === 0) {
-//             continue;
-//         }
-
-//         const state = faker.helpers.arrayElement(states);
-
-//         const cities = await getCitiesOfState(
-//             country.iso2,
-//             state.iso2,
-//         );
-
-//         if (cities.length === 0) {
-//             continue;
-//         }
-
-//         const city = faker.helpers.arrayElement(cities);
-
-//         return {
-//             country: country.iso2,
-//             state: state.iso2,
-//             city: city.name,
-//             zipCode: city.zipCode?.trim() || null,
-//         };
-//     }
-
-//     throw new Error(
-//         `Could not generate a valid country/state/city combination after ${MAX_ATTEMPTS} attempts`,
-//     );
-// };
-
-
-import {
-    getCitiesOfState,
-    getCountries,
-    getStatesOfCountry,
-} from '@countrystatecity/countries';
-
 import { faker } from '@faker-js/faker';
 
 export type RandomLocation = {
@@ -284,42 +7,82 @@ export type RandomLocation = {
     zipCode: string | null;
 };
 
-const MAX_ATTEMPTS = 20;
+type CuratedLocation = RandomLocation;
+
+const curatedLocations = {
+    IN: [
+        ['MH', 'Mumbai', '400001'],
+        ['DL', 'Delhi', '110001'],
+        ['KA', 'Bengaluru', '560001'],
+        ['TG', 'Hyderabad', '500001'],
+        ['TN', 'Chennai', '600001'],
+        ['MH', 'Pune', '411001'],
+        ['GJ', 'Ahmedabad', '380001'],
+        ['RJ', 'Jaipur', '302001'],
+    ],
+    US: [
+        ['NY', 'New York', '10001'],
+        ['CA', 'Los Angeles', '90001'],
+        ['IL', 'Chicago', '60601'],
+        ['CA', 'San Francisco', '94105'],
+        ['WA', 'Seattle', '98101'],
+        ['MA', 'Boston', '02108'],
+    ],
+    GB: [
+        ['ENG', 'London', 'SW1A 1AA'],
+        ['ENG', 'Manchester', 'M1 1AE'],
+        ['ENG', 'Birmingham', 'B1 1BB'],
+        ['SCT', 'Edinburgh', 'EH1 1YZ'],
+    ],
+    CA: [
+        ['ON', 'Toronto', 'M5H 2N2'],
+        ['BC', 'Vancouver', 'V6B 1A1'],
+        ['QC', 'Montreal', 'H2Y 1C6'],
+        ['AB', 'Calgary', 'T2P 1J9'],
+    ],
+    AU: [
+        ['NSW', 'Sydney', '2000'],
+        ['VIC', 'Melbourne', '3000'],
+        ['QLD', 'Brisbane', '4000'],
+        ['WA', 'Perth', '6000'],
+    ],
+    DE: [
+        ['BE', 'Berlin', '10115'],
+        ['BY', 'Munich', '80331'],
+        ['HH', 'Hamburg', '20095'],
+        ['HE', 'Frankfurt', '60311'],
+    ],
+} as const satisfies Record<string, readonly (readonly [string, string, string])[]>;
+
+const weightedCountries = [
+    ...Array(50).fill('IN'),
+    ...Array(25).fill('US'),
+    ...Array(10).fill('GB'),
+    ...Array(7).fill('CA'),
+    ...Array(5).fill('AU'),
+    ...Array(3).fill('DE'),
+] as const;
+
+export const LOCATION_DATA: Readonly<Record<string, readonly CuratedLocation[]>> =
+    Object.fromEntries(
+        Object.entries(curatedLocations).map(([country, locations]) => [
+            country,
+            locations.map(([state, city, zipCode]) => ({
+                country,
+                state,
+                city,
+                zipCode,
+            })),
+        ]),
+    );
 
 export const randomLocation = async (): Promise<RandomLocation> => {
-    const countries = await getCountries();
+    const country = faker.helpers.arrayElement(weightedCountries);
+    const locations = LOCATION_DATA[country];
 
-    for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-        const country = faker.helpers.arrayElement(countries);
-
-        const states = await getStatesOfCountry(country.iso2);
-
-        if (states.length === 0) {
-            continue;
-        }
-
-        const state = faker.helpers.arrayElement(states);
-
-        const cities = await getCitiesOfState(
-            country.iso2,
-            state.iso2,
-        );
-
-        if (cities.length === 0) {
-            continue;
-        }
-
-        const city = faker.helpers.arrayElement(cities);
-
-        return {
-            country: country.iso2,
-            state: state.iso2,
-            city: city.name,
-            zipCode: null,
-        };
+    if (!locations || locations.length === 0) {
+        throw new Error(`No curated locations configured for ${country}`);
     }
 
-    throw new Error(
-        `Unable to generate a location after ${MAX_ATTEMPTS} attempts`,
-    );
+    return faker.helpers.arrayElement(locations);
 };

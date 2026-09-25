@@ -403,34 +403,43 @@ const randomPhone = (): string => {
 };
 
 export const basicInfoFactory = Factory.define<CreateBasicInfo>(
-    () => ({
-        firstName: faker.person.firstName(),
-        lastName: faker.person.lastName(),
+    () => {
+        const firstName = faker.person.firstName();
+        const lastName = faker.person.lastName();
 
-        designation: randomDesignation(),
+        return {
+            firstName,
+            lastName,
 
-        email: faker.internet.email(),
+            designation: randomDesignation(),
 
-        phone: randomPhone(),
+            email: faker.internet.email({
+                firstName,
+                lastName,
+                provider: 'example.com',
+            }),
 
-        country: '',
-        state: '',
-        city: '',
-        zipCode: null,
+            phone: randomPhone(),
 
-        gender: faker.helpers.arrayElement([
-            'male',
-            'female',
-            'other',
-        ]),
+            country: '',
+            state: '',
+            city: '',
+            zipCode: null,
 
-        relationshipStatus: faker.helpers.arrayElement([
-            'single',
-            'committed',
-        ]),
+            gender: faker.helpers.arrayElement([
+                'male',
+                'female',
+                'other',
+            ]),
 
-        dob: randomDateOfBirth(),
-    }),
+            relationshipStatus: faker.helpers.arrayElement([
+                'single',
+                'committed',
+            ]),
+
+            dob: randomDateOfBirth(),
+        };
+    },
 ).onCreate(async (applicant) => {
     const location = await randomLocation();
 

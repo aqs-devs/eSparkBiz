@@ -29,7 +29,7 @@
 import { basicInfoFactory } from './factories/basic-info.js';
 import { insert } from '@job-applicants/server-core/applicants/basic-info/repository';
 
-const COUNT = 50;
+const COUNT = 1000;
 
 console.log(`Seeding ${COUNT} basic-info records...`);
 
