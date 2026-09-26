@@ -220,6 +220,15 @@ export async function insert(body: CreateBasicInfo) {
     return Number(result.insertId);
 }
 
+export async function insertMany(bodies: CreateBasicInfo[]) {
+    if (bodies.length === 0) return;
+
+    await db
+        .insertInto('applicant')
+        .values(bodies.map(toApplicantInsert))
+        .execute();
+}
+
 export async function update(id: number, body: UpdateBasicInfo) {
     const result = await db
         .updateTable('applicant')

@@ -44,3 +44,7 @@ export const db = new Kysely<DB>({
 
     ],
 });
+
+export async function closeDb() {
+    await db.destroy();
+}
