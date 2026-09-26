@@ -1,7 +1,7 @@
 import { Link, useLoaderData, useRevalidator } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useQueryStates } from 'nuqs';
-import PageNavigation from '#src/modules/applicants/components/PageNavigator';
+import PageNavigation from '#src/modules/applicants/components/PageNavigation.tsx';
 import { columns } from '../columns';
 import { useEffect, useState } from 'react';
 import { getFilterOptions } from '@job-applicants/api-client';
