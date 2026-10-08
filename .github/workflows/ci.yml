@@ -9,9 +9,12 @@ on:
 permissions:
   contents: read
 
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      VITE_API_TARGET: http://localhost:3000
     defaults:
       run:
         working-directory: react/job-applicants
