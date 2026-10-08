@@ -32,6 +32,7 @@
     "selectLanguage": "Select language",
     "status": {
         "loading": "Loading...",
+        "wakingServer": "Waking up the server (free hosting), this can take up to a minute.",
         "saving": "Saving...",
         "deleting": "Deleting...",
         "creating": "Creating..."

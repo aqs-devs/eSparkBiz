@@ -220,10 +220,11 @@ export default function DocumentationPage() {
                     <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Aqueous</h1>
                     <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">{t('description')}</p>
                     <div className="mt-6 flex flex-wrap gap-3 text-sm font-medium">
-                        <a className="rounded-md bg-primary px-4 py-2 text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" href="/applicants">{t('liveApp')}</a>
-                        <a className="rounded-md border px-4 py-2 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" href="#repository-structure">{t('github')}</a>
-                        <a className="rounded-md border px-4 py-2 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" href={apiDocumentationHref}>{t('apiDocumentation')}</a>
+                        <a className="inline-flex rounded-md bg-primary px-4 py-2 text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" href="/applicants">{t('liveApp')}</a>
+                        <a className="inline-flex rounded-md border border-border bg-background px-4 py-2 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" href="#repository-structure">{t('github')}</a>
+                        <a className="inline-flex rounded-md border border-border bg-background px-4 py-2 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" href={apiDocumentationHref}>{t('apiDocumentation')}</a>
                     </div>
+                    <p className="mt-2 text-xs text-muted-foreground">{t('liveAppDelay')}</p>
                 </header>
 
                 <nav aria-label="Breadcrumb" className="py-6 text-sm text-muted-foreground">
