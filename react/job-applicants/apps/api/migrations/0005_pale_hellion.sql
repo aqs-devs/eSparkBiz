@@ -1,0 +1,1 @@
+CREATE INDEX `idx_applicant_last_name` ON `applicant` (`last_name`);

@@ -23,9 +23,10 @@ export const applicant = mysqlTable("applicant", {
 	deletedAt: datetime("deleted_at", { mode: 'string'}),
 },
 (table) => [
-	primaryKey({ columns: [table.id], name: "applicant_id"}),
-	unique("phone").on(table.phone),
-	unique("email").on(table.email),
+    primaryKey({ columns: [table.id], name: "applicant_id"}),
+    unique("phone").on(table.phone),
+    unique("email").on(table.email),
+    index("idx_applicant_last_name").on(table.lastName),
 ]);
 
 // export const kyselyMigration = mysqlTable("kysely_migration", {
