@@ -1,5 +1,8 @@
-import { Country, State, City } from "country-state-city";
+import Country from "country-state-city/lib/country";
+import State from "country-state-city/lib/state";
 import type { Option } from '@job-applicants/shared';
+
+export type { Option } from '@job-applicants/shared';
 
 // export const countries = Country.getAllCountries();
 
@@ -30,10 +33,11 @@ export function getStateOptions(countryCode: string): Option[] {
     }));
 }
 
-export function getCityOptions(
+export async function getCityOptions(
     countryCode: string,
     stateCode: string,
-): Option[] {
+): Promise<Option[]> {
+    const { default: City } = await import("country-state-city/lib/city");
     return City.getCitiesOfState(countryCode, stateCode).map((city) => ({
         value: city.name,
         label: city.name,
